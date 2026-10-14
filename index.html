@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Presença jan–set/2026 · Reunião</title>
+<style>
+  :root {
+    --ink: #101820;
+    --muted: #667787;
+    --line: #e4e0d8;
+    --bg: #efece6;
+    --paper: #fffcf7;
+    --br: #0b6b57;
+    --ig: #1a3d66;
+    --up: #157a45;
+    --upbg: #dff5e8;
+    --down: #b13a3a;
+    --downbg: #fdeaea;
+    --gold: #c96b2c;
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    margin: 0;
+    font-family: Georgia, "Times New Roman", serif;
+    color: var(--ink);
+    background: var(--bg);
+  }
+  .app { min-height: 100%; display: flex; flex-direction: column; }
+  .topbar {
+    position: sticky; top: 0; z-index: 20;
+    display: flex; gap: 8px; flex-wrap: wrap; align-items: center;
+    justify-content: space-between;
+    padding: 10px 16px;
+    background: rgba(16,24,32,.92);
+    color: #fff;
+    backdrop-filter: blur(8px);
+  }
+  .topbar .brand { font-size: 13px; letter-spacing: .08em; text-transform: uppercase; opacity: .85; }
+  .nav { display: flex; flex-wrap: wrap; gap: 6px; }
+  .nav button, .tool button {
+    border: 1px solid rgba(255,255,255,.22);
+    background: rgba(255,255,255,.08);
+    color: #fff;
+    border-radius: 999px;
+    padding: 7px 12px;
+    font: 600 12px/1 system-ui, sans-serif;
+    cursor: pointer;
+  }
+  .nav button.active { background: #fff; color: var(--ink); }
+  .tool { display: flex; gap: 6px; }
+  main { flex: 1; padding: 18px 18px 40px; max-width: 1200px; width: 100%; margin: 0 auto; }
+
+  .slide { display: none; animation: in .25s ease; }
+  .slide.active { display: block; }
+  @keyframes in { from { opacity: 0; transform: translateY(6px);} to { opacity: 1; transform: none; } }
+
+  .hero {
+    background: linear-gradient(145deg, #102030, #0b6b57 55%, #1a3d66);
+    color: #fff;
+    border-radius: 24px;
+    padding: clamp(22px, 4vw, 40px);
+    min-height: 70vh;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .eyebrow { font: 600 12px/1.2 system-ui, sans-serif; letter-spacing: .16em; text-transform: uppercase; opacity: .7; margin: 0 0 14px; }
+  h1 { font-size: clamp(2rem, 5vw, 3.4rem); line-height: 1.05; margin: 0 0 12px; font-weight: 700; }
+  .lead { font-size: clamp(1rem, 2vw, 1.25rem); max-width: 36em; opacity: .92; margin: 0 0 28px; }
+  .big-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .big {
+    background: rgba(255,255,255,.1);
+    border: 1px solid rgba(255,255,255,.14);
+    border-radius: 18px;
+    padding: 18px 20px;
+  }
+  .big .u { font: 700 13px system-ui, sans-serif; letter-spacing: .08em; text-transform: uppercase; opacity: .75; }
+  .big .n { font-size: clamp(2.6rem, 7vw, 4.5rem); font-weight: 700; line-height: 1; margin: 8px 0; }
+  .big .s { font: 500 14px/1.35 system-ui, sans-serif; opacity: .85; }
+
+  h2 {
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
+    margin: 0 0 8px;
+  }
+  .sub { margin: 0 0 18px; color: var(--muted); font: 500 15px/1.4 system-ui, sans-serif; }
+
+  .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .card {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 18px;
+  }
+  .card.br { border-top: 5px solid var(--br); }
+  .card.ig { border-top: 5px solid var(--ig); }
+  .card h3 { margin: 0 0 12px; font-size: 1.3rem; display: flex; justify-content: space-between; gap: 8px; align-items: center; }
+  .tag { font: 700 11px system-ui, sans-serif; padding: 4px 9px; border-radius: 999px; background: #ece7dc; color: var(--ink); }
+  .kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 12px; }
+  .kpi { background: #f5f1e8; border-radius: 12px; padding: 10px; }
+  .kpi .l { font: 600 10px system-ui, sans-serif; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+  .kpi .v { font-size: 1.6rem; font-weight: 700; margin-top: 2px; }
+  .kpi .v.gold { color: var(--gold); }
+  .rows { display: grid; gap: 6px; }
+  .row {
+    display: grid; grid-template-columns: 1.3fr .7fr .8fr .8fr;
+    gap: 8px; align-items: center;
+    padding: 8px 10px; border-radius: 10px; background: #f7f3ea;
+    font: 500 13px/1.2 system-ui, sans-serif;
+  }
+  .row.head { background: transparent; color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .05em; }
+
+  .filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+  .filters button {
+    border: 1px solid var(--line); background: #fff; border-radius: 999px;
+    padding: 8px 12px; font: 650 12px system-ui, sans-serif; cursor: pointer;
+  }
+  .filters button.active { background: var(--ink); color: #fff; border-color: var(--ink); }
+
+  .tablebox {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    overflow: auto;
+    max-height: calc(100vh - 220px);
+  }
+  table { width: 100%; border-collapse: collapse; font: 500 13px/1.25 system-ui, sans-serif; min-width: 700px; }
+  th, td { padding: 10px 12px; border-bottom: 1px solid #eee7da; text-align: left; }
+  th { position: sticky; top: 0; background: #152433; color: #fff; z-index: 1; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  tr:nth-child(even) td { background: #fbf8f1; }
+  .badge { display: inline-block; padding: 3px 8px; border-radius: 999px; font: 700 11px system-ui, sans-serif; }
+  .badge.acima { background: var(--upbg); color: var(--up); }
+  .badge.abaixo { background: var(--downbg); color: var(--down); }
+
+  .hint {
+    margin-top: 12px; color: var(--muted);
+    font: 500 12px/1.4 system-ui, sans-serif;
+  }
+
+  @media (max-width: 800px) {
+    .big-row, .cards, .kpis { grid-template-columns: 1fr; }
+    .row { grid-template-columns: 1fr 1fr; }
+  }
+  @media print {
+    .topbar { display: none; }
+    .slide { display: block !important; page-break-after: always; }
+    .tablebox { max-height: none; overflow: visible; }
+    body { background: #fff; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="topbar">
+    <div class="brand">ROM · Presença Jan–Set/2026</div>
+    <div class="nav" id="nav"></div>
+    <div class="tool">
+      <button onclick="prev()">←</button>
+      <button onclick="next()">→</button>
+      <button onclick="window.print()">PDF</button>
+    </div>
+  </div>
+  <main id="deck"></main>
+</div>
+
+
+<script>
+(async function () {
+  const [meta, brasil, iguatemi] = await Promise.all([
+    fetch('meta.json').then(r => r.json()),
+    fetch('brasil.json').then(r => r.json()),
+    fetch('iguatemi.json').then(r => r.json()),
+  ]);
+  const DATA = { ...meta, unidades: { brasil, iguatemi } };
+
+const CATS = ['Cabeleireiros','Manicure','Maquiadora'];
+const br = DATA.unidades.brasil, ig = DATA.unidades.iguatemi;
+
+const money = n => n == null ? '—' : Number(n).toLocaleString('pt-BR', {maximumFractionDigits:0});
+const pct = n => n == null ? '—' : String(n).replace('.', ',') + '%';
+const delta = n => n == null ? '—' : ((n>0?'+':'') + Number(n).toFixed(1).replace('.', ','));
+const esc = s => String(s??'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+function unitBlock(u, cls){
+  const rows = CATS.map(c => {
+    const b = u.by_category[c];
+    return `<div class="row"><strong>${c}</strong><span>${b.n}</span><span>${pct(b.media_constancia_pct)}</span><span>${b.media_dias_trabalhados} d</span></div>`;
+  }).join('');
+  return `<article class="card ${cls}">
+    <h3>${esc(u.unidade)} <span class="tag">${u.salon_open_days} dias abertos</span></h3>
+    <div class="kpis">
+      <div class="kpi"><div class="l">Constância</div><div class="v gold">${pct(u.media_geral_constancia_pct)}</div></div>
+      <div class="kpi"><div class="l">Média dias</div><div class="v">${u.media_dias_trabalhados}</div></div>
+      <div class="kpi"><div class="l">Com presença</div><div class="v">${u.n_com_presenca}</div></div>
+    </div>
+    <div class="rows">
+      <div class="row head"><span>Categoria</span><span>n</span><span>Constância</span><span>Dias</span></div>
+      ${rows}
+    </div>
+    <p class="hint">Acima ${u.acima} · Abaixo ${u.abaixo} · Fat R$ ${money(u.fat_total_jan_set)}</p>
+  </article>`;
+}
+
+function tableFor(u, cat){
+  const pros = u.professionals.filter(p => p.categoria === cat);
+  const rows = pros.map((p,i) => `<tr>
+    <td class="num">${i+1}</td>
+    <td>${esc(p.nome)}</td>
+    <td class="num">${p.dias_trabalhados}</td>
+    <td class="num">${pct(p.constancia_pct)}</td>
+    <td class="num">${delta(p.delta_indice)}</td>
+    <td><span class="badge ${p.standing}">${p.standing}</span></td>
+    <td class="num">${money(p.fat_bruto_jan_set)}</td>
+  </tr>`).join('');
+  return `<div class="tablebox"><table>
+    <thead><tr>
+      <th class="num">#</th><th>Nome</th><th class="num">Dias</th><th class="num">Const%</th>
+      <th class="num">Δ%</th><th>Standing</th><th class="num">Fat jan–set</th>
+    </tr></thead>
+    <tbody>${rows}</tbody>
+  </table></div>
+  <p class="hint">${esc(u.unidade)} · ${cat} · n=${pros.length} · média ${pct(u.by_category[cat].media_constancia_pct)} · Δ vs média do recorte (${u.media_dias_trabalhados} dias)</p>`;
+}
+
+const slides = [
+  {
+    id: 'capa',
+    label: 'Capa',
+    html: `<section class="hero">
+      <p class="eyebrow">Reunião · Presença de profissionais</p>
+      <h1>Presença jan–set/2026</h1>
+      <p class="lead">Recorte: <b>Cabeleireiros + Manicure + Maquiadora</b>. Assistentes fora. Constância = dias trabalhados ÷ dias abertos do salão.</p>
+      <div class="big-row">
+        <div class="big"><div class="u">Brasil</div><div class="n">${pct(br.media_geral_constancia_pct)}</div><div class="s">${br.n_com_presenca} profissionais · base ${br.salon_open_days} dias · média ${br.media_dias_trabalhados} dias</div></div>
+        <div class="big"><div class="u">Iguatemi</div><div class="n">${pct(ig.media_geral_constancia_pct)}</div><div class="s">${ig.n_com_presenca} profissionais · base ${ig.salon_open_days} dias · média ${ig.media_dias_trabalhados} dias</div></div>
+      </div>
+    </section>`
+  },
+  {
+    id: 'resumo',
+    label: 'Resumo',
+    html: `<h2>Resumo por unidade</h2>
+      <p class="sub">Médias gerais e por categoria no recorte oficial da reunião.</p>
+      <div class="cards">${unitBlock(br,'br')}${unitBlock(ig,'ig')}</div>`
+  }
+];
+
+[['brasil', br], ['iguatemi', ig]].forEach(([key, u]) => {
+  CATS.forEach(cat => {
+    slides.push({
+      id: `${key}-${cat}`,
+      label: `${u.unidade.slice(0,3)} ${cat.slice(0,3)}`,
+      fullLabel: `${u.unidade} · ${cat}`,
+      html: `<h2>${esc(u.unidade)} — ${cat}</h2>
+        <p class="sub">Ordenado por constância. Verde = acima da média do recorte · Vermelho = abaixo.</p>
+        ${tableFor(u, cat)}`
+    });
+  });
+});
+
+const deck = document.getElementById('deck');
+const nav = document.getElementById('nav');
+deck.innerHTML = slides.map((s,i) => `<section class="slide ${i===0?'active':''}" data-i="${i}">${s.html}</section>`).join('');
+nav.innerHTML = slides.map((s,i) => `<button data-i="${i}" class="${i===0?'active':''}">${s.fullLabel || s.label}</button>`).join('');
+
+let idx = 0;
+function go(i){
+  idx = Math.max(0, Math.min(slides.length-1, i));
+  document.querySelectorAll('.slide').forEach((el,j) => el.classList.toggle('active', j===idx));
+  document.querySelectorAll('#nav button').forEach((el,j) => el.classList.toggle('active', j===idx));
+}
+function next(){ go(idx+1); }
+function prev(){ go(idx-1); }
+nav.addEventListener('click', e => {
+  const b = e.target.closest('button[data-i]');
+  if (b) go(+b.dataset.i);
+});
+window.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); next(); }
+  if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); prev(); }
+});
+
+})();
+</script>
+</body>
+</html>
