@@ -243,14 +243,12 @@
 <script id="DATA" type="application/json">{}</script>
 <script>
 (async () => {
-  const [meta, brasil, iguatemi, mBr, mIg] = await Promise.all([
+  const [meta, brasil, iguatemi, monthly] = await Promise.all([
     fetch('./meta.json').then(r => { if (!r.ok) throw new Error('meta '+r.status); return r.json(); }),
     fetch('./brasil.json').then(r => { if (!r.ok) throw new Error('brasil '+r.status); return r.json(); }),
     fetch('./iguatemi.json').then(r => { if (!r.ok) throw new Error('iguatemi '+r.status); return r.json(); }),
-    fetch('./monthly-brasil.json').then(r => { if (!r.ok) throw new Error('monthly-br '+r.status); return r.json(); }),
-    fetch('./monthly-iguatemi.json').then(r => { if (!r.ok) throw new Error('monthly-ig '+r.status); return r.json(); }),
+    fetch('./monthly.json').then(r => { if (!r.ok) throw new Error('monthly '+r.status); return r.json(); }),
   ]);
-  const monthly = { brasil: mBr, iguatemi: mIg };
   const payload = { ...meta, unidades: { brasil, iguatemi }, monthly };
   document.getElementById('DATA').textContent = JSON.stringify(payload);
 
