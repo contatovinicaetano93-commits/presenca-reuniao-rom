@@ -11,6 +11,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
       - name: Fetch and commit monthly.json
         env:
           MONTHLY_URL: https://litter.catbox.moe/1mztx0.txt
@@ -34,5 +37,6 @@ jobs:
             echo "monthly.json already up to date"
           else
             git commit -m "deck: monthly.json — mês a mês com profissionais, sem fat, merge apelidos"
-            git push
+            git pull --rebase origin main
+            git push origin HEAD:main
           fi
