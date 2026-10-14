@@ -1,1 +1,9 @@
-{"periodo":"2026-01-01 a 2026-09-30","metodologia":{"constancia_pct":"dias_trabalhados ÷ dias_abertos_salao × 100 (cap 100%)","dias_abertos":"dias com revenue > 0 em salon_daily_metrics","dias_trabalhados":"dias distintos com visita em salon_client_visits","delta_indice":"(dias_trabalhados ÷ média dias do recorte Cab+Man+Maq − 1) × 100","elenco":"P1 (salon_p1_daily) próximo a 30/09/2026; só quem faturou ou veio no período","categoria":"cargo 8123 (salon_commissions_daily) mais recente","fat_jan_set":"soma último snapshot/mês jan→set (8123 charged se houver, senão P1 revenue)","cabeleireiros":"cargo 8123 Cabeleireiro (item 2)","elenco_filtrado":"somente Cabeleireiros + Manicure + Maquiadora (Assistentes e outros cargos excluídos)"}}
+{
+  "generated_at": "2026-10-14T12:07:11.659Z",
+  "periodo": "2026-01-01 a 2026-09-30",
+  "recorte": "Cabeleireiros + Manicure + Maquiadora",
+  "match": "occupancyMergeKey + namesLooselyMatch (match-pro) + curated nicknames",
+  "kpi_null": "médias só sobre quem tem presença (>0 dias)",
+  "privacidade": "sem faturamento no painel público",
+  "mes_a_mes": "resumo por categoria + lista de profissionais ativos por mês"
+}
