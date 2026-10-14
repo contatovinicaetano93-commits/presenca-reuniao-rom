@@ -1,0 +1,38 @@
+name: assemble-monthly
+on:
+  push:
+    paths:
+      - ".github/workflows/assemble-monthly.yml"
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  assemble:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch and commit monthly.json
+        env:
+          MONTHLY_URL: https://litter.catbox.moe/1mztx0.txt
+        run: |
+          set -euo pipefail
+          curl -fsSL "$MONTHLY_URL" -o monthly.json
+          python3 - <<'PY'
+          from pathlib import Path
+          import hashlib, json
+          c = Path("monthly.json").read_text()
+          json.loads(c)
+          h = hashlib.sha256(c.encode()).hexdigest()
+          print("len", len(c), "sha256", h)
+          assert h == "0a3ab3afa6d161be33f7fa108ad069065e436bdeaf50bd5e6437ad0bc7891141"
+          assert len(c) == 197270
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add monthly.json
+          if git diff --cached --quiet; then
+            echo "monthly.json already up to date"
+          else
+            git commit -m "deck: monthly.json — mês a mês com profissionais, sem fat, merge apelidos"
+            git push
+          fi
