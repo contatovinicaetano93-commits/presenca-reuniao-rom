@@ -253,15 +253,28 @@ function unitBlock(u, cls){
       <div class="row head"><span>Categoria</span><span>n</span><span>Constância</span><span>Dias</span></div>
       ${rows}
     </div>
-    <p class="hint">Acima ${u.acima} · Abaixo ${u.abaixo} · Fat R$ ${money(u.fat_total_jan_set)}</p>
+    <p class="hint">Acima ${u.acima} · Abaixo ${u.abaixo} · Sem presença ${u.n_sem_presenca} · Fat R$ ${money(u.fat_total_jan_set)}</p>
   </article>`;
 }
 
 function tableFor(u, cat){
   const pros = u.professionals.filter(p => p.categoria === cat);
-  const rows = pros.map((p,i) => `<tr>
+  const zeros = (u.sem_presenca_nomes || [])
+    .filter(row => (Array.isArray(row) ? row[1] : null) === cat)
+    .map(row => ({
+      nome: Array.isArray(row) ? row[0] : row,
+      categoria: cat,
+      dias_trabalhados: 0,
+      constancia_pct: 0,
+      delta_indice: u.media_dias_trabalhados ? -100 : null,
+      standing: 'abaixo',
+      fat_bruto_jan_set: null,
+      _zero: true,
+    }));
+  const all = pros.concat(zeros);
+  const rows = all.map((p,i) => `<tr${p._zero?' style="opacity:.75"':''}>
     <td class="num">${i+1}</td>
-    <td>${esc(p.nome)}</td>
+    <td>${esc(p.nome)}${p._zero?' <span class="badge abaixo">0 dias</span>':''}</td>
     <td class="num">${p.dias_trabalhados}</td>
     <td class="num">${pct(p.constancia_pct)}</td>
     <td class="num">${delta(p.delta_indice)}</td>
@@ -275,7 +288,7 @@ function tableFor(u, cat){
     </tr></thead>
     <tbody>${rows}</tbody>
   </table></div>
-  <p class="hint">${esc(u.unidade)} · ${cat} · n=${pros.length} · média ${pct(u.by_category[cat].media_constancia_pct)} · Δ vs média do recorte (${u.media_dias_trabalhados} dias)</p>`;
+  <p class="hint">${esc(u.unidade)} · ${cat} · com presença ${pros.length} · sem presença no período ${zeros.length} · média dos com presença ${pct(u.by_category[cat].media_constancia_pct)} · Δ vs média do recorte (${u.media_dias_trabalhados} dias)</p>`;
 }
 
 function spark(months, cls){
@@ -447,7 +460,11 @@ window.addEventListener('keydown', e => {
   if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); prev(); }
 });
 
-}
+// expose for topbar onclick
+window.next = next;
+window.prev = prev;
+window.go = go;
+
 })().catch(err => {
   const deck = document.getElementById('deck');
   if (deck) deck.innerHTML = '<p style="padding:24px;font:500 14px system-ui">Falha ao carregar dados: '+String(err)+'</p>';
