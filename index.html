@@ -224,6 +224,62 @@
     .month-grid { grid-template-columns: 1fr; }
   }
 
+  .search-panel { max-width: 820px; }
+  .search-box { position: relative; margin-bottom: 16px; }
+  .search-box input {
+    width: 100%;
+    border: 1px solid var(--line);
+    background: var(--paper);
+    border-radius: 14px;
+    padding: 14px 16px;
+    font: 500 16px/1.2 system-ui, sans-serif;
+    color: var(--ink);
+  }
+  .search-box input:focus {
+    outline: 2px solid rgba(11,107,87,.35);
+    border-color: var(--br);
+  }
+  .suggest {
+    position: absolute; left: 0; right: 0; top: calc(100% + 6px);
+    margin: 0; padding: 6px; list-style: none;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    box-shadow: 0 12px 28px rgba(16,24,32,.12);
+    max-height: 280px; overflow: auto;
+    z-index: 5;
+  }
+  .suggest li {
+    padding: 10px 12px; border-radius: 10px; cursor: pointer;
+    font: 500 14px/1.3 system-ui, sans-serif;
+    display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center;
+  }
+  .suggest li:hover, .suggest li.active { background: #f5f1e8; }
+  .suggest .meta { font: 600 11px system-ui, sans-serif; color: var(--muted); }
+  .search-empty {
+    padding: 28px 18px; text-align: center; color: var(--muted);
+    background: var(--paper); border: 1px dashed var(--line); border-radius: 18px;
+    font: 500 14px/1.4 system-ui, sans-serif;
+  }
+  .pro-card {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 18px;
+  }
+  .pro-card.br { border-top: 5px solid var(--br); }
+  .pro-card.ig { border-top: 5px solid var(--ig); }
+  .pro-card h3 {
+    margin: 0 0 4px; font-size: clamp(1.25rem, 2.5vw, 1.7rem);
+    display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+  }
+  .pro-card .who {
+    margin: 0 0 14px; color: var(--muted);
+    font: 500 14px/1.35 system-ui, sans-serif;
+  }
+  .pro-series { margin-top: 8px; overflow: auto; }
+  .pro-series .month-table td.mute { color: var(--muted); }
+
 </style>
 </head>
 <body>
@@ -432,6 +488,27 @@ const slides = [
       <div class="cards">${unitBlock(br,'br')}${unitBlock(ig,'ig')}</div>`
   },
   {
+    id: 'pesquisar',
+    label: 'Pesquisar',
+    fullLabel: 'Pesquisar',
+    html: `<div class="search-panel">
+      <h2>Pesquisar profissional</h2>
+      <p class="sub">Escolha a unidade e digite o nome. Aparecem só os dados daquela pessoa — período e mês a mês.</p>
+      <div class="filters" id="search-unit" role="group" aria-label="Unidade">
+        <button type="button" data-unit="brasil" class="active">Brasil</button>
+        <button type="button" data-unit="iguatemi">Iguatemi</button>
+        <button type="button" data-unit="ambas">Ambas</button>
+      </div>
+      <div class="search-box">
+        <input id="search-q" type="search" placeholder="Digite o nome do profissional…" autocomplete="off" spellcheck="false" />
+        <ul id="search-suggest" class="suggest" hidden></ul>
+      </div>
+      <div id="search-result">
+        <div class="search-empty">Selecione a unidade e busque um profissional para ver constância do período e a curva mês a mês.</div>
+      </div>
+    </div>`
+  },
+  {
     id: 'mes',
     label: 'Mês a mês',
     fullLabel: 'Mês a mês',
@@ -526,9 +603,250 @@ nav.addEventListener('click', e => {
   if (b) go(+b.dataset.i);
 });
 window.addEventListener('keydown', e => {
+  const typing = e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA');
+  if (typing) return;
   if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); next(); }
   if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); prev(); }
 });
+
+function fold(s){
+  return String(s||'').normalize('NFD').replace(/\p{M}/gu,'').toLowerCase().trim().replace(/\s+/g, ' ');
+}
+
+function buildProIndex(){
+  const units = [['brasil', br, mBr], ['iguatemi', ig, mIg]];
+  const list = [];
+  for (const [key, u, months] of units){
+    const byName = new Map();
+    for (const p of u.professionals){
+      byName.set(p.nome, {
+        ...p,
+        unidade: u.unidade,
+        unitKey: key,
+        mediaUnidade: u.media_geral_constancia_pct,
+        mediaDiasUnidade: u.media_dias_trabalhados,
+        zero: false,
+      });
+    }
+    for (const row of (u.sem_presenca_nomes || [])){
+      const nome = Array.isArray(row) ? row[0] : row;
+      const cat = Array.isArray(row) ? row[1] : null;
+      if (!byName.has(nome)){
+        byName.set(nome, {
+          nome,
+          categoria: cat,
+          dias_trabalhados: 0,
+          dias_abertos_salao: u.salon_open_days,
+          constancia_pct: 0,
+          delta_indice: u.media_dias_trabalhados ? -100 : null,
+          standing: 'abaixo',
+          unidade: u.unidade,
+          unitKey: key,
+          mediaUnidade: u.media_geral_constancia_pct,
+          mediaDiasUnidade: u.media_dias_trabalhados,
+          zero: true,
+        });
+      }
+    }
+    for (const p of byName.values()){
+      const series = months.map(m => {
+        const hit = (m.professionals || []).find(x => x.nome === p.nome);
+        if (hit){
+          return {
+            label: m.label,
+            month: m.month,
+            ativo: true,
+            dias_trabalhados: hit.dias_trabalhados,
+            dias_abertos_salao: hit.dias_abertos_salao,
+            constancia_pct: hit.constancia_pct,
+            delta_indice: hit.delta_indice,
+            standing: hit.standing,
+          };
+        }
+        return {
+          label: m.label,
+          month: m.month,
+          ativo: false,
+          dias_trabalhados: 0,
+          dias_abertos_salao: m.salon_open_days,
+          constancia_pct: null,
+          delta_indice: null,
+          standing: null,
+        };
+      });
+      list.push({ ...p, series, fold: fold(p.nome) });
+    }
+  }
+  return list.sort((a,b) => a.nome.localeCompare(b.nome, 'pt-BR'));
+}
+
+const PRO_INDEX = buildProIndex();
+
+function renderProCard(p){
+  const cls = p.unitKey === 'brasil' ? 'br' : 'ig';
+  const ativos = p.series.filter(m => m.ativo);
+  const sparkMonths = p.series.map(m => ({
+    label: m.label,
+    media_geral_constancia_pct: m.ativo ? m.constancia_pct : 0,
+  }));
+  const sparkMax = Math.max(...sparkMonths.map(m => m.media_geral_constancia_pct), 1);
+  const sparkHtml = `<div class="spark">${sparkMonths.map(m => {
+    const h = m.media_geral_constancia_pct
+      ? Math.max(6, Math.round((m.media_geral_constancia_pct / sparkMax) * 100))
+      : 2;
+    const val = m.media_geral_constancia_pct ? pct(m.media_geral_constancia_pct) : '—';
+    return `<div class="bar-wrap"><div class="bv">${val}</div><div class="bar ${cls}" style="height:${h}%;opacity:${m.media_geral_constancia_pct?1:.25}"></div><div class="bl">${m.label}</div></div>`;
+  }).join('')}</div>`;
+  const rows = p.series.map(m => {
+    if (!m.ativo){
+      return `<tr>
+        <td><strong>${m.label}</strong></td>
+        <td class="mute">—</td>
+        <td class="mute">—</td>
+        <td class="mute">sem presença</td>
+        <td class="mute">—</td>
+        <td class="mute">—</td>
+      </tr>`;
+    }
+    return `<tr>
+      <td><strong>${m.label}</strong></td>
+      <td>${m.dias_trabalhados}</td>
+      <td>${m.dias_abertos_salao}</td>
+      <td>${pct(m.constancia_pct)}</td>
+      <td>${delta(m.delta_indice)}</td>
+      <td><span class="badge ${m.standing}">${m.standing}</span></td>
+    </tr>`;
+  }).join('');
+  return `<article class="pro-card ${cls}">
+    <h3>${esc(p.nome)} ${catPill(p.categoria)} <span class="tag">${esc(p.unidade)}</span></h3>
+    <p class="who">${p.zero ? 'Sem presença no período acumulado.' : `Standing <span class="badge ${p.standing}">${p.standing}</span> · Δ ${delta(p.delta_indice)} vs média do recorte (${p.mediaDiasUnidade} dias)`}</p>
+    <div class="kpis">
+      <div class="kpi"><div class="l">Constância período</div><div class="v gold">${pct(p.constancia_pct)}</div></div>
+      <div class="kpi"><div class="l">Dias trabalhados</div><div class="v">${p.dias_trabalhados}</div></div>
+      <div class="kpi"><div class="l">Meses ativos</div><div class="v">${ativos.length}/${p.series.length}</div></div>
+    </div>
+    ${sparkHtml}
+    <h4 style="margin:8px 0 8px;font:700 15px system-ui,sans-serif">Mês a mês desta pessoa</h4>
+    <div class="pro-series">
+      <table class="month-table">
+        <thead><tr>
+          <th>Mês</th><th>Dias</th><th>Abertos</th><th>Const%</th><th>Δ%</th><th>Standing</th>
+        </tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>
+    <p class="hint">Média da unidade no período: ${pct(p.mediaUnidade)}. Constância individual = dias trabalhados ÷ dias abertos.</p>
+  </article>`;
+}
+
+function wireSearch(){
+  const unitBar = document.getElementById('search-unit');
+  const input = document.getElementById('search-q');
+  const suggest = document.getElementById('search-suggest');
+  const result = document.getElementById('search-result');
+  if (!unitBar || !input || !suggest || !result) return;
+
+  let unit = 'brasil';
+  let activeIdx = -1;
+  let matches = [];
+
+  const emptyMsg = () => {
+    result.innerHTML = '<div class="search-empty">Selecione a unidade e busque um profissional para ver constância do período e a curva mês a mês.</div>';
+  };
+
+  function filtered(){
+    const q = fold(input.value);
+    if (!q) return [];
+    const pool = PRO_INDEX.filter(p => unit === 'ambas' || p.unitKey === unit);
+    return pool.filter(p => p.fold.includes(q)).slice(0, 20);
+  }
+
+  function paintSuggest(){
+    matches = filtered();
+    activeIdx = matches.length ? 0 : -1;
+    if (!input.value.trim()){
+      suggest.hidden = true;
+      suggest.innerHTML = '';
+      return;
+    }
+    if (!matches.length){
+      suggest.hidden = false;
+      suggest.innerHTML = '<li class="meta" style="cursor:default">Nenhum profissional encontrado nesta unidade</li>';
+      return;
+    }
+    suggest.hidden = false;
+    suggest.innerHTML = matches.map((p,i) => `<li data-i="${i}" class="${i===activeIdx?'active':''}">
+      <strong>${esc(p.nome)}</strong>
+      <span class="meta">${esc(p.unidade)}</span>
+      ${catPill(p.categoria)}
+      <span class="meta">${pct(p.constancia_pct)}</span>
+    </li>`).join('');
+  }
+
+  function selectPro(p){
+    if (!p) return;
+    input.value = p.nome;
+    suggest.hidden = true;
+    suggest.innerHTML = '';
+    activeIdx = -1;
+    if (unit === 'ambas'){
+      const same = PRO_INDEX.filter(x => x.nome === p.nome);
+      result.innerHTML = same.map(renderProCard).join('<div style="height:12px"></div>');
+    } else {
+      result.innerHTML = renderProCard(p);
+    }
+  }
+
+  unitBar.addEventListener('click', e => {
+    const b = e.target.closest('button[data-unit]');
+    if (!b) return;
+    unit = b.dataset.unit;
+    unitBar.querySelectorAll('button').forEach(el => el.classList.toggle('active', el === b));
+    input.value = '';
+    matches = [];
+    activeIdx = -1;
+    suggest.hidden = true;
+    suggest.innerHTML = '';
+    emptyMsg();
+    input.focus();
+  });
+
+  input.addEventListener('input', paintSuggest);
+  input.addEventListener('focus', () => { if (input.value.trim()) paintSuggest(); });
+
+  suggest.addEventListener('mousedown', e => {
+    const li = e.target.closest('li[data-i]');
+    if (!li) return;
+    e.preventDefault();
+    selectPro(matches[+li.dataset.i]);
+  });
+
+  input.addEventListener('keydown', e => {
+    if (suggest.hidden && e.key !== 'Enter') return;
+    if (e.key === 'ArrowDown'){
+      e.preventDefault();
+      if (!matches.length) return;
+      activeIdx = (activeIdx + 1) % matches.length;
+      suggest.querySelectorAll('li[data-i]').forEach((el,i) => el.classList.toggle('active', i===activeIdx));
+    } else if (e.key === 'ArrowUp'){
+      e.preventDefault();
+      if (!matches.length) return;
+      activeIdx = (activeIdx - 1 + matches.length) % matches.length;
+      suggest.querySelectorAll('li[data-i]').forEach((el,i) => el.classList.toggle('active', i===activeIdx));
+    } else if (e.key === 'Enter'){
+      e.preventDefault();
+      if (activeIdx >= 0 && matches[activeIdx]) selectPro(matches[activeIdx]);
+    } else if (e.key === 'Escape'){
+      suggest.hidden = true;
+    }
+  });
+
+  document.addEventListener('click', e => {
+    if (!e.target.closest('.search-box')) suggest.hidden = true;
+  });
+}
+
+wireSearch();
 
 // expose for topbar onclick
 window.next = next;
