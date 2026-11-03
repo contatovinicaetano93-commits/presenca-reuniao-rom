@@ -280,38 +280,207 @@
   .pro-series { margin-top: 8px; overflow: auto; }
   .pro-series .month-table td.mute { color: var(--muted); }
 
+  .app[hidden], #login-gate[hidden] { display: none !important; }
+  #login-gate {
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    padding: 24px;
+    background:
+      radial-gradient(1200px 600px at 10% -10%, rgba(11,107,87,.18), transparent 55%),
+      radial-gradient(900px 500px at 100% 0%, rgba(26,61,102,.16), transparent 50%),
+      var(--bg);
+  }
+  .login-card {
+    width: min(420px, 100%);
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 22px;
+    padding: 28px 24px;
+    box-shadow: 0 18px 40px rgba(16,24,32,.08);
+  }
+  .login-card h1 {
+    margin: 0 0 6px;
+    font-size: clamp(1.6rem, 4vw, 2rem);
+  }
+  .login-card .sub { margin-bottom: 18px; }
+  .login-card label {
+    display: block;
+    font: 700 11px system-ui, sans-serif;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 0 0 6px;
+  }
+  .login-card .field { margin-bottom: 12px; }
+  .login-card input {
+    width: 100%;
+    border: 1px solid var(--line);
+    background: #fff;
+    border-radius: 12px;
+    padding: 12px 14px;
+    font: 500 15px/1.2 system-ui, sans-serif;
+    color: var(--ink);
+  }
+  .login-card input:focus {
+    outline: 2px solid rgba(11,107,87,.35);
+    border-color: var(--br);
+  }
+  .login-card button[type="submit"] {
+    width: 100%;
+    margin-top: 8px;
+    border: 0;
+    border-radius: 12px;
+    padding: 12px 14px;
+    background: linear-gradient(145deg, #0b6b57, #1a3d66);
+    color: #fff;
+    font: 700 14px system-ui, sans-serif;
+    cursor: pointer;
+  }
+  .login-card button[type="submit"][disabled] { opacity: .65; cursor: wait; }
+  .login-error {
+    display: none;
+    margin: 0 0 12px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    background: var(--downbg);
+    color: var(--down);
+    font: 600 13px/1.35 system-ui, sans-serif;
+  }
+  .login-error.show { display: block; }
+  .userchip {
+    font: 600 11px system-ui, sans-serif;
+    opacity: .85;
+    max-width: 180px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
 </style>
 </head>
 <body>
-<div class="app">
+<section id="login-gate" hidden>
+  <form class="login-card" id="login-form" autocomplete="on">
+    <p class="eyebrow" style="margin:0 0 8px;opacity:.7">ROM · acesso autorizado</p>
+    <h1>Entrar</h1>
+    <p class="sub">Use o e-mail corporativo da sua unidade para ver apenas os dados liberados.</p>
+    <p class="login-error" id="login-error" role="alert"></p>
+    <div class="field">
+      <label for="login-email">E-mail</label>
+      <input id="login-email" name="email" type="email" required autocomplete="username" placeholder="seu@email.com" />
+    </div>
+    <div class="field">
+      <label for="login-password">Senha</label>
+      <input id="login-password" name="password" type="password" required autocomplete="current-password" placeholder="••••••••" />
+    </div>
+    <button type="submit" id="login-submit">Entrar</button>
+  </form>
+</section>
+
+<div class="app" id="app" hidden>
   <div class="topbar">
     <div class="brand">ROM · Presença Jan–Set/2026</div>
     <div class="nav" id="nav"></div>
     <div class="tool">
-      <button onclick="prev()">←</button>
-      <button onclick="next()">→</button>
-      <button onclick="window.print()">PDF</button>
+      <span class="userchip" id="userchip"></span>
+      <button type="button" onclick="prev()">←</button>
+      <button type="button" onclick="next()">→</button>
+      <button type="button" onclick="window.print()">PDF</button>
+      <button type="button" id="logout-btn">Sair</button>
     </div>
   </div>
   <main id="deck"></main>
 </div>
 
-<script id="DATA" type="application/json">{}</script>
 <script>
 (async () => {
-  const [meta, brasil, iguatemi, monthly] = await Promise.all([
-    fetch('./meta.json').then(r => { if (!r.ok) throw new Error('meta '+r.status); return r.json(); }),
-    fetch('./brasil.json').then(r => { if (!r.ok) throw new Error('brasil '+r.status); return r.json(); }),
-    fetch('./iguatemi.json').then(r => { if (!r.ok) throw new Error('iguatemi '+r.status); return r.json(); }),
-    fetch('./monthly.json').then(r => { if (!r.ok) throw new Error('monthly '+r.status); return r.json(); }),
-  ]);
-  const payload = { ...meta, unidades: { brasil, iguatemi }, monthly };
-  document.getElementById('DATA').textContent = JSON.stringify(payload);
-
-const DATA = JSON.parse(document.getElementById('DATA').textContent);
 const CATS = ['Cabeleireiros','Manicure','Maquiadora'];
-const br = DATA.unidades.brasil, ig = DATA.unidades.iguatemi;
-const mBr = DATA.monthly.brasil, mIg = DATA.monthly.iguatemi;
+const loginGate = document.getElementById('login-gate');
+const app = document.getElementById('app');
+const loginForm = document.getElementById('login-form');
+const loginError = document.getElementById('login-error');
+const loginSubmit = document.getElementById('login-submit');
+
+function showLogin(msg){
+  app.hidden = true;
+  loginGate.hidden = false;
+  if (msg){
+    loginError.textContent = msg;
+    loginError.classList.add('show');
+  } else {
+    loginError.textContent = '';
+    loginError.classList.remove('show');
+  }
+}
+
+async function api(path, opts = {}){
+  const res = await fetch(path, {
+    credentials: 'include',
+    headers: { 'Content-Type': 'application/json', ...(opts.headers || {}) },
+    ...opts,
+  });
+  let body = null;
+  try { body = await res.json(); } catch { body = null; }
+  return { res, body };
+}
+
+async function ensureSession(){
+  const { res, body } = await api('/api/me');
+  if (!res.ok) return null;
+  return body.user;
+}
+
+loginForm.addEventListener('submit', async e => {
+  e.preventDefault();
+  loginSubmit.disabled = true;
+  loginError.classList.remove('show');
+  try {
+    const email = document.getElementById('login-email').value;
+    const password = document.getElementById('login-password').value;
+    const { res, body } = await api('/api/login', {
+      method: 'POST',
+      body: JSON.stringify({ email, password }),
+    });
+    if (!res.ok) {
+      showLogin((body && body.error) || 'Falha no login');
+      return;
+    }
+    await boot(body.user);
+  } catch (err) {
+    showLogin('Não foi possível autenticar. Tente de novo.');
+    console.error(err);
+  } finally {
+    loginSubmit.disabled = false;
+  }
+});
+
+document.getElementById('logout-btn').addEventListener('click', async () => {
+  await api('/api/logout', { method: 'POST', body: '{}' });
+  location.reload();
+});
+
+async function boot(sessionUser){
+  const { res, body: DATA } = await api('/api/data');
+  if (!res.ok) {
+    showLogin((DATA && DATA.error) || 'Sessão expirada. Entre novamente.');
+    return;
+  }
+
+  loginGate.hidden = true;
+  app.hidden = false;
+
+  const USER = DATA.user || sessionUser;
+  const br = DATA.unidades.brasil || null;
+  const ig = DATA.unidades.iguatemi || null;
+  const mBr = DATA.monthly.brasil || [];
+  const mIg = DATA.monthly.iguatemi || [];
+  const accessUnit = USER.unit; // brasil | iguatemi | ambas
+  const canBrasil = accessUnit === 'ambas' || accessUnit === 'brasil';
+  const canIguatemi = accessUnit === 'ambas' || accessUnit === 'iguatemi';
+  const isDiretor = accessUnit === 'ambas';
+
+  document.getElementById('userchip').textContent =
+    `${USER.name || USER.email} · ${accessUnit === 'ambas' ? 'Diretor' : (accessUnit === 'brasil' ? 'Brasil' : 'Iguatemi')}`;
 
 const money = n => n == null ? '—' : Number(n).toLocaleString('pt-BR', {maximumFractionDigits:0});
 const pct = n => n == null ? '—' : String(n).replace('.', ',') + '%';
@@ -466,6 +635,29 @@ function monthCard(label, cls, months, periodAvg){
 }
 
 
+const capaBigs = [
+  canBrasil && br ? `<div class="big"><div class="u">Brasil</div><div class="n">${pct(br.media_geral_constancia_pct)}</div><div class="s">${br.n_com_presenca} profissionais · base ${br.salon_open_days} dias · média ${br.media_dias_trabalhados} dias</div></div>` : '',
+  canIguatemi && ig ? `<div class="big"><div class="u">Iguatemi</div><div class="n">${pct(ig.media_geral_constancia_pct)}</div><div class="s">${ig.n_com_presenca} profissionais · base ${ig.salon_open_days} dias · média ${ig.media_dias_trabalhados} dias</div></div>` : '',
+].filter(Boolean).join('');
+
+const resumoCards = [
+  canBrasil && br ? unitBlock(br,'br') : '',
+  canIguatemi && ig ? unitBlock(ig,'ig') : '',
+].filter(Boolean).join('');
+
+const searchUnitButtons = isDiretor
+  ? `<button type="button" data-unit="brasil" class="active">Brasil</button>
+        <button type="button" data-unit="iguatemi">Iguatemi</button>
+        <button type="button" data-unit="ambas">Ambas</button>`
+  : canBrasil
+    ? `<button type="button" data-unit="brasil" class="active">Brasil</button>`
+    : `<button type="button" data-unit="iguatemi" class="active">Iguatemi</button>`;
+
+const monthCards = [
+  canBrasil && br ? monthCard('Brasil','br', mBr, br.media_geral_constancia_pct) : '',
+  canIguatemi && ig ? monthCard('Iguatemi','ig', mIg, ig.media_geral_constancia_pct) : '',
+].filter(Boolean).join('');
+
 const slides = [
   {
     id: 'capa',
@@ -473,19 +665,16 @@ const slides = [
     html: `<section class="hero">
       <p class="eyebrow">Reunião · Presença de profissionais</p>
       <h1>Presença jan–set/2026</h1>
-      <p class="lead">Recorte: <b>Cabeleireiros + Manicure + Maquiadora</b>. Assistentes fora. Constância = dias trabalhados ÷ dias abertos do salão.</p>
-      <div class="big-row">
-        <div class="big"><div class="u">Brasil</div><div class="n">${pct(br.media_geral_constancia_pct)}</div><div class="s">${br.n_com_presenca} profissionais · base ${br.salon_open_days} dias · média ${br.media_dias_trabalhados} dias</div></div>
-        <div class="big"><div class="u">Iguatemi</div><div class="n">${pct(ig.media_geral_constancia_pct)}</div><div class="s">${ig.n_com_presenca} profissionais · base ${ig.salon_open_days} dias · média ${ig.media_dias_trabalhados} dias</div></div>
-      </div>
+      <p class="lead">Recorte: <b>Cabeleireiros + Manicure + Maquiadora</b>. Assistentes fora. Constância = dias trabalhados ÷ dias abertos do salão.${isDiretor ? '' : ` Acesso: <b>${canBrasil ? 'Brasil' : 'Iguatemi'}</b>.`}</p>
+      <div class="big-row" style="${isDiretor ? '' : 'grid-template-columns:1fr'}">${capaBigs}</div>
     </section>`
   },
   {
     id: 'resumo',
     label: 'Resumo',
     html: `<h2>Resumo por unidade</h2>
-      <p class="sub">Médias gerais e por categoria no recorte oficial da reunião.</p>
-      <div class="cards">${unitBlock(br,'br')}${unitBlock(ig,'ig')}</div>`
+      <p class="sub">${isDiretor ? 'Médias gerais e por categoria no recorte oficial da reunião.' : `Médias da unidade ${canBrasil ? 'Brasil' : 'Iguatemi'}.`}</p>
+      <div class="cards" style="${isDiretor ? '' : 'grid-template-columns:1fr'}">${resumoCards}</div>`
   },
   {
     id: 'pesquisar',
@@ -493,18 +682,16 @@ const slides = [
     fullLabel: 'Pesquisar',
     html: `<div class="search-panel">
       <h2>Pesquisar profissional</h2>
-      <p class="sub">Escolha a unidade e digite o nome. Aparecem só os dados daquela pessoa — período e mês a mês.</p>
+      <p class="sub">${isDiretor ? 'Escolha a unidade e digite o nome. Aparecem só os dados daquela pessoa — período e mês a mês.' : `Busca limitada à unidade ${canBrasil ? 'Brasil' : 'Iguatemi'}.`}</p>
       <div class="filters" id="search-unit" role="group" aria-label="Unidade">
-        <button type="button" data-unit="brasil" class="active">Brasil</button>
-        <button type="button" data-unit="iguatemi">Iguatemi</button>
-        <button type="button" data-unit="ambas">Ambas</button>
+        ${searchUnitButtons}
       </div>
       <div class="search-box">
         <input id="search-q" type="search" placeholder="Digite o nome do profissional…" autocomplete="off" spellcheck="false" />
         <ul id="search-suggest" class="suggest" hidden></ul>
       </div>
       <div id="search-result">
-        <div class="search-empty">Selecione a unidade e busque um profissional para ver constância do período e a curva mês a mês.</div>
+        <div class="search-empty">Busque um profissional para ver constância do período e a curva mês a mês.</div>
       </div>
     </div>`
   },
@@ -514,14 +701,14 @@ const slides = [
     fullLabel: 'Mês a mês',
     html: `<h2>Mês a mês</h2>
       <p class="sub">Só quem teve presença no mês (ativos). Evolução da constância + lista de cada profissional por mês. Sem faturamento.</p>
-      <div class="month-grid">
-        ${monthCard('Brasil','br', mBr, br.media_geral_constancia_pct)}
-        ${monthCard('Iguatemi','ig', mIg, ig.media_geral_constancia_pct)}
-      </div>`
+      <div class="month-grid" style="${isDiretor ? '' : 'grid-template-columns:1fr'}">${monthCards}</div>`
   }
 ];
 
-[['brasil', br], ['iguatemi', ig]].forEach(([key, u]) => {
+const unitPairs = [];
+if (canBrasil && br) unitPairs.push(['brasil', br]);
+if (canIguatemi && ig) unitPairs.push(['iguatemi', ig]);
+unitPairs.forEach(([key, u]) => {
   CATS.forEach(cat => {
     slides.push({
       id: `${key}-${cat}`,
@@ -534,56 +721,58 @@ const slides = [
   });
 });
 
-slides.push({
-  id: 'opiniao',
-  label: 'Opinião',
-  fullLabel: 'Minha opinião',
-  html: `<div class="opiniao">
-    <p class="eyebrow" style="opacity:.7">Waltter · leitura da mesa</p>
-    <h2>Minha opinião</h2>
-    <p class="sub" style="margin-bottom:0">O que os números pedem na prática — sem maquiar o buraco nem celebrar média falsa.</p>
-    <div class="points">
-      <div class="point">
-        <div class="num">1</div>
-        <div>
-          <h4>A curva está subindo — e isso é o ponto</h4>
-          <p>Brasil saiu de <b>49,5%</b> em jan para <b>65,3%</b> em set (+15,8 pp). Iguatemi de <b>41,6%</b> para <b>78,2%</b> (+36,6 pp). A média do período (BR 50,2% / IG 53,3%) ainda parece baixa porque carrega o começo do ano e quem entrou/saiu. Olhando mês a mês — e a lista de ativos de cada mês — o time que está presente hoje aparece bem mais consistente.</p>
+if (isDiretor) {
+  slides.push({
+    id: 'opiniao',
+    label: 'Opinião',
+    fullLabel: 'Minha opinião',
+    html: `<div class="opiniao">
+      <p class="eyebrow" style="opacity:.7">Waltter · leitura da mesa</p>
+      <h2>Minha opinião</h2>
+      <p class="sub" style="margin-bottom:0">O que os números pedem na prática — sem maquiar o buraco nem celebrar média falsa.</p>
+      <div class="points">
+        <div class="point">
+          <div class="num">1</div>
+          <div>
+            <h4>A curva está subindo — e isso é o ponto</h4>
+            <p>Brasil saiu de <b>49,5%</b> em jan para <b>65,3%</b> em set (+15,8 pp). Iguatemi de <b>41,6%</b> para <b>78,2%</b> (+36,6 pp). A média do período (BR 50,2% / IG 53,3%) ainda parece baixa porque carrega o começo do ano e quem entrou/saiu. Olhando mês a mês — e a lista de ativos de cada mês — o time que está presente hoje aparece bem mais consistente.</p>
+          </div>
+        </div>
+        <div class="point">
+          <div class="num">2</div>
+          <div>
+            <h4>Abril foi o solavanco — não o padrão</h4>
+            <p>Nas duas unidades abril cai (BR 49,4% · IG 42,1%). Depois o ritmo recupera. Não tratar abril como “é assim o ano”; tratar como alerta de calendário/operacional que já se corrigiu em junho–setembro.</p>
+          </div>
+        </div>
+        <div class="point">
+          <div class="num">3</div>
+          <div>
+            <h4>Manicure puxa constância; Cabeleireiro ainda tem folga</h4>
+            <p>Em set, Manicure está em <b>84,4%</b> (BR) e <b>90,9%</b> (IG). Cabeleireiros em <b>59,4%</b> / <b>68,3%</b>. O gap não é “falta de gente no elenco” — é presença desigual dentro do mesmo salão. É aqui que gestão de escala e cobrança diária mudam o índice.</p>
+          </div>
+        </div>
+        <div class="point">
+          <div class="num">4</div>
+          <div>
+            <h4>Mais ativos no mês ≠ diluir o padrão</h4>
+            <p>Brasil passou de 46 para 63 ativos no mês; Iguatemi de 51 para 58 e ainda assim a constância média subiu. Ou seja: dá para crescer o elenco ativo sem derrubar presença — desde que entrada nova entre já com ritmo, não só com cadastro.</p>
+          </div>
+        </div>
+        <div class="point">
+          <div class="num">5</div>
+          <div>
+            <h4>O trabalho agora é o miolo, não a média</h4>
+            <p>Quem está abaixo da média do recorte (26 no BR, 24 no IG no acumulado) é a fila de conversa — use as listas mês a mês para ver quem caiu ou sumiu. Top da lista já entrega presença. Assistente fora do recorte de propósito: o jogo da reunião é Cab + Man + Maq.</p>
+          </div>
         </div>
       </div>
-      <div class="point">
-        <div class="num">2</div>
-        <div>
-          <h4>Abril foi o solavanco — não o padrão</h4>
-          <p>Nas duas unidades abril cai (BR 49,4% · IG 42,1%). Depois o ritmo recupera. Não tratar abril como “é assim o ano”; tratar como alerta de calendário/operacional que já se corrigiu em junho–setembro.</p>
-        </div>
+      <div class="callout">
+        <b>Fechamento:</b> o ano começou frouxo e fechou set com constância de salão bem mais saudável nas duas unidades. Próximo passo não é “melhorar a média” no abstrato — é travar o patamar de ago/set e puxar cabeleireiro para perto do que manicure já entrega.
       </div>
-      <div class="point">
-        <div class="num">3</div>
-        <div>
-          <h4>Manicure puxa constância; Cabeleireiro ainda tem folga</h4>
-          <p>Em set, Manicure está em <b>84,4%</b> (BR) e <b>90,9%</b> (IG). Cabeleireiros em <b>59,4%</b> / <b>68,3%</b>. O gap não é “falta de gente no elenco” — é presença desigual dentro do mesmo salão. É aqui que gestão de escala e cobrança diária mudam o índice.</p>
-        </div>
-      </div>
-      <div class="point">
-        <div class="num">4</div>
-        <div>
-          <h4>Mais ativos no mês ≠ diluir o padrão</h4>
-          <p>Brasil passou de 46 para 63 ativos no mês; Iguatemi de 51 para 58 e ainda assim a constância média subiu. Ou seja: dá para crescer o elenco ativo sem derrubar presença — desde que entrada nova entre já com ritmo, não só com cadastro.</p>
-        </div>
-      </div>
-      <div class="point">
-        <div class="num">5</div>
-        <div>
-          <h4>O trabalho agora é o miolo, não a média</h4>
-          <p>Quem está abaixo da média do recorte (26 no BR, 24 no IG no acumulado) é a fila de conversa — use as listas mês a mês para ver quem caiu ou sumiu. Top da lista já entrega presença. Assistente fora do recorte de propósito: o jogo da reunião é Cab + Man + Maq.</p>
-        </div>
-      </div>
-    </div>
-    <div class="callout">
-      <b>Fechamento:</b> o ano começou frouxo e fechou set com constância de salão bem mais saudável nas duas unidades. Próximo passo não é “melhorar a média” no abstrato — é travar o patamar de ago/set e puxar cabeleireiro para perto do que manicure já entrega.
-    </div>
-  </div>`
-});
+    </div>`
+  });
+}
 
 const deck = document.getElementById('deck');
 const nav = document.getElementById('nav');
@@ -614,7 +803,9 @@ function fold(s){
 }
 
 function buildProIndex(){
-  const units = [['brasil', br, mBr], ['iguatemi', ig, mIg]];
+  const units = [];
+  if (canBrasil && br) units.push(['brasil', br, mBr]);
+  if (canIguatemi && ig) units.push(['iguatemi', ig, mIg]);
   const list = [];
   for (const [key, u, months] of units){
     const byName = new Map();
@@ -746,12 +937,12 @@ function wireSearch(){
   const result = document.getElementById('search-result');
   if (!unitBar || !input || !suggest || !result) return;
 
-  let unit = 'brasil';
+  let unit = canBrasil ? 'brasil' : 'iguatemi';
   let activeIdx = -1;
   let matches = [];
 
   const emptyMsg = () => {
-    result.innerHTML = '<div class="search-empty">Selecione a unidade e busque um profissional para ver constância do período e a curva mês a mês.</div>';
+    result.innerHTML = '<div class="search-empty">Busque um profissional para ver constância do período e a curva mês a mês.</div>';
   };
 
   function filtered(){
@@ -852,10 +1043,14 @@ wireSearch();
 window.next = next;
 window.prev = prev;
 window.go = go;
+} // end boot
+
+const existing = await ensureSession();
+if (existing) await boot(existing);
+else showLogin();
 
 })().catch(err => {
-  const deck = document.getElementById('deck');
-  if (deck) deck.innerHTML = '<p style="padding:24px;font:500 14px system-ui">Falha ao carregar dados: '+String(err)+'</p>';
+  showLogin('Falha ao iniciar o painel.');
   console.error(err);
 });
 </script>
