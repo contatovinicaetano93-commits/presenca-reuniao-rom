@@ -610,7 +610,7 @@ window.addEventListener('keydown', e => {
 });
 
 function fold(s){
-  return String(s||'').normalize('NFD').replace(/\p{M}/gu,'').toLowerCase().trim();
+  return String(s||'').normalize('NFD').replace(/\p{M}/gu,'').toLowerCase().trim().replace(/\s+/g, ' ');
 }
 
 function buildProIndex(){
@@ -756,8 +756,8 @@ function wireSearch(){
 
   function filtered(){
     const q = fold(input.value);
+    if (!q) return [];
     const pool = PRO_INDEX.filter(p => unit === 'ambas' || p.unitKey === unit);
-    if (!q) return pool.slice(0, 12);
     return pool.filter(p => p.fold.includes(q)).slice(0, 20);
   }
 
@@ -803,7 +803,10 @@ function wireSearch(){
     unit = b.dataset.unit;
     unitBar.querySelectorAll('button').forEach(el => el.classList.toggle('active', el === b));
     input.value = '';
+    matches = [];
+    activeIdx = -1;
     suggest.hidden = true;
+    suggest.innerHTML = '';
     emptyMsg();
     input.focus();
   });
