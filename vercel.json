@@ -1,1 +1,11 @@
-{"cleanUrls":true}
+{
+  "cleanUrls": true,
+  "functions": {
+    "api/**/*.js": {
+      "includeFiles": "{server-data/**,lib/**}"
+    }
+  },
+  "rewrites": [
+    { "source": "/server-data/:path*", "destination": "/api/blocked" }
+  ]
+}
