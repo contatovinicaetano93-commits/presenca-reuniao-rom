@@ -96,18 +96,31 @@
   .card h3 { margin: 0 0 12px; font-size: 1.3rem; display: flex; justify-content: space-between; gap: 8px; align-items: center; }
   .tag { font: 700 11px system-ui, sans-serif; padding: 4px 9px; border-radius: 999px; background: #ece7dc; color: var(--ink); }
   .kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 12px; }
+  .kpis.k4 { grid-template-columns: repeat(4, 1fr); }
   .kpi { background: #f5f1e8; border-radius: 12px; padding: 10px; }
   .kpi .l { font: 600 10px system-ui, sans-serif; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
   .kpi .v { font-size: 1.6rem; font-weight: 700; margin-top: 2px; }
+  .kpi .v.sm { font-size: 1.15rem; }
   .kpi .v.gold { color: var(--gold); }
   .rows { display: grid; gap: 6px; }
   .row {
-    display: grid; grid-template-columns: 1.3fr .7fr .8fr .8fr;
+    display: grid; grid-template-columns: 1.3fr .55fr .7fr .7fr .95fr;
     gap: 8px; align-items: center;
     padding: 8px 10px; border-radius: 10px; background: #f7f3ea;
     font: 500 13px/1.2 system-ui, sans-serif;
   }
   .row.head { background: transparent; color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .05em; }
+  .section-label {
+    margin: 14px 0 8px;
+    font: 700 12px/1.2 system-ui, sans-serif;
+    letter-spacing: .08em; text-transform: uppercase; color: var(--muted);
+  }
+  .warn-pill {
+    display: inline-block; margin-left: 6px;
+    padding: 2px 7px; border-radius: 999px;
+    background: #fff1d6; color: #8a5a00;
+    font: 700 10px system-ui, sans-serif;
+  }
 
   .filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
   .filters button {
@@ -138,8 +151,11 @@
   }
 
   @media (max-width: 800px) {
-    .big-row, .cards, .kpis { grid-template-columns: 1fr; }
+    .big-row, .cards, .kpis, .kpis.k4 { grid-template-columns: 1fr 1fr; }
     .row { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 520px) {
+    .kpis, .kpis.k4 { grid-template-columns: 1fr; }
   }
   @media print {
     .topbar { display: none; }
@@ -486,24 +502,31 @@ const money = n => n == null ? '—' : Number(n).toLocaleString('pt-BR', {maximu
 const pct = n => n == null ? '—' : String(n).replace('.', ',') + '%';
 const delta = n => n == null ? '—' : ((n>0?'+':'') + Number(n).toFixed(1).replace('.', ','));
 const esc = s => String(s??'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fatAlert = p => (p && p.media_dia_trabalhado != null && p.dias_trabalhados > 0 && p.media_dia_trabalhado >= 15000 && p.dias_trabalhados <= 10);
+const rateioMes = (fatPeriodo, diasMes, diasPeriodo) => {
+  if (fatPeriodo == null || !diasMes || !diasPeriodo) return null;
+  return +(fatPeriodo * (diasMes / diasPeriodo)).toFixed(2);
+};
 
 function unitBlock(u, cls){
   const rows = CATS.map(c => {
     const b = u.by_category[c];
-    return `<div class="row"><strong>${c}</strong><span>${b.n}</span><span>${pct(b.media_constancia_pct)}</span><span>${b.media_dias_trabalhados} d</span></div>`;
+    return `<div class="row"><strong>${c}</strong><span>${b.n}</span><span>${pct(b.media_constancia_pct)}</span><span>${b.media_dias_trabalhados} d</span><span>R$ ${money(b.fat_bruto_jan_set)}</span></div>`;
   }).join('');
+  const cov = u.fat_coverage ? `${u.fat_coverage.matched}/${u.fat_coverage.total_pros} com fat` : '';
   return `<article class="card ${cls}">
     <h3>${esc(u.unidade)} <span class="tag">${u.salon_open_days} dias abertos</span></h3>
-    <div class="kpis">
+    <div class="kpis k4">
       <div class="kpi"><div class="l">Constância</div><div class="v gold">${pct(u.media_geral_constancia_pct)}</div></div>
       <div class="kpi"><div class="l">Média dias</div><div class="v">${u.media_dias_trabalhados}</div></div>
       <div class="kpi"><div class="l">Com presença</div><div class="v">${u.n_com_presenca}</div></div>
+      <div class="kpi"><div class="l">Fat bruto jan–set</div><div class="v sm gold">R$ ${money(u.fat_total_jan_set)}</div></div>
     </div>
     <div class="rows">
-      <div class="row head"><span>Categoria</span><span>n</span><span>Constância</span><span>Dias</span></div>
+      <div class="row head"><span>Categoria</span><span>n</span><span>Constância</span><span>Dias</span><span>Fat</span></div>
       ${rows}
     </div>
-    <p class="hint">Acima ${u.acima} · Abaixo ${u.abaixo} · Sem presença ${u.n_sem_presenca}</p>
+    <p class="hint">Acima ${u.acima} · Abaixo ${u.abaixo} · Sem presença ${u.n_sem_presenca}${cov ? ' · ' + cov : ''}</p>
   </article>`;
 }
 
@@ -518,24 +541,30 @@ function tableFor(u, cat){
       constancia_pct: 0,
       delta_indice: u.media_dias_trabalhados ? -100 : null,
       standing: 'abaixo',
+      fat_bruto_jan_set: null,
+      media_dia_trabalhado: null,
       _zero: true,
     }));
   const all = pros.concat(zeros);
   const rows = all.map((p,i) => `<tr${p._zero?' style="opacity:.75"':''}>
     <td class="num">${i+1}</td>
-    <td>${esc(p.nome)}${p._zero?' <span class="badge abaixo">0 dias</span>':''}</td>
+    <td>${esc(p.nome)}${p._zero?' <span class="badge abaixo">0 dias</span>':''}${fatAlert(p)?' <span class="warn-pill">fat/dias alto</span>':''}</td>
     <td class="num">${p.dias_trabalhados}</td>
     <td class="num">${pct(p.constancia_pct)}</td>
     <td class="num">${delta(p.delta_indice)}</td>
     <td><span class="badge ${p.standing}">${p.standing}</span></td>
-      </tr>`).join('');
+    <td class="num">${money(p.fat_bruto_jan_set)}</td>
+    <td class="num">${money(p.media_dia_trabalhado)}</td>
+  </tr>`).join('');
+  const catFat = u.by_category[cat]?.fat_bruto_jan_set;
   return `<div class="tablebox"><table>
     <thead><tr>
       <th class="num">#</th><th>Nome</th><th class="num">Dias</th><th class="num">Const%</th>
-      <th class="num">Δ%</th><th>Standing</th>    </tr></thead>
+      <th class="num">Δ%</th><th>Standing</th><th class="num">Fat jan–set</th><th class="num">R$/dia</th>
+    </tr></thead>
     <tbody>${rows}</tbody>
   </table></div>
-  <p class="hint">${esc(u.unidade)} · ${cat} · com presença ${pros.length} · sem presença no período ${zeros.length} · média dos com presença ${pct(u.by_category[cat].media_constancia_pct)} · Δ vs média do recorte (${u.media_dias_trabalhados} dias)</p>`;
+  <p class="hint">${esc(u.unidade)} · ${cat} · fat categoria R$ ${money(catFat)} · com presença ${pros.length} · sem presença ${zeros.length} · média constância ${pct(u.by_category[cat].media_constancia_pct)} · R$/dia = fat ÷ dias trabalhados</p>`;
 }
 
 function spark(months, cls){
@@ -552,32 +581,44 @@ function catPill(cat){
   return `<span class="cat-pill ${cls}">${esc(c)}</span>`;
 }
 
-function monthProsTable(month){
+function monthProsTable(month, unitKey){
+  const unitData = unitKey === 'brasil' ? br : ig;
+  const periodByName = new Map((unitData?.professionals || []).map(p => [p.nome, p]));
   const pros = month.professionals || [];
   if (!pros.length) return '<p class="hint">Nenhum ativo neste mês.</p>';
-  const rows = pros.map((p,i) => `<tr>
-    <td class="num">${i+1}</td>
-    <td>${esc(p.nome)}</td>
-    <td>${catPill(p.categoria)}</td>
-    <td class="num">${p.dias_trabalhados}</td>
-    <td class="num">${p.dias_abertos_salao}</td>
-    <td class="num">${pct(p.constancia_pct)}</td>
-    <td class="num">${delta(p.delta_indice)}</td>
-    <td><span class="badge ${p.standing}">${p.standing}</span></td>
-  </tr>`).join('');
+  const rows = pros.map((p,i) => {
+    const period = periodByName.get(p.nome);
+    const fatMes = rateioMes(period?.fat_bruto_jan_set, p.dias_trabalhados, period?.dias_trabalhados);
+    const rDia = fatMes != null && p.dias_trabalhados ? +(fatMes / p.dias_trabalhados).toFixed(2) : null;
+    return `<tr>
+      <td class="num">${i+1}</td>
+      <td>${esc(p.nome)}</td>
+      <td>${catPill(p.categoria)}</td>
+      <td class="num">${p.dias_trabalhados}</td>
+      <td class="num">${p.dias_abertos_salao}</td>
+      <td class="num">${pct(p.constancia_pct)}</td>
+      <td class="num">${delta(p.delta_indice)}</td>
+      <td><span class="badge ${p.standing}">${p.standing}</span></td>
+      <td class="num">${money(fatMes)}</td>
+      <td class="num">${money(rDia)}</td>
+    </tr>`;
+  }).join('');
   return `<div class="tablebox"><table>
     <thead><tr>
       <th class="num">#</th><th>Nome</th><th>Cat</th>
       <th class="num">Dias</th><th class="num">Abertos</th><th class="num">Const%</th>
       <th class="num">Δ%</th><th>Standing</th>
+      <th class="num">Fat rateio</th><th class="num">R$/dia</th>
     </tr></thead>
     <tbody>${rows}</tbody>
-  </table></div>`;
+  </table></div>
+  <p class="hint">Fat rateio = fat jan–set × (dias do mês ÷ dias do período). Não é fat fiscal do mês — é distribuição proporcional da presença.</p>`;
 }
 
-function monthCard(label, cls, months, periodAvg){
+function monthCard(label, cls, months, periodAvg, unitKey){
   const first = months[0], last = months[months.length-1];
   const deltaPts = +(last.media_geral_constancia_pct - first.media_geral_constancia_pct).toFixed(1);
+  const unitData = unitKey === 'brasil' ? br : ig;
   const rows = months.map((m,i) => {
     const prev = i ? months[i-1].media_geral_constancia_pct : null;
     const up = prev != null && m.media_geral_constancia_pct > prev;
@@ -607,16 +648,17 @@ function monthCard(label, cls, months, periodAvg){
         <span class="meta">Cab ${cab} · Man ${man} · Maq ${maq}</span>
         <span class="meta">média ${m.media_dias_trabalhados} d · abertos ${m.salon_open_days}</span>
       </summary>
-      ${monthProsTable(m)}
+      ${monthProsTable(m, unitKey)}
     </details>`;
   }).join('');
   return `<article class="card ${cls}">
     <h3>${esc(label)} <span class="tag">${first.label} ${pct(first.media_geral_constancia_pct)} → ${last.label} ${pct(last.media_geral_constancia_pct)} (${deltaPts>0?'+':''}${String(deltaPts).replace('.',',')} pp)</span></h3>
     ${spark(months, cls)}
-    <div class="kpis">
+    <div class="kpis k4">
       <div class="kpi"><div class="l">Jan → Set</div><div class="v gold">${pct(first.media_geral_constancia_pct)} → ${pct(last.media_geral_constancia_pct)}</div></div>
       <div class="kpi"><div class="l">Ativos no mês</div><div class="v">${first.n_ativos} → ${last.n_ativos}</div></div>
       <div class="kpi"><div class="l">Média período</div><div class="v">${pct(periodAvg)}</div></div>
+      <div class="kpi"><div class="l">Fat bruto jan–set</div><div class="v sm gold">R$ ${money(unitData?.fat_total_jan_set)}</div></div>
     </div>
     <div style="overflow:auto">
       <table class="month-table">
@@ -627,22 +669,62 @@ function monthCard(label, cls, months, periodAvg){
         <tbody>${rows}</tbody>
       </table>
     </div>
-    <p class="hint">Ativo no mês = pelo menos 1 dia com visita. Constância = dias trabalhados ÷ dias abertos do mês. Sem faturamento neste painel.</p>
+    <p class="hint">Ativo no mês = pelo menos 1 dia com visita. Constância = dias trabalhados ÷ dias abertos do mês. Fat mensal = rateio do fat jan–set pela presença.</p>
     <h4 style="margin:16px 0 8px;font:700 15px system-ui,sans-serif">Profissionais por mês</h4>
-    <p class="hint" style="margin-top:0">Abra o mês para ver cada profissional ativo, constância e Δ vs a média dos ativos daquele mês.</p>
+    <p class="hint" style="margin-top:0">Abra o mês para ver presença, constância e fat rateado daquele mês.</p>
     <div class="month-pros">${details}</div>
   </article>`;
 }
 
+function financeBlock(u, cls){
+  const ranked = [...(u.professionals||[])]
+    .filter(p => (p.fat_bruto_jan_set || 0) > 0)
+    .sort((a,b) => (b.fat_bruto_jan_set||0) - (a.fat_bruto_jan_set||0));
+  const top = ranked.slice(0, 12);
+  const alerts = ranked.filter(fatAlert);
+  const rows = top.map((p,i) => `<tr>
+    <td class="num">${i+1}</td>
+    <td>${esc(p.nome)}${fatAlert(p)?' <span class="warn-pill">revisar</span>':''}</td>
+    <td>${catPill(p.categoria)}</td>
+    <td class="num">${p.dias_trabalhados}</td>
+    <td class="num">${pct(p.constancia_pct)}</td>
+    <td class="num">${money(p.fat_bruto_jan_set)}</td>
+    <td class="num">${money(p.media_dia_trabalhado)}</td>
+    <td class="num">${money(p.media_dia_salao)}</td>
+  </tr>`).join('');
+  return `<article class="card ${cls}">
+    <h3>${esc(u.unidade)} <span class="tag">Fat jan–set R$ ${money(u.fat_total_jan_set)}</span></h3>
+    <div class="kpis k4">
+      <div class="kpi"><div class="l">Fat total</div><div class="v sm gold">R$ ${money(u.fat_total_jan_set)}</div></div>
+      <div class="kpi"><div class="l">Com fat</div><div class="v">${u.fat_coverage?.matched ?? '—'}/${u.fat_coverage?.total_pros ?? '—'}</div></div>
+      <div class="kpi"><div class="l">Top 1</div><div class="v sm">${top[0] ? 'R$ '+money(top[0].fat_bruto_jan_set) : '—'}</div></div>
+      <div class="kpi"><div class="l">Alertas fat/dias</div><div class="v">${alerts.length}</div></div>
+    </div>
+    <p class="section-label">Ranking por fat bruto</p>
+    <div class="tablebox"><table>
+      <thead><tr>
+        <th class="num">#</th><th>Nome</th><th>Cat</th><th class="num">Dias</th><th class="num">Const%</th>
+        <th class="num">Fat</th><th class="num">R$/dia trab.</th><th class="num">R$/dia salão</th>
+      </tr></thead>
+      <tbody>${rows}</tbody>
+    </table></div>
+    <p class="hint">R$/dia trab. = fat ÷ dias com presença. R$/dia salão = fat ÷ dias abertos do salão. Alerta quando fat/dia ≥ 15 mil com ≤ 10 dias.</p>
+  </article>`;
+}
 
 const capaBigs = [
-  canBrasil && br ? `<div class="big"><div class="u">Brasil</div><div class="n">${pct(br.media_geral_constancia_pct)}</div><div class="s">${br.n_com_presenca} profissionais · base ${br.salon_open_days} dias · média ${br.media_dias_trabalhados} dias</div></div>` : '',
-  canIguatemi && ig ? `<div class="big"><div class="u">Iguatemi</div><div class="n">${pct(ig.media_geral_constancia_pct)}</div><div class="s">${ig.n_com_presenca} profissionais · base ${ig.salon_open_days} dias · média ${ig.media_dias_trabalhados} dias</div></div>` : '',
+  canBrasil && br ? `<div class="big"><div class="u">Brasil</div><div class="n">${pct(br.media_geral_constancia_pct)}</div><div class="s">${br.n_com_presenca} profissionais · fat R$ ${money(br.fat_total_jan_set)} · média ${br.media_dias_trabalhados} dias</div></div>` : '',
+  canIguatemi && ig ? `<div class="big"><div class="u">Iguatemi</div><div class="n">${pct(ig.media_geral_constancia_pct)}</div><div class="s">${ig.n_com_presenca} profissionais · fat R$ ${money(ig.fat_total_jan_set)} · média ${ig.media_dias_trabalhados} dias</div></div>` : '',
 ].filter(Boolean).join('');
 
 const resumoCards = [
   canBrasil && br ? unitBlock(br,'br') : '',
   canIguatemi && ig ? unitBlock(ig,'ig') : '',
+].filter(Boolean).join('');
+
+const financeCards = [
+  canBrasil && br ? financeBlock(br,'br') : '',
+  canIguatemi && ig ? financeBlock(ig,'ig') : '',
 ].filter(Boolean).join('');
 
 const searchUnitButtons = isDiretor
@@ -654,8 +736,8 @@ const searchUnitButtons = isDiretor
     : `<button type="button" data-unit="iguatemi" class="active">Iguatemi</button>`;
 
 const monthCards = [
-  canBrasil && br ? monthCard('Brasil','br', mBr, br.media_geral_constancia_pct) : '',
-  canIguatemi && ig ? monthCard('Iguatemi','ig', mIg, ig.media_geral_constancia_pct) : '',
+  canBrasil && br ? monthCard('Brasil','br', mBr, br.media_geral_constancia_pct, 'brasil') : '',
+  canIguatemi && ig ? monthCard('Iguatemi','ig', mIg, ig.media_geral_constancia_pct, 'iguatemi') : '',
 ].filter(Boolean).join('');
 
 const slides = [
@@ -673,8 +755,16 @@ const slides = [
     id: 'resumo',
     label: 'Resumo',
     html: `<h2>Resumo por unidade</h2>
-      <p class="sub">${isDiretor ? 'Médias gerais e por categoria no recorte oficial da reunião.' : `Médias da unidade ${canBrasil ? 'Brasil' : 'Iguatemi'}.`}</p>
+      <p class="sub">${isDiretor ? 'Presença e fat bruto jan–set por unidade e categoria.' : `Presença e fat da unidade ${canBrasil ? 'Brasil' : 'Iguatemi'}.`}</p>
       <div class="cards" style="${isDiretor ? '' : 'grid-template-columns:1fr'}">${resumoCards}</div>`
+  },
+  {
+    id: 'financeiro',
+    label: 'Financeiro',
+    fullLabel: 'Financeiro',
+    html: `<h2>Faturamento jan–set</h2>
+      <p class="sub">Fat bruto do período + R$/dia. Quem não tem fat histórico aparece como — nas listas. Fat mensal nas outras abas usa rateio pela presença.</p>
+      <div class="cards" style="${isDiretor ? '' : 'grid-template-columns:1fr'}">${financeCards}</div>`
   },
   {
     id: 'pesquisar',
@@ -682,7 +772,7 @@ const slides = [
     fullLabel: 'Pesquisar',
     html: `<div class="search-panel">
       <h2>Pesquisar profissional</h2>
-      <p class="sub">${isDiretor ? 'Escolha a unidade e digite o nome. Aparecem só os dados daquela pessoa — período e mês a mês.' : `Busca limitada à unidade ${canBrasil ? 'Brasil' : 'Iguatemi'}.`}</p>
+      <p class="sub">${isDiretor ? 'Escolha a unidade e digite o nome. Presença, fat do período e rateio mês a mês daquela pessoa.' : `Busca limitada à unidade ${canBrasil ? 'Brasil' : 'Iguatemi'}.`}</p>
       <div class="filters" id="search-unit" role="group" aria-label="Unidade">
         ${searchUnitButtons}
       </div>
@@ -691,7 +781,7 @@ const slides = [
         <ul id="search-suggest" class="suggest" hidden></ul>
       </div>
       <div id="search-result">
-        <div class="search-empty">Busque um profissional para ver constância do período e a curva mês a mês.</div>
+        <div class="search-empty">Busque um profissional para ver presença + faturamento.</div>
       </div>
     </div>`
   },
@@ -700,7 +790,7 @@ const slides = [
     label: 'Mês a mês',
     fullLabel: 'Mês a mês',
     html: `<h2>Mês a mês</h2>
-      <p class="sub">Só quem teve presença no mês (ativos). Evolução da constância + lista de cada profissional por mês. Sem faturamento.</p>
+      <p class="sub">Ativos do mês + fat rateado (fat jan–set × dias do mês ÷ dias do período).</p>
       <div class="month-grid" style="${isDiretor ? '' : 'grid-template-columns:1fr'}">${monthCards}</div>`
   }
 ];
@@ -889,12 +979,16 @@ function renderProCard(p){
     return `<div class="bar-wrap"><div class="bv">${val}</div><div class="bar ${cls}" style="height:${h}%;opacity:${m.media_geral_constancia_pct?1:.25}"></div><div class="bl">${m.label}</div></div>`;
   }).join('')}</div>`;
   const rows = p.series.map(m => {
+    const fatMes = m.ativo ? rateioMes(p.fat_bruto_jan_set, m.dias_trabalhados, p.dias_trabalhados) : null;
+    const rDia = fatMes != null && m.dias_trabalhados ? +(fatMes / m.dias_trabalhados).toFixed(2) : null;
     if (!m.ativo){
       return `<tr>
         <td><strong>${m.label}</strong></td>
         <td class="mute">—</td>
         <td class="mute">—</td>
         <td class="mute">sem presença</td>
+        <td class="mute">—</td>
+        <td class="mute">—</td>
         <td class="mute">—</td>
         <td class="mute">—</td>
       </tr>`;
@@ -906,27 +1000,36 @@ function renderProCard(p){
       <td>${pct(m.constancia_pct)}</td>
       <td>${delta(m.delta_indice)}</td>
       <td><span class="badge ${m.standing}">${m.standing}</span></td>
+      <td>${money(fatMes)}</td>
+      <td>${money(rDia)}</td>
     </tr>`;
   }).join('');
   return `<article class="pro-card ${cls}">
-    <h3>${esc(p.nome)} ${catPill(p.categoria)} <span class="tag">${esc(p.unidade)}</span></h3>
+    <h3>${esc(p.nome)} ${catPill(p.categoria)} <span class="tag">${esc(p.unidade)}</span>${fatAlert(p)?' <span class="warn-pill">fat/dias alto</span>':''}</h3>
     <p class="who">${p.zero ? 'Sem presença no período acumulado.' : `Standing <span class="badge ${p.standing}">${p.standing}</span> · Δ ${delta(p.delta_indice)} vs média do recorte (${p.mediaDiasUnidade} dias)`}</p>
+    <p class="section-label">Presença</p>
     <div class="kpis">
       <div class="kpi"><div class="l">Constância período</div><div class="v gold">${pct(p.constancia_pct)}</div></div>
       <div class="kpi"><div class="l">Dias trabalhados</div><div class="v">${p.dias_trabalhados}</div></div>
       <div class="kpi"><div class="l">Meses ativos</div><div class="v">${ativos.length}/${p.series.length}</div></div>
+    </div>
+    <p class="section-label">Faturamento (jan–set)</p>
+    <div class="kpis">
+      <div class="kpi"><div class="l">Fat bruto</div><div class="v sm gold">R$ ${money(p.fat_bruto_jan_set)}</div></div>
+      <div class="kpi"><div class="l">R$/dia trabalhado</div><div class="v sm">${money(p.media_dia_trabalhado)}</div></div>
+      <div class="kpi"><div class="l">R$/dia salão</div><div class="v sm">${money(p.media_dia_salao)}</div></div>
     </div>
     ${sparkHtml}
     <h4 style="margin:8px 0 8px;font:700 15px system-ui,sans-serif">Mês a mês desta pessoa</h4>
     <div class="pro-series">
       <table class="month-table">
         <thead><tr>
-          <th>Mês</th><th>Dias</th><th>Abertos</th><th>Const%</th><th>Δ%</th><th>Standing</th>
+          <th>Mês</th><th>Dias</th><th>Abertos</th><th>Const%</th><th>Δ%</th><th>Standing</th><th>Fat rateio</th><th>R$/dia</th>
         </tr></thead>
         <tbody>${rows}</tbody>
       </table>
     </div>
-    <p class="hint">Média da unidade no período: ${pct(p.mediaUnidade)}. Constância individual = dias trabalhados ÷ dias abertos.</p>
+    <p class="hint">Fat rateio mensal = fat jan–set × (dias do mês ÷ ${p.dias_trabalhados || 0} dias do período). Sem fat fiscal mês a mês na fonte — rateio pela presença.</p>
   </article>`;
 }
 
@@ -971,6 +1074,7 @@ function wireSearch(){
       <span class="meta">${esc(p.unidade)}</span>
       ${catPill(p.categoria)}
       <span class="meta">${pct(p.constancia_pct)}</span>
+      <span class="meta">R$ ${money(p.fat_bruto_jan_set)}</span>
     </li>`).join('');
   }
 

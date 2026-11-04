@@ -4,6 +4,8 @@
   "recorte": "Cabeleireiros + Manicure + Maquiadora",
   "match": "occupancyMergeKey + namesLooselyMatch (match-pro) + curated nicknames",
   "kpi_null": "médias só sobre quem tem presença (>0 dias)",
-  "privacidade": "sem faturamento no painel público",
-  "mes_a_mes": "resumo por categoria + lista de profissionais ativos por mês"
+  "privacidade": "faturamento visível só após login, filtrado por unidade",
+  "mes_a_mes": "resumo por categoria + lista de profissionais ativos por mês",
+  "faturamento": "fat bruto jan–set + R$/dia (trabalhado e salão); sem série mensal de fat na fonte atual",
+  "fat_source_commit": "81c74ac"
 }
