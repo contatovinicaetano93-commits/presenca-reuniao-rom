@@ -26,17 +26,29 @@
     "Manicure": {
       "n": 22,
       "media_constancia_pct": 58.4,
-      "media_dias_trabalhados": 158.86
+      "media_dias_trabalhados": 158.86,
+      "acima": 14,
+      "abaixo": 8,
+      "fat_bruto_jan_set": 1588876.45,
+      "n_com_fat": 18
     },
     "Cabeleireiros": {
       "n": 33,
       "media_constancia_pct": 52.2,
-      "media_dias_trabalhados": 142.12
+      "media_dias_trabalhados": 142.12,
+      "acima": 17,
+      "abaixo": 16,
+      "fat_bruto_jan_set": 19262899.24,
+      "n_com_fat": 28
     },
     "Maquiadora": {
       "n": 5,
       "media_constancia_pct": 61.3,
-      "media_dias_trabalhados": 166.8
+      "media_dias_trabalhados": 166.8,
+      "acima": 5,
+      "abaixo": 0,
+      "fat_bruto_jan_set": 1223016,
+      "n_com_fat": 5
     }
   },
   "professionals": [
