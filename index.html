@@ -682,8 +682,13 @@ function financeBlock(u, cls){
     .sort((a,b) => (b.fat_bruto_jan_set||0) - (a.fat_bruto_jan_set||0));
   const top = ranked.slice(0, 12);
   const alerts = ranked.filter(fatAlert);
-  const rows = top.map((p,i) => `<tr>
-    <td class="num">${i+1}</td>
+  const outsideAlerts = alerts.filter(p => !top.includes(p));
+  const financeHead = `<thead><tr>
+        <th class="num">#</th><th>Nome</th><th>Cat</th><th class="num">Dias</th><th class="num">Const%</th>
+        <th class="num">Fat</th><th class="num">R$/dia trab.</th><th class="num">R$/dia salão</th>
+      </tr></thead>`;
+  const financeRow = (p, rank) => `<tr>
+    <td class="num">${rank}</td>
     <td>${esc(p.nome)}${fatAlert(p)?' <span class="warn-pill">revisar</span>':''}</td>
     <td>${catPill(p.categoria)}</td>
     <td class="num">${p.dias_trabalhados}</td>
@@ -691,7 +696,14 @@ function financeBlock(u, cls){
     <td class="num">${money(p.fat_bruto_jan_set)}</td>
     <td class="num">${money(p.media_dia_trabalhado)}</td>
     <td class="num">${money(p.media_dia_salao)}</td>
-  </tr>`).join('');
+  </tr>`;
+  const rows = top.map((p,i) => financeRow(p, i + 1)).join('');
+  const alertTable = outsideAlerts.length ? `
+    <p class="section-label">Alertas fat/dias fora do top 12</p>
+    <div class="tablebox"><table>
+      ${financeHead}
+      <tbody>${outsideAlerts.map(p => financeRow(p, ranked.indexOf(p) + 1)).join('')}</tbody>
+    </table></div>` : '';
   return `<article class="card ${cls}">
     <h3>${esc(u.unidade)} <span class="tag">Fat jan–set R$ ${money(u.fat_total_jan_set)}</span></h3>
     <div class="kpis k4">
@@ -702,12 +714,10 @@ function financeBlock(u, cls){
     </div>
     <p class="section-label">Ranking por fat bruto</p>
     <div class="tablebox"><table>
-      <thead><tr>
-        <th class="num">#</th><th>Nome</th><th>Cat</th><th class="num">Dias</th><th class="num">Const%</th>
-        <th class="num">Fat</th><th class="num">R$/dia trab.</th><th class="num">R$/dia salão</th>
-      </tr></thead>
+      ${financeHead}
       <tbody>${rows}</tbody>
     </table></div>
+    ${alertTable}
     <p class="hint">R$/dia trab. = fat ÷ dias com presença. R$/dia salão = fat ÷ dias abertos do salão. Alerta quando fat/dia ≥ 15 mil com ≤ 10 dias.</p>
   </article>`;
 }
