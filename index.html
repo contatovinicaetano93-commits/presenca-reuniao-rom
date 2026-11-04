@@ -502,7 +502,21 @@ const money = n => n == null ? '—' : Number(n).toLocaleString('pt-BR', {maximu
 const pct = n => n == null ? '—' : String(n).replace('.', ',') + '%';
 const delta = n => n == null ? '—' : ((n>0?'+':'') + Number(n).toFixed(1).replace('.', ','));
 const esc = s => String(s??'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const fatAlert = p => (p && p.media_dia_trabalhado != null && p.dias_trabalhados > 0 && p.media_dia_trabalhado >= 15000 && p.dias_trabalhados <= 10);
+/** Sempre fat ÷ dias — não confiar em media_dia_* gravado (pode ficar defasado). */
+const rDiaTrab = p => {
+  const f = p && p.fat_bruto_jan_set, d = p && p.dias_trabalhados;
+  if (f == null || !(d > 0)) return null;
+  return +(Number(f) / Number(d)).toFixed(2);
+};
+const rDiaSalao = p => {
+  const f = p && p.fat_bruto_jan_set, d = p && p.dias_abertos_salao;
+  if (f == null || !(d > 0)) return null;
+  return +(Number(f) / Number(d)).toFixed(2);
+};
+const fatAlert = p => {
+  const m = rDiaTrab(p);
+  return m != null && p.dias_trabalhados > 0 && m >= 15000 && p.dias_trabalhados <= 10;
+};
 const rateioMes = (fatPeriodo, diasMes, diasPeriodo) => {
   if (fatPeriodo == null || !diasMes || !diasPeriodo) return null;
   return +(fatPeriodo * (diasMes / diasPeriodo)).toFixed(2);
@@ -554,7 +568,7 @@ function tableFor(u, cat){
     <td class="num">${delta(p.delta_indice)}</td>
     <td><span class="badge ${p.standing}">${p.standing}</span></td>
     <td class="num">${money(p.fat_bruto_jan_set)}</td>
-    <td class="num">${money(p.media_dia_trabalhado)}</td>
+    <td class="num">${money(rDiaTrab(p))}</td>
   </tr>`).join('');
   const catFat = u.by_category[cat]?.fat_bruto_jan_set;
   return `<div class="tablebox"><table>
@@ -689,8 +703,8 @@ function financeBlock(u, cls){
     <td class="num">${p.dias_trabalhados}</td>
     <td class="num">${pct(p.constancia_pct)}</td>
     <td class="num">${money(p.fat_bruto_jan_set)}</td>
-    <td class="num">${money(p.media_dia_trabalhado)}</td>
-    <td class="num">${money(p.media_dia_salao)}</td>
+    <td class="num">${money(rDiaTrab(p))}</td>
+    <td class="num">${money(rDiaSalao(p))}</td>
   </tr>`).join('');
   return `<article class="card ${cls}">
     <h3>${esc(u.unidade)} <span class="tag">Fat jan–set R$ ${money(u.fat_total_jan_set)}</span></h3>
@@ -1016,8 +1030,8 @@ function renderProCard(p){
     <p class="section-label">Faturamento (jan–set)</p>
     <div class="kpis">
       <div class="kpi"><div class="l">Fat bruto</div><div class="v sm gold">R$ ${money(p.fat_bruto_jan_set)}</div></div>
-      <div class="kpi"><div class="l">R$/dia trabalhado</div><div class="v sm">${money(p.media_dia_trabalhado)}</div></div>
-      <div class="kpi"><div class="l">R$/dia salão</div><div class="v sm">${money(p.media_dia_salao)}</div></div>
+      <div class="kpi"><div class="l">R$/dia trabalhado</div><div class="v sm">${money(rDiaTrab(p))}</div></div>
+      <div class="kpi"><div class="l">R$/dia salão</div><div class="v sm">${money(rDiaSalao(p))}</div></div>
     </div>
     ${sparkHtml}
     <h4 style="margin:8px 0 8px;font:700 15px system-ui,sans-serif">Mês a mês desta pessoa</h4>
