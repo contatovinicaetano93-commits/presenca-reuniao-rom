@@ -7,5 +7,14 @@
   "privacidade": "faturamento visível só após login, filtrado por unidade",
   "mes_a_mes": "resumo por categoria + lista de profissionais ativos por mês",
   "faturamento": "fat bruto jan–set + R$/dia (trabalhado e salão); sem série mensal de fat na fonte atual",
-  "fat_source_commit": "81c74ac"
+  "fat_source_commit": "81c74ac",
+  "presence_fix_2026-11-04": {
+    "issue": "Avec lista Anderson Augusto como AUGUSTO e Ana Cristina Matsumoto como ANA MATSUMOTO; match exacto ignorava o apelido",
+    "aliases_iguatemi": {
+      "ANDERSON AUGUSTO": ["ANDERSON AUGUSTO", "AUGUSTO"],
+      "ANA CRISTINA MATSUMOTO": ["ANA CRISTINA MATSUMOTO", "ANA MATSUMOTO"]
+    },
+    "anderson_dias_jan_set": 156,
+    "ana_matsumoto_dias_jan_set": 169
+  }
 }
