@@ -52,11 +52,20 @@
     "NICE…": "GILDENICE (177→184d)"
   },
   "cadastro_limpo": {
+    "criterio": "nome genérico de serviço/fila/placeholder; ou sem visitas E sem fat E nome claramente não-pessoa. Não remove profissional real só por poucos dias.",
     "brasil": [
       "LISTA DE ESPERA",
       "DEPILACAO - 3",
       "MASSAGEM 5"
     ],
-    "iguatemi": []
+    "iguatemi": [],
+    "efeito_brasil": {
+      "removidos_professionals": ["LISTA DE ESPERA", "DEPILACAO - 3"],
+      "removidos_sem_presenca": ["MASSAGEM 5"],
+      "n_listados_3cats": "69→66",
+      "n_com_presenca": "65→63",
+      "n_sem_presenca": "4→3",
+      "fat_total_jan_set_delta": -750.0
+    }
   }
 }

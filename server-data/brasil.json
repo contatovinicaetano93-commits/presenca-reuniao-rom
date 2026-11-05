@@ -27,19 +27,19 @@
       "n": 46,
       "media_constancia_pct": 50.2,
       "media_dias_trabalhados": 100.43,
-      "acima": 27,
-      "abaixo": 19,
+      "acima": 26,
+      "abaixo": 20,
       "fat_bruto_jan_set": 18305096.44,
-      "n_com_fat": 28
+      "n_com_fat": 45
     },
     "Manicure": {
       "n": 12,
       "media_constancia_pct": 61.9,
       "media_dias_trabalhados": 123.75,
       "acima": 10,
-      "abaixo": 4,
+      "abaixo": 2,
       "fat_bruto_jan_set": 994955.35,
-      "n_com_fat": 14
+      "n_com_fat": 12
     },
     "Maquiadora": {
       "n": 5,
@@ -48,7 +48,7 @@
       "acima": 2,
       "abaixo": 3,
       "fat_bruto_jan_set": 950223.67,
-      "n_com_fat": 4
+      "n_com_fat": 5
     }
   },
   "professionals": [
