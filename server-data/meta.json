@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-05T19:55:00.000Z",
+  "generated_at": "2026-11-05T20:05:00.000Z",
   "periodo": "2026-01-01 a 2026-09-30",
   "recorte": "Cabeleireiros + Manicure + Maquiadora",
   "match": "occupancyMergeKey + namesLooselyMatch (match-pro) + curated nicknames",
@@ -278,5 +278,37 @@
         }
       ]
     }
+  },
+  "presence_brasil_100_fix_2026-11-05": {
+    "unit": "brasil",
+    "salon_open_days": {
+      "antes": 200,
+      "db": 198,
+      "regra": "COUNT(DISTINCT visited_on) em salon_client_visits no período 2026-01-01..2026-09-30 (qualquer profissional). Não usa calendário comercial nem dias sem visita registrada."
+    },
+    "salon_open_days_monthly_fixes": {
+      "2026-03": "24→23",
+      "2026-04": "22→21"
+    },
+    "orphans_recovered": {
+      "ULISSES PETRI": "ULISSES SILVA JUNIOR (167d)",
+      "DORA": "MARIA DAS DORES DE SOUZA (170d)",
+      "YAN MARTINS": "NICOLAS YAN MARTINS DA SILVA (10d)"
+    },
+    "day_fixes": {
+      "LUCAS CAMPOS DE MACEDO": "142→143",
+      "RODRIGO APOLINARIO PIRES SARAIVA": "115→116",
+      "FERNANDA GOMES": "96→105",
+      "Gabriela  Santos": "93→36",
+      "GHABRYEL FLORES MARTINS": "50→51",
+      "ULISSES SILVA JUNIOR": "0→167",
+      "MARIA DAS DORES DE SOUZA": "0→170",
+      "NICOLAS YAN MARTINS DA SILVA": "0→10"
+    },
+    "rejected": {
+      "MAURI  LIMA": "Não atribuir a MAURICIO DE CARVALHO LIMA — profissional distinto (123 dias em comum no calendário, visitas separadas)."
+    },
+    "n_com_presenca": "63→66",
+    "n_sem_presenca": "3→0"
   }
 }
