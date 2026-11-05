@@ -34,5 +34,15 @@
       "rs_dia_antes": 1719,
       "rs_dia_agora": 1824.16
     }
+  },
+  "consistency_fix_2026-11-05": {
+    "from": "audit consistência painel",
+    "fixes": [
+      "backfill fat_bruto_jan_set from fat_meses_sum when null",
+      "Giovani fat = soma meses P1 disponíveis",
+      "dias Rober/Diello/Mauricio = union de apelidos Avec",
+      "Gabriela: período alinhado à soma mensal",
+      "fat_matched_sum / fat_coverage atualizados"
+    ]
   }
 }
