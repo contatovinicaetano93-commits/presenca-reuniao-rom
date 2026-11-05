@@ -2,7 +2,31 @@
   "description": "Apelidos Avec em salon_client_visits → nome canônico do painel (Iguatemi).",
   "period": "2026-01-01 a 2026-09-30",
   "aliases": {
-    "ANDERSON AUGUSTO": ["ANDERSON AUGUSTO", "AUGUSTO"],
-    "ANA CRISTINA MATSUMOTO": ["ANA CRISTINA MATSUMOTO", "ANA MATSUMOTO"]
+    "ANDERSON AUGUSTO": [
+      "ANDERSON AUGUSTO",
+      "AUGUSTO"
+    ],
+    "ANA CRISTINA MATSUMOTO": [
+      "ANA CRISTINA MATSUMOTO",
+      "ANA MATSUMOTO"
+    ],
+    "JOANIDES MENDES PONTES JUNIOR": [
+      "JOAH",
+      "JOANIDES MENDES PONTES JUNIOR"
+    ],
+    "Vitor Santos Lopes": [
+      "LOPEZZO",
+      "Vitor Santos Lopes",
+      "VITOR SANTOS LOPES"
+    ],
+    "Maria Auxiliadora Ribeiro Alves Alci Bella": [
+      "ALCI",
+      "Alcibelle",
+      "Maria Auxiliadora Ribeiro Alves Alci Bella"
+    ],
+    "GILDENICE TEIXEIRA DE MEDEIROS": [
+      "GILDENICE TEIXEIRA DE MEDEIROS",
+      "NICE TEIXEIRA DE MEDEIROS"
+    ]
   }
 }
