@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-05T19:30:00.000Z",
+  "generated_at": "2026-11-05T19:57:34.000Z",
   "periodo": "2026-01-01 a 2026-09-30",
   "recorte": "Cabeleireiros + Manicure + Maquiadora",
   "match": "occupancyMergeKey + namesLooselyMatch (match-pro) + curated nicknames",
@@ -50,5 +50,407 @@
     "LOPEZZO": "Vitor Santos Lopes (155d)",
     "ALCI/Alcibelle": "Maria Auxiliadora… Alci Bella (230d)",
     "NICE…": "GILDENICE (177→184d)"
+  },
+  "cadastro_limpo": {
+    "criterio": "nome genérico de serviço/fila/placeholder; ou sem visitas E sem fat E nome claramente não-pessoa. Não remove profissional real só por poucos dias.",
+    "brasil": [
+      "LISTA DE ESPERA",
+      "DEPILACAO - 3",
+      "MASSAGEM 5"
+    ],
+    "iguatemi": [],
+    "efeito_brasil": {
+      "removidos_professionals": [
+        "LISTA DE ESPERA",
+        "DEPILACAO - 3"
+      ],
+      "removidos_sem_presenca": [
+        "MASSAGEM 5"
+      ],
+      "n_listados_3cats": "69→66",
+      "n_com_presenca": "65→63",
+      "n_sem_presenca": "4→3",
+      "fat_total_jan_set_delta": -750.0
+    }
+  },
+  "presence_gaps_fix_2026-11-05": {
+    "unit": "iguatemi",
+    "salon_open_days_db": 272,
+    "period_audit": "63/63 Δ=0 vs DB union(aliases); monthly Δ=0",
+    "aliases_added": {
+      "DI.DEPILAÇÃO": "DIANA DOS SANTOS CAVALCANTI BELEZA DAS MÃOS (169d)",
+      "CHABARIBERY": "DANIEL CHABARIBERY (163d)",
+      "ROSE": "MARIA ROSEANE FERREIRA DUARTE (163d)",
+      "LEILA": "Leiliane Luz dos Santos (161d)",
+      "AMAURI TITO": "AMAURI BAPTISTA BEZERRA (120d)",
+      "FRAN": "FRANCYELE DE SOUZA OLIVEIRA SANTOS (180d union)",
+      "MARCELA GUEDES": "MARCELA DE ARAUJO GUEDES (152d union)",
+      "CIDA": "MARIA APARECIDA RODRIGUES (146d)",
+      "KELLY": "RONEKELLY FARIAS DA SILVA (95d)",
+      "DORES": "MARIA DAS DORES DE LIMA (77d)"
+    },
+    "day_fixes": {
+      "MARCELA DE ARAUJO GUEDES": "150→152 (+2 jul 4/22 full name)",
+      "FRANCYELE DE SOUZA OLIVEIRA SANTOS": "179→180 (+1 jul 9 full name)",
+      "TAMIRES MARQUES DE OLIVEIRA DA COSTA": "104→105 (+1 set)"
+    },
+    "rejected": {
+      "SANDRO DOS SANTOS": "não atribuir a SANDRA NOVAES (nome distinto; 3d)"
+    },
+    "sem_presenca": []
+  },
+  "fat_rebuild_confiabilidade_100": {
+    "rule": "Fat mês = 8123 charged se existir no mês; senão P1 revenue do último dia (MTD). card_fee NÃO descontado.",
+    "fat_bruto_jan_set": "soma fat_meses quando ≥1 mês; nota se cobertura incompleta vs meses com presença",
+    "iguatemi": {
+      "pct_pros_9_de_9": 85.7,
+      "full9": 54,
+      "n_pros": 63,
+      "with_fat": 62,
+      "fat_total_jan_set": 26470978.98,
+      "fat_matched_sum": 26470978.98,
+      "coverage": {
+        "matched": 62,
+        "total_pros": 63,
+        "missing": 1
+      },
+      "incomplete": [
+        {
+          "nome": "FRANCYELE DE SOUZA OLIVEIRA SANTOS",
+          "meses": 7,
+          "presenca": 9,
+          "fat": 5572.0
+        },
+        {
+          "nome": "Rober Monteiro",
+          "meses": 0,
+          "presenca": 9,
+          "fat": null
+        },
+        {
+          "nome": "ELAINE DE OLIVEIRA",
+          "meses": 6,
+          "presenca": 6,
+          "fat": 58703.0
+        },
+        {
+          "nome": "Rosangela Aparecida dos Santos",
+          "meses": 5,
+          "presenca": 5,
+          "fat": 37628.0
+        },
+        {
+          "nome": "ISABELLY SOUSA DA SILVA",
+          "meses": 4,
+          "presenca": 4,
+          "fat": 30061.0
+        },
+        {
+          "nome": "MARIA DAS DORES DE LIMA",
+          "meses": 3,
+          "presenca": 3,
+          "fat": 29815.0
+        },
+        {
+          "nome": "GISELE MARIANO DA SILVA",
+          "meses": 2,
+          "presenca": 2,
+          "fat": 14343.5
+        },
+        {
+          "nome": "IBRAHIM ISRAEL FREIRE PADILHA",
+          "meses": 2,
+          "presenca": 2,
+          "fat": 46153.0
+        },
+        {
+          "nome": "GABRIEL JOHN DOS SANTOS",
+          "meses": 2,
+          "presenca": 2,
+          "fat": 26734.0
+        }
+      ]
+    },
+    "brasil": {
+      "pct_pros_9_de_9": 71.2,
+      "full9": 47,
+      "n_pros": 66,
+      "with_fat": 65,
+      "fat_total_jan_set": 24506888.72,
+      "fat_matched_sum": 24506888.72,
+      "coverage": {
+        "matched": 65,
+        "total_pros": 66,
+        "missing": 1
+      },
+      "incomplete": [
+        {
+          "nome": "MARIA DAS DORES DE SOUZA",
+          "meses": 8,
+          "presenca": 0,
+          "fat": 108006.5
+        },
+        {
+          "nome": "ALINE BISPO PEREIRA",
+          "meses": 7,
+          "presenca": 7,
+          "fat": 86797.96
+        },
+        {
+          "nome": "LUCIMAR APARECIDA DE CARVALHO",
+          "meses": 7,
+          "presenca": 7,
+          "fat": 62233.44
+        },
+        {
+          "nome": "Catharina de Souza Moraes Bello",
+          "meses": 7,
+          "presenca": 7,
+          "fat": 96315.44
+        },
+        {
+          "nome": "PEDRO RICARDO GALDI",
+          "meses": 7,
+          "presenca": 7,
+          "fat": 82579.17
+        },
+        {
+          "nome": "DANIELA MARINIELLO",
+          "meses": 8,
+          "presenca": 8,
+          "fat": 207470.0
+        },
+        {
+          "nome": "DEBORA SOUZA GUIMARAES",
+          "meses": 3,
+          "presenca": 3,
+          "fat": 21966.05
+        },
+        {
+          "nome": "GHABRYEL FLORES MARTINS",
+          "meses": 3,
+          "presenca": 3,
+          "fat": 100460.0
+        },
+        {
+          "nome": "JOÃO BONICKE",
+          "meses": 1,
+          "presenca": 3,
+          "fat": 37830.0
+        },
+        {
+          "nome": "FRANCINE DA SILVA COUTO",
+          "meses": 2,
+          "presenca": 2,
+          "fat": 37085.0
+        },
+        {
+          "nome": "GISELE GREYCE LIMA FAGLIONI",
+          "meses": 2,
+          "presenca": 2,
+          "fat": 27940.0
+        },
+        {
+          "nome": "GABRIEL LEANDRO PETARNELA",
+          "meses": 2,
+          "presenca": 2,
+          "fat": 53880.0
+        },
+        {
+          "nome": "ADRIANA ROSA DE JESUS ABRANCHES",
+          "meses": 1,
+          "presenca": 1,
+          "fat": 4605.0
+        },
+        {
+          "nome": "Fernando Nantes Romero",
+          "meses": 6,
+          "presenca": 5,
+          "fat": 45234.0
+        },
+        {
+          "nome": "NICOLAS YAN MARTINS DA SILVA",
+          "meses": 2,
+          "presenca": 0,
+          "fat": 5906.0
+        },
+        {
+          "nome": "Claudia Yafo",
+          "meses": 1,
+          "presenca": 1,
+          "fat": 1853.99
+        },
+        {
+          "nome": "ALBERTO MASSANORI MURAKAMI",
+          "meses": 1,
+          "presenca": 1,
+          "fat": 2356.99
+        },
+        {
+          "nome": "CLAUDIANA BEZERRA DA SILVA",
+          "meses": 0,
+          "presenca": 1,
+          "fat": null
+        },
+        {
+          "nome": "Danilo Hebert",
+          "meses": 1,
+          "presenca": 1,
+          "fat": 428.0
+        }
+      ]
+    }
+  },
+  "presence_brasil_100_fix_2026-11-05": {
+    "unit": "brasil",
+    "salon_open_days": {
+      "antes": 200,
+      "db": 198,
+      "regra": "COUNT(DISTINCT visited_on) em salon_client_visits no período 2026-01-01..2026-09-30 (qualquer profissional). Não usa calendário comercial nem dias sem visita registrada."
+    },
+    "salon_open_days_monthly_fixes": {
+      "2026-03": "24→23",
+      "2026-04": "22→21"
+    },
+    "orphans_recovered": {
+      "ULISSES PETRI": "ULISSES SILVA JUNIOR (167d)",
+      "DORA": "MARIA DAS DORES DE SOUZA (170d)",
+      "YAN MARTINS": "NICOLAS YAN MARTINS DA SILVA (10d)"
+    },
+    "day_fixes": {
+      "LUCAS CAMPOS DE MACEDO": "142→143",
+      "RODRIGO APOLINARIO PIRES SARAIVA": "115→116",
+      "FERNANDA GOMES": "96→105",
+      "Gabriela  Santos": "93→36",
+      "GHABRYEL FLORES MARTINS": "50→51",
+      "ULISSES SILVA JUNIOR": "0→167",
+      "MARIA DAS DORES DE SOUZA": "0→170",
+      "NICOLAS YAN MARTINS DA SILVA": "0→10"
+    },
+    "rejected": {
+      "MAURI  LIMA": "Não atribuir a MAURICIO DE CARVALHO LIMA — profissional distinto (123 dias em comum no calendário, visitas separadas)."
+    },
+    "n_com_presenca": "63→66",
+    "n_sem_presenca": "3→0",
+    "monthly_aligned": true
+  },
+  "fat_anomaly_fix_2026-11-05": {
+    "rule": "se fat painel > P1 EOM/8123 charged: corrigir JSON; aliases = max/mês (não soma); card_fee fora",
+    "fixes": [
+      {
+        "unit": "iguatemi",
+        "pros": [
+          {
+            "nome": "SANDRA NOVAES NASCIMENTO DOS SANTOS",
+            "fat_antes": 59683.0,
+            "fat_depois": 58739.0,
+            "media_antes": 432.49,
+            "media_depois": 425.64
+          }
+        ]
+      },
+      {
+        "unit": "brasil",
+        "pros": [
+          {
+            "nome": "MAURICIO DE CARVALHO LIMA",
+            "fat_antes": 2038695.85,
+            "fat_depois": 1655267.85,
+            "media_antes": 12063.29,
+            "media_depois": 9794.48
+          },
+          {
+            "nome": "Gabriela  Santos",
+            "fat_antes": 252324.0,
+            "fat_depois": 75203.0,
+            "media_antes": 7009.0,
+            "media_depois": 2088.97
+          }
+        ]
+      }
+    ],
+    "iguatemi_suspects": "Brunna / Júnior / Romeu: OK vs DB (sem correção); R$/dia anômalo permanece (fonte Avec)",
+    "still_anomalous_rs_dia_ge_8000": [
+      {
+        "unit": "iguatemi",
+        "nome": "Júnior Santos",
+        "media": 18088.66,
+        "dias": 104,
+        "fat": 1881221.0,
+        "why": "painel == P1/8123; R$/dia alto = fat Avec ÷ 104d"
+      },
+      {
+        "unit": "iguatemi",
+        "nome": "ROMEU FELIPE",
+        "media": 17101.33,
+        "dias": 78,
+        "fat": 1333904.0,
+        "why": "painel == P1/8123; R$/dia alto = fat Avec ÷ 78d"
+      },
+      {
+        "unit": "iguatemi",
+        "nome": "BRUNNA FABRICIO DA SILVA",
+        "media": 16569.98,
+        "dias": 133,
+        "fat": 2203808.0,
+        "why": "painel == P1/8123; R$/dia alto = fat Avec ÷ 133d"
+      },
+      {
+        "unit": "brasil",
+        "nome": "ROMEU FELIPE",
+        "media": 13935.84,
+        "dias": 107,
+        "fat": 1491135.23,
+        "why": "painel == P1/8123; R$/dia alto = fat Avec ÷ 107d"
+      },
+      {
+        "unit": "iguatemi",
+        "nome": "MARCELA DE ARAUJO GUEDES",
+        "media": 10070.8,
+        "dias": 152,
+        "fat": 1530762.0,
+        "why": "painel == P1/8123; R$/dia alto = fat Avec ÷ 152d"
+      },
+      {
+        "unit": "brasil",
+        "nome": "MAURICIO DE CARVALHO LIMA",
+        "media": 9794.48,
+        "dias": 169,
+        "fat": 1655267.85,
+        "why": "painel == P1/8123; R$/dia alto = fat Avec ÷ 169d"
+      },
+      {
+        "unit": "brasil",
+        "nome": "WALTER MARTINHO LEAL FILHO CABELEIREIRO",
+        "media": 9651.46,
+        "dias": 170,
+        "fat": 1640747.36,
+        "why": "painel == P1/8123; R$/dia alto = fat Avec ÷ 170d"
+      },
+      {
+        "unit": "iguatemi",
+        "nome": "JOANIDES MENDES PONTES JUNIOR",
+        "media": 9454.53,
+        "dias": 123,
+        "fat": 1162907.29,
+        "why": "painel == P1/8123; R$/dia alto = fat Avec ÷ 123d"
+      },
+      {
+        "unit": "brasil",
+        "nome": "ALAN FERNADO DE ALBUQUERQUE",
+        "media": 9160.17,
+        "dias": 149,
+        "fat": 1364864.66,
+        "why": "painel == P1/8123; R$/dia alto = fat Avec ÷ 149d"
+      },
+      {
+        "unit": "brasil",
+        "nome": "ULISSES SILVA JUNIOR",
+        "media": 8581.81,
+        "dias": 167,
+        "fat": 1433162.76,
+        "why": "painel == P1/8123; R$/dia alto = fat Avec ÷ 167d"
+      }
+    ]
   }
 }
