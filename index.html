@@ -517,9 +517,19 @@ const fatAlert = p => {
   const m = rDiaTrab(p);
   return m != null && p.dias_trabalhados > 0 && m >= 15000 && p.dias_trabalhados <= 10;
 };
-const rateioMes = (fatPeriodo, diasMes, diasPeriodo) => {
-  if (fatPeriodo == null || !diasMes || !diasPeriodo) return null;
-  return +(fatPeriodo * (diasMes / diasPeriodo)).toFixed(2);
+/** Fat do mês: preferir P1/8123 real; rateio só como fallback explícito. */
+const fatMesReal = (row, period) => {
+  if (row && row.fat_bruto_mes != null && Number.isFinite(Number(row.fat_bruto_mes))) {
+    return { value: +Number(row.fat_bruto_mes).toFixed(2), kind: 'real', source: row.fat_source || 'p1' };
+  }
+  if (period && period.fat_meses && row && row.month && period.fat_meses[row.month] != null) {
+    return { value: +Number(period.fat_meses[row.month]).toFixed(2), kind: 'real', source: 'fat_meses' };
+  }
+  return { value: null, kind: 'missing', source: null };
+};
+const rDiaMes = (fatMes, diasMes) => {
+  if (fatMes == null || !(diasMes > 0)) return null;
+  return +(Number(fatMes) / Number(diasMes)).toFixed(2);
 };
 
 function unitBlock(u, cls){
@@ -602,8 +612,8 @@ function monthProsTable(month, unitKey){
   if (!pros.length) return '<p class="hint">Nenhum ativo neste mês.</p>';
   const rows = pros.map((p,i) => {
     const period = periodByName.get(p.nome);
-    const fatMes = rateioMes(period?.fat_bruto_jan_set, p.dias_trabalhados, period?.dias_trabalhados);
-    const rDia = fatMes != null && p.dias_trabalhados ? +(fatMes / p.dias_trabalhados).toFixed(2) : null;
+    const fr = fatMesReal({ ...p, month: month.month }, period);
+    const rDia = rDiaMes(fr.value, p.dias_trabalhados);
     return `<tr>
       <td class="num">${i+1}</td>
       <td>${esc(p.nome)}</td>
@@ -613,7 +623,7 @@ function monthProsTable(month, unitKey){
       <td class="num">${pct(p.constancia_pct)}</td>
       <td class="num">${delta(p.delta_indice)}</td>
       <td><span class="badge ${p.standing}">${p.standing}</span></td>
-      <td class="num">${money(fatMes)}</td>
+      <td class="num">${money(fr.value)}</td>
       <td class="num">${money(rDia)}</td>
     </tr>`;
   }).join('');
@@ -622,11 +632,11 @@ function monthProsTable(month, unitKey){
       <th class="num">#</th><th>Nome</th><th>Cat</th>
       <th class="num">Dias</th><th class="num">Abertos</th><th class="num">Const%</th>
       <th class="num">Δ%</th><th>Standing</th>
-      <th class="num">Fat rateio</th><th class="num">R$/dia</th>
+      <th class="num">Fat mês</th><th class="num">R$/dia</th>
     </tr></thead>
     <tbody>${rows}</tbody>
   </table></div>
-  <p class="hint">Fat rateio = fat jan–set × (dias do mês ÷ dias do período). Não é fat fiscal do mês — é distribuição proporcional da presença.</p>`;
+  <p class="hint">Fat mês = receita bruta do mês (8123 charged ou P1) — sem descontar taxa de cartão. R$/dia = fat mês ÷ dias do mês. Sem snapshot no mês → —.</p>`;
 }
 
 function monthCard(label, cls, months, periodAvg, unitKey){
@@ -683,7 +693,7 @@ function monthCard(label, cls, months, periodAvg, unitKey){
         <tbody>${rows}</tbody>
       </table>
     </div>
-    <p class="hint">Ativo no mês = pelo menos 1 dia com visita. Constância = dias trabalhados ÷ dias abertos do mês. Fat mensal = rateio do fat jan–set pela presença.</p>
+    <p class="hint">Ativo no mês = pelo menos 1 dia com visita. Constância = dias trabalhados ÷ dias abertos do mês. Fat mês = receita bruta Avec (8123/P1), sem descontar taxa de cartão.</p>
     <h4 style="margin:16px 0 8px;font:700 15px system-ui,sans-serif">Profissionais por mês</h4>
     <p class="hint" style="margin-top:0">Abra o mês para ver presença, constância e fat rateado daquele mês.</p>
     <div class="month-pros">${details}</div>
@@ -777,7 +787,7 @@ const slides = [
     label: 'Financeiro',
     fullLabel: 'Financeiro',
     html: `<h2>Faturamento jan–set</h2>
-      <p class="sub">Fat bruto do período + R$/dia. Quem não tem fat histórico aparece como — nas listas. Fat mensal nas outras abas usa rateio pela presença.</p>
+      <p class="sub">Fat bruto do período + R$/dia. Fat mês a mês = receita bruta Avec (8123 charged ou P1), sem descontar taxa de cartão.</p>
       <div class="cards" style="${isDiretor ? '' : 'grid-template-columns:1fr'}">${financeCards}</div>`
   },
   {
@@ -786,7 +796,7 @@ const slides = [
     fullLabel: 'Pesquisar',
     html: `<div class="search-panel">
       <h2>Pesquisar profissional</h2>
-      <p class="sub">${isDiretor ? 'Escolha a unidade e digite o nome. Presença, fat do período e rateio mês a mês daquela pessoa.' : `Busca limitada à unidade ${canBrasil ? 'Brasil' : 'Iguatemi'}.`}</p>
+      <p class="sub">${isDiretor ? 'Escolha a unidade e digite o nome. Presença, fat do período e fat real mês a mês.' : `Busca limitada à unidade ${canBrasil ? 'Brasil' : 'Iguatemi'}.`}</p>
       <div class="filters" id="search-unit" role="group" aria-label="Unidade">
         ${searchUnitButtons}
       </div>
@@ -956,6 +966,8 @@ function buildProIndex(){
             constancia_pct: hit.constancia_pct,
             delta_indice: hit.delta_indice,
             standing: hit.standing,
+            fat_bruto_mes: hit.fat_bruto_mes,
+            fat_source: hit.fat_source,
           };
         }
         return {
@@ -993,8 +1005,8 @@ function renderProCard(p){
     return `<div class="bar-wrap"><div class="bv">${val}</div><div class="bar ${cls}" style="height:${h}%;opacity:${m.media_geral_constancia_pct?1:.25}"></div><div class="bl">${m.label}</div></div>`;
   }).join('')}</div>`;
   const rows = p.series.map(m => {
-    const fatMes = m.ativo ? rateioMes(p.fat_bruto_jan_set, m.dias_trabalhados, p.dias_trabalhados) : null;
-    const rDia = fatMes != null && m.dias_trabalhados ? +(fatMes / m.dias_trabalhados).toFixed(2) : null;
+    const fr = m.ativo ? fatMesReal(m, p) : { value: null };
+    const rDia = rDiaMes(fr.value, m.dias_trabalhados);
     if (!m.ativo){
       return `<tr>
         <td><strong>${m.label}</strong></td>
@@ -1014,7 +1026,7 @@ function renderProCard(p){
       <td>${pct(m.constancia_pct)}</td>
       <td>${delta(m.delta_indice)}</td>
       <td><span class="badge ${m.standing}">${m.standing}</span></td>
-      <td>${money(fatMes)}</td>
+      <td>${money(fr.value)}</td>
       <td>${money(rDia)}</td>
     </tr>`;
   }).join('');
@@ -1038,12 +1050,12 @@ function renderProCard(p){
     <div class="pro-series">
       <table class="month-table">
         <thead><tr>
-          <th>Mês</th><th>Dias</th><th>Abertos</th><th>Const%</th><th>Δ%</th><th>Standing</th><th>Fat rateio</th><th>R$/dia</th>
+          <th>Mês</th><th>Dias</th><th>Abertos</th><th>Const%</th><th>Δ%</th><th>Standing</th><th>Fat mês</th><th>R$/dia</th>
         </tr></thead>
         <tbody>${rows}</tbody>
       </table>
     </div>
-    <p class="hint">Fat rateio mensal = fat jan–set × (dias do mês ÷ ${p.dias_trabalhados || 0} dias do período). Sem fat fiscal mês a mês na fonte — rateio pela presença.</p>
+    <p class="hint">Fat mês = receita bruta do mês (Avec 8123 charged ou P1) sem descontar taxa de cartão. R$/dia = fat do mês ÷ dias do mês (varia por mês). Fat jan–set = soma desses meses quando a cobertura mensal está completa.</p>
   </article>`;
 }
 

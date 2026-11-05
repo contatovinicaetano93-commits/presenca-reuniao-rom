@@ -42,7 +42,7 @@
       "media_dias_trabalhados": 106.36,
       "acima": 10,
       "abaixo": 4,
-      "fat_bruto_jan_set": 998499.88,
+      "fat_bruto_jan_set": 995705.35,
       "n_com_fat": 14
     },
     "Maquiadora": {
@@ -68,7 +68,20 @@
       "standing": "acima",
       "fat_bruto_jan_set": 165873.55,
       "media_dia_trabalhado": 964.38,
-      "media_dia_salao": 829.37
+      "media_dia_salao": 829.37,
+      "fat_meses": {
+        "2026-01": 17710.0,
+        "2026-02": 21720.0,
+        "2026-03": 12775.0,
+        "2026-04": 19030.0,
+        "2026-05": 18803.0,
+        "2026-06": 21798.0,
+        "2026-07": 19581.0,
+        "2026-08": 16690.0,
+        "2026-09": 17766.55
+      },
+      "fat_meses_sum": 165873.55,
+      "fat_source_note": "8123 charged (bruto) quando houver; senão P1 revenue. card_fee NÃO descontado."
     },
     {
       "nome": "WALTER MARTINHO LEAL FILHO CABELEIREIRO",
@@ -82,7 +95,20 @@
       "standing": "acima",
       "fat_bruto_jan_set": 1640747.36,
       "media_dia_trabalhado": 9651.46,
-      "media_dia_salao": 8203.74
+      "media_dia_salao": 8203.74,
+      "fat_meses": {
+        "2026-01": 181701.0,
+        "2026-02": 190050.0,
+        "2026-03": 175195.0,
+        "2026-04": 205629.0,
+        "2026-05": 175826.0,
+        "2026-06": 173925.0,
+        "2026-07": 191729.0,
+        "2026-08": 201018.0,
+        "2026-09": 145674.36
+      },
+      "fat_meses_sum": 1640747.36,
+      "fat_source_note": "8123 charged (bruto) quando houver; senão P1 revenue. card_fee NÃO descontado."
     },
     {
       "nome": "MAURICIO DE CARVALHO LIMA",
@@ -96,7 +122,20 @@
       "standing": "acima",
       "fat_bruto_jan_set": 1655267.85,
       "media_dia_trabalhado": 9794.48,
-      "media_dia_salao": 8276.34
+      "media_dia_salao": 8276.34,
+      "fat_meses": {
+        "2026-01": 141748.0,
+        "2026-02": 155037.0,
+        "2026-03": 183794.0,
+        "2026-04": 197434.0,
+        "2026-05": 206777.0,
+        "2026-06": 204020.0,
+        "2026-07": 180938.0,
+        "2026-08": 198764.0,
+        "2026-09": 186755.85
+      },
+      "fat_meses_sum": 1655267.85,
+      "fat_source_note": "8123 charged (bruto) quando houver; senão P1 revenue. card_fee NÃO descontado."
     },
     {
       "nome": "Diego Marcorio Santana",
@@ -110,7 +149,20 @@
       "standing": "acima",
       "fat_bruto_jan_set": 469679.21,
       "media_dia_trabalhado": 2846.54,
-      "media_dia_salao": 2348.4
+      "media_dia_salao": 2348.4,
+      "fat_meses": {
+        "2026-01": 57280.0,
+        "2026-02": 48239.0,
+        "2026-03": 43302.0,
+        "2026-04": 47498.0,
+        "2026-05": 58119.0,
+        "2026-06": 50200.0,
+        "2026-07": 45780.0,
+        "2026-08": 59864.0,
+        "2026-09": 59397.21
+      },
+      "fat_meses_sum": 469679.21,
+      "fat_source_note": "8123 charged (bruto) quando houver; senão P1 revenue. card_fee NÃO descontado."
     },
     {
       "nome": "MARIA DA CONCEIÇÃO PEREIRA DIAS",
@@ -122,9 +174,23 @@
       "media_dias_recorte": 100.48,
       "delta_indice": 60.2,
       "standing": "acima",
-      "fat_bruto_jan_set": 93180.84,
-      "media_dia_trabalhado": 578.76,
-      "media_dia_salao": 465.9
+      "fat_bruto_jan_set": 91314.84,
+      "media_dia_trabalhado": 567.17,
+      "media_dia_salao": 456.57,
+      "fat_meses": {
+        "2026-01": 11162.0,
+        "2026-02": 12505.0,
+        "2026-03": 10055.0,
+        "2026-04": 7385.0,
+        "2026-05": 9110.0,
+        "2026-06": 8579.0,
+        "2026-07": 12845.0,
+        "2026-08": 10470.0,
+        "2026-09": 9203.84
+      },
+      "fat_meses_sum": 91314.84,
+      "fat_source_note": "8123 charged (bruto) quando houver; senão P1 revenue. card_fee NÃO descontado.",
+      "fat_coverage_note": "fat período = soma meses P1/8123"
     },
     {
       "nome": "Patricia Barbosa Paixao Lopes",
@@ -138,7 +204,20 @@
       "standing": "acima",
       "fat_bruto_jan_set": 143656.39,
       "media_dia_trabalhado": 897.85,
-      "media_dia_salao": 718.28
+      "media_dia_salao": 718.28,
+      "fat_meses": {
+        "2026-01": 16855.0,
+        "2026-02": 20215.0,
+        "2026-03": 16890.0,
+        "2026-04": 16205.0,
+        "2026-05": 15663.0,
+        "2026-06": 13500.0,
+        "2026-07": 15680.0,
+        "2026-08": 15575.0,
+        "2026-09": 13073.39
+      },
+      "fat_meses_sum": 143656.39,
+      "fat_source_note": "8123 charged (bruto) quando houver; senão P1 revenue. card_fee NÃO descontado."
     },
     {
       "nome": "LUIZA ANTONIA AMARO PINTO",
@@ -152,7 +231,20 @@
       "standing": "acima",
       "fat_bruto_jan_set": null,
       "media_dia_trabalhado": null,
-      "media_dia_salao": null
+      "media_dia_salao": null,
+      "fat_meses": {
+        "2026-01": 42770.0,
+        "2026-02": 64811.0,
+        "2026-03": 69303.0,
+        "2026-04": 67185.0,
+        "2026-05": 70166.0,
+        "2026-06": 74893.0,
+        "2026-07": 12395.0,
+        "2026-08": 71490.0,
+        "2026-09": 48142.92
+      },
+      "fat_meses_sum": 521155.92,
+      "fat_source_note": "8123 charged (bruto) quando houver; senão P1 revenue. card_fee NÃO descontado."
     },
     {
       "nome": "JANDERSON DE SA BARROS",
@@ -166,7 +258,20 @@
       "standing": "acima",
       "fat_bruto_jan_set": null,
       "media_dia_trabalhado": null,
-      "media_dia_salao": null
+      "media_dia_salao": null,
+      "fat_meses": {
+        "2026-01": 38450.0,
+        "2026-02": 82310.0,
+        "2026-03": 72094.0,
+        "2026-04": 88423.0,
+        "2026-05": 98683.0,
+        "2026-06": 78343.0,
+        "2026-07": 102211.0,
+        "2026-08": 88475.0,
+        "2026-09": 94215.0
+      },
+      "fat_meses_sum": 743204.0,
+      "fat_source_note": "8123 charged (bruto) quando houver; senão P1 revenue. card_fee NÃO descontado."
     },
     {
       "nome": "ALISON ALVAREZ",
@@ -180,7 +285,20 @@
       "standing": "acima",
       "fat_bruto_jan_set": 839750.91,
       "media_dia_trabalhado": 5598.34,
-      "media_dia_salao": 4198.75
+      "media_dia_salao": 4198.75,
+      "fat_meses": {
+        "2026-01": 88141.0,
+        "2026-02": 93038.0,
+        "2026-03": 104798.0,
+        "2026-04": 78065.0,
+        "2026-05": 96163.0,
+        "2026-06": 80286.0,
+        "2026-07": 104263.0,
+        "2026-08": 85170.0,
+        "2026-09": 109826.91
+      },
+      "fat_meses_sum": 839750.91,
+      "fat_source_note": "8123 charged (bruto) quando houver; senão P1 revenue. card_fee NÃO descontado."
     },
     {
       "nome": "ALAN FERNADO DE ALBUQUERQUE",
@@ -194,7 +312,12 @@
       "standing": "acima",
       "fat_bruto_jan_set": null,
       "media_dia_trabalhado": null,
-      "media_dia_salao": null
+      "media_dia_salao": null,
+      "fat_meses": {
+        "2026-09": 139079.66
+      },
+      "fat_meses_sum": 139079.66,
+      "fat_source_note": "8123 charged (bruto) quando houver; senão P1 revenue. card_fee NÃO descontado."
     },
     {
       "nome": "JOSENILDO OLIVEIRA",
@@ -208,7 +331,12 @@
       "standing": "acima",
       "fat_bruto_jan_set": null,
       "media_dia_trabalhado": null,
-      "media_dia_salao": null
+      "media_dia_salao": null,
+      "fat_meses": {
+        "2026-09": 49347.0
+      },
+      "fat_meses_sum": 49347.0,
+      "fat_source_note": "8123 charged (bruto) quando houver; senão P1 revenue. card_fee NÃO descontado."
     },
     {
       "nome": "GUSTAVO COLONNO",
@@ -222,7 +350,20 @@
       "standing": "acima",
       "fat_bruto_jan_set": 274569.83,
       "media_dia_trabalhado": 1893.59,
-      "media_dia_salao": 1372.85
+      "media_dia_salao": 1372.85,
+      "fat_meses": {
+        "2026-01": 28474.0,
+        "2026-02": 33243.0,
+        "2026-03": 35079.0,
+        "2026-04": 30847.0,
+        "2026-05": 33835.0,
+        "2026-06": 24451.0,
+        "2026-07": 37364.0,
+        "2026-08": 23660.0,
+        "2026-09": 27616.83
+      },
+      "fat_meses_sum": 274569.83,
+      "fat_source_note": "8123 charged (bruto) quando houver; senão P1 revenue. card_fee NÃO descontado."
     },
     {
       "nome": "Andrea Costa Cabral",
@@ -236,7 +377,20 @@
       "standing": "acima",
       "fat_bruto_jan_set": 90230.29,
       "media_dia_trabalhado": 622.28,
-      "media_dia_salao": 451.15
+      "media_dia_salao": 451.15,
+      "fat_meses": {
+        "2026-01": 11365.0,
+        "2026-02": 9975.0,
+        "2026-03": 9685.0,
+        "2026-04": 11125.0,
+        "2026-05": 8230.0,
+        "2026-06": 9265.0,
+        "2026-07": 10615.0,
+        "2026-08": 9727.0,
+        "2026-09": 10243.29
+      },
+      "fat_meses_sum": 90230.29,
+      "fat_source_note": "8123 charged (bruto) quando houver; senão P1 revenue. card_fee NÃO descontado."
     },
     {
       "nome": "Midiã de Jesus Ferreira",
@@ -250,7 +404,20 @@
       "standing": "acima",
       "fat_bruto_jan_set": 54191.41,
       "media_dia_trabalhado": 373.73,
-      "media_dia_salao": 270.96
+      "media_dia_salao": 270.96,
+      "fat_meses": {
+        "2026-01": 6840.0,
+        "2026-02": 8585.0,
+        "2026-03": 6265.0,
+        "2026-04": 6125.0,
+        "2026-05": 4900.0,
+        "2026-06": 5249.0,
+        "2026-07": 4889.0,
+        "2026-08": 5629.0,
+        "2026-09": 5709.41
+      },
+      "fat_meses_sum": 54191.41,
+      "fat_source_note": "8123 charged (bruto) quando houver; senão P1 revenue. card_fee NÃO descontado."
     },
     {
       "nome": "PABLO MALAFAIA CAETANO",
@@ -264,7 +431,20 @@
       "standing": "acima",
       "fat_bruto_jan_set": 634762,
       "media_dia_trabalhado": 4408.07,
-      "media_dia_salao": 3173.81
+      "media_dia_salao": 3173.81,
+      "fat_meses": {
+        "2026-01": 41000.0,
+        "2026-02": 58311.0,
+        "2026-03": 89999.0,
+        "2026-04": 63250.0,
+        "2026-05": 88490.0,
+        "2026-06": 78047.0,
+        "2026-07": 49600.0,
+        "2026-08": 103545.0,
+        "2026-09": 62520.0
+      },
+      "fat_meses_sum": 634762.0,
+      "fat_source_note": "8123 charged (bruto) quando houver; senão P1 revenue. card_fee NÃO descontado."
     },
     {
       "nome": "ELIANE FERREIRA COSTA",
@@ -278,7 +458,20 @@
       "standing": "acima",
       "fat_bruto_jan_set": null,
       "media_dia_trabalhado": null,
-      "media_dia_salao": null
+      "media_dia_salao": null,
+      "fat_meses": {
+        "2026-01": 44444.0,
+        "2026-02": 46850.0,
+        "2026-03": 42203.0,
+        "2026-04": 74486.0,
+        "2026-05": 54482.0,
+        "2026-06": 50565.0,
+        "2026-07": 74553.0,
+        "2026-08": 97510.0,
+        "2026-09": 60403.42
+      },
+      "fat_meses_sum": 545496.42,
+      "fat_source_note": "8123 charged (bruto) quando houver; senão P1 revenue. card_fee NÃO descontado."
     },
     {
       "nome": "Geyza Melo de Araujo",
@@ -292,7 +485,20 @@
       "standing": "acima",
       "fat_bruto_jan_set": 776639,
       "media_dia_trabalhado": 5431.04,
-      "media_dia_salao": 3883.2
+      "media_dia_salao": 3883.2,
+      "fat_meses": {
+        "2026-01": 47864.0,
+        "2026-02": 100690.0,
+        "2026-03": 68611.0,
+        "2026-04": 97843.0,
+        "2026-05": 96790.0,
+        "2026-06": 79805.0,
+        "2026-07": 111181.0,
+        "2026-08": 87499.0,
+        "2026-09": 86356.0
+      },
+      "fat_meses_sum": 776639.0,
+      "fat_source_note": "8123 charged (bruto) quando houver; senão P1 revenue. card_fee NÃO descontado."
     },
     {
       "nome": "LUCAS CAMPOS DE MACEDO",
@@ -306,7 +512,20 @@
       "standing": "acima",
       "fat_bruto_jan_set": null,
       "media_dia_trabalhado": null,
-      "media_dia_salao": null
+      "media_dia_salao": null,
+      "fat_meses": {
+        "2026-01": 79345.0,
+        "2026-02": 124582.0,
+        "2026-03": 95013.0,
+        "2026-04": 130175.0,
+        "2026-05": 138705.0,
+        "2026-06": 116845.0,
+        "2026-07": 108982.0,
+        "2026-08": 159530.0,
+        "2026-09": 130556.66
+      },
+      "fat_meses_sum": 1083733.66,
+      "fat_source_note": "8123 charged (bruto) quando houver; senão P1 revenue. card_fee NÃO descontado."
     },
     {
       "nome": "WANDERLEY DELCIDIO DA SILVA",
@@ -320,7 +539,20 @@
       "standing": "acima",
       "fat_bruto_jan_set": null,
       "media_dia_trabalhado": null,
-      "media_dia_salao": null
+      "media_dia_salao": null,
+      "fat_meses": {
+        "2026-01": 90297.0,
+        "2026-02": 110270.0,
+        "2026-03": 103710.0,
+        "2026-04": 108915.0,
+        "2026-05": 130300.0,
+        "2026-06": 130910.0,
+        "2026-07": 124832.0,
+        "2026-08": 137625.0,
+        "2026-09": 123011.84
+      },
+      "fat_meses_sum": 1059870.84,
+      "fat_source_note": "8123 charged (bruto) quando houver; senão P1 revenue. card_fee NÃO descontado."
     },
     {
       "nome": "ELVIS TEIXEIRA DOS SANTOS",
@@ -334,7 +566,20 @@
       "standing": "acima",
       "fat_bruto_jan_set": 323223,
       "media_dia_trabalhado": 2308.74,
-      "media_dia_salao": 1616.12
+      "media_dia_salao": 1616.12,
+      "fat_meses": {
+        "2026-01": 25905.0,
+        "2026-02": 37360.0,
+        "2026-03": 37025.0,
+        "2026-04": 46378.0,
+        "2026-05": 34758.0,
+        "2026-06": 38824.0,
+        "2026-07": 29118.0,
+        "2026-08": 42580.0,
+        "2026-09": 31275.0
+      },
+      "fat_meses_sum": 323223.0,
+      "fat_source_note": "8123 charged (bruto) quando houver; senão P1 revenue. card_fee NÃO descontado."
     },
     {
       "nome": "DARCY MITIKO CAVALHEIRO",
@@ -348,7 +593,20 @@
       "standing": "acima",
       "fat_bruto_jan_set": 253504.47,
       "media_dia_trabalhado": 1836.99,
-      "media_dia_salao": 1267.52
+      "media_dia_salao": 1267.52,
+      "fat_meses": {
+        "2026-01": 13910.0,
+        "2026-02": 33860.0,
+        "2026-03": 28090.0,
+        "2026-04": 30936.0,
+        "2026-05": 31445.0,
+        "2026-06": 29600.0,
+        "2026-07": 26749.0,
+        "2026-08": 25760.0,
+        "2026-09": 33154.47
+      },
+      "fat_meses_sum": 253504.47,
+      "fat_source_note": "8123 charged (bruto) quando houver; senão P1 revenue. card_fee NÃO descontado."
     },
     {
       "nome": "MARIA SAMILA NASCIMENTO DOS SANTOS",
@@ -360,9 +618,23 @@
       "media_dias_recorte": 100.48,
       "delta_indice": 36.3,
       "standing": "acima",
-      "fat_bruto_jan_set": 120427.53,
-      "media_dia_trabalhado": 879.03,
-      "media_dia_salao": 602.14
+      "fat_bruto_jan_set": 119499.0,
+      "media_dia_trabalhado": 872.26,
+      "media_dia_salao": 597.5,
+      "fat_meses": {
+        "2026-01": 6670.0,
+        "2026-02": 17195.0,
+        "2026-03": 14685.0,
+        "2026-04": 14735.0,
+        "2026-05": 14014.0,
+        "2026-06": 11578.0,
+        "2026-07": 13380.0,
+        "2026-08": 15938.0,
+        "2026-09": 11304.0
+      },
+      "fat_meses_sum": 119499.0,
+      "fat_source_note": "8123 charged (bruto) quando houver; senão P1 revenue. card_fee NÃO descontado.",
+      "fat_coverage_note": "fat período = soma meses P1/8123"
     },
     {
       "nome": "KATIA APARECIDA DOS SANTOS SILVA",
@@ -376,7 +648,20 @@
       "standing": "acima",
       "fat_bruto_jan_set": 58271.98,
       "media_dia_trabalhado": 431.64,
-      "media_dia_salao": 291.36
+      "media_dia_salao": 291.36,
+      "fat_meses": {
+        "2026-01": 8980.0,
+        "2026-02": 9868.0,
+        "2026-03": 7475.0,
+        "2026-04": 6910.0,
+        "2026-05": 6383.0,
+        "2026-06": 6105.0,
+        "2026-07": 3297.0,
+        "2026-08": 4200.0,
+        "2026-09": 5053.98
+      },
+      "fat_meses_sum": 58271.98,
+      "fat_source_note": "8123 charged (bruto) quando houver; senão P1 revenue. card_fee NÃO descontado."
     },
     {
       "nome": "DIOGO MARCELO PITARO",
@@ -390,7 +675,20 @@
       "standing": "acima",
       "fat_bruto_jan_set": 940094.99,
       "media_dia_trabalhado": 7121.93,
-      "media_dia_salao": 4700.47
+      "media_dia_salao": 4700.47,
+      "fat_meses": {
+        "2026-01": 85320.0,
+        "2026-02": 83248.0,
+        "2026-03": 84778.0,
+        "2026-04": 111772.0,
+        "2026-05": 134242.0,
+        "2026-06": 135426.0,
+        "2026-07": 124710.0,
+        "2026-08": 79870.0,
+        "2026-09": 100728.99
+      },
+      "fat_meses_sum": 940094.99,
+      "fat_source_note": "8123 charged (bruto) quando houver; senão P1 revenue. card_fee NÃO descontado."
     },
     {
       "nome": "PIERRE TAWAN ALVES FRANCA",
@@ -404,7 +702,20 @@
       "standing": "acima",
       "fat_bruto_jan_set": 161385.43,
       "media_dia_trabalhado": 1251.05,
-      "media_dia_salao": 806.93
+      "media_dia_salao": 806.93,
+      "fat_meses": {
+        "2026-01": 13787.0,
+        "2026-02": 17203.0,
+        "2026-03": 14590.0,
+        "2026-04": 21299.0,
+        "2026-05": 17535.0,
+        "2026-06": 18056.0,
+        "2026-07": 21277.0,
+        "2026-08": 17605.0,
+        "2026-09": 20033.43
+      },
+      "fat_meses_sum": 161385.43,
+      "fat_source_note": "8123 charged (bruto) quando houver; senão P1 revenue. card_fee NÃO descontado."
     },
     {
       "nome": "ALINE BISPO PEREIRA",
@@ -418,7 +729,18 @@
       "standing": "acima",
       "fat_bruto_jan_set": 86797.96,
       "media_dia_trabalhado": 672.85,
-      "media_dia_salao": 433.99
+      "media_dia_salao": 433.99,
+      "fat_meses": {
+        "2026-03": 9720.0,
+        "2026-04": 12910.0,
+        "2026-05": 10765.0,
+        "2026-06": 13030.0,
+        "2026-07": 15129.0,
+        "2026-08": 12620.0,
+        "2026-09": 12623.96
+      },
+      "fat_meses_sum": 86797.96,
+      "fat_source_note": "8123 charged (bruto) quando houver; senão P1 revenue. card_fee NÃO descontado."
     },
     {
       "nome": "NARCELHO ALVES SANTOS",
@@ -432,7 +754,20 @@
       "standing": "acima",
       "fat_bruto_jan_set": 309142,
       "media_dia_trabalhado": 2434.19,
-      "media_dia_salao": 1545.71
+      "media_dia_salao": 1545.71,
+      "fat_meses": {
+        "2026-01": 26274.0,
+        "2026-02": 30359.0,
+        "2026-03": 31419.0,
+        "2026-04": 35915.0,
+        "2026-05": 28130.0,
+        "2026-06": 36892.0,
+        "2026-07": 31687.0,
+        "2026-08": 46543.0,
+        "2026-09": 41923.0
+      },
+      "fat_meses_sum": 309142.0,
+      "fat_source_note": "8123 charged (bruto) quando houver; senão P1 revenue. card_fee NÃO descontado."
     },
     {
       "nome": "Lucas Gustavo de Sales e Sales",
@@ -446,7 +781,20 @@
       "standing": "acima",
       "fat_bruto_jan_set": null,
       "media_dia_trabalhado": null,
-      "media_dia_salao": null
+      "media_dia_salao": null,
+      "fat_meses": {
+        "2026-01": 15793.0,
+        "2026-02": 22118.0,
+        "2026-03": 18389.0,
+        "2026-04": 20304.0,
+        "2026-05": 26526.0,
+        "2026-06": 18486.0,
+        "2026-07": 29632.0,
+        "2026-08": 27964.0,
+        "2026-09": 26623.0
+      },
+      "fat_meses_sum": 205835.0,
+      "fat_source_note": "8123 charged (bruto) quando houver; senão P1 revenue. card_fee NÃO descontado."
     },
     {
       "nome": "DAYANA MARQUES SILVA PINTO",
@@ -460,7 +808,20 @@
       "standing": "acima",
       "fat_bruto_jan_set": 348066.92,
       "media_dia_trabalhado": 2784.54,
-      "media_dia_salao": 1740.33
+      "media_dia_salao": 1740.33,
+      "fat_meses": {
+        "2026-01": 35464.0,
+        "2026-02": 47073.0,
+        "2026-03": 35990.0,
+        "2026-04": 31554.0,
+        "2026-05": 46459.0,
+        "2026-06": 37520.0,
+        "2026-07": 44129.0,
+        "2026-08": 29742.0,
+        "2026-09": 40135.92
+      },
+      "fat_meses_sum": 348066.92,
+      "fat_source_note": "8123 charged (bruto) quando houver; senão P1 revenue. card_fee NÃO descontado."
     },
     {
       "nome": "LUCIMAR APARECIDA DE CARVALHO",
@@ -474,7 +835,18 @@
       "standing": "acima",
       "fat_bruto_jan_set": 62233.44,
       "media_dia_trabalhado": 501.88,
-      "media_dia_salao": 311.17
+      "media_dia_salao": 311.17,
+      "fat_meses": {
+        "2026-03": 4390.0,
+        "2026-04": 9479.0,
+        "2026-05": 7465.0,
+        "2026-06": 8690.0,
+        "2026-07": 12038.0,
+        "2026-08": 10910.0,
+        "2026-09": 9261.44
+      },
+      "fat_meses_sum": 62233.44,
+      "fat_source_note": "8123 charged (bruto) quando houver; senão P1 revenue. card_fee NÃO descontado."
     },
     {
       "nome": "LAUDENILVA DOS SANTOS SILVA",
@@ -488,7 +860,20 @@
       "standing": "acima",
       "fat_bruto_jan_set": null,
       "media_dia_trabalhado": null,
-      "media_dia_salao": null
+      "media_dia_salao": null,
+      "fat_meses": {
+        "2026-01": 18235.0,
+        "2026-02": 28294.0,
+        "2026-03": 40033.0,
+        "2026-04": 27673.0,
+        "2026-05": 29062.0,
+        "2026-06": 35839.0,
+        "2026-07": 52565.0,
+        "2026-08": 35610.0,
+        "2026-09": 47397.0
+      },
+      "fat_meses_sum": 314708.0,
+      "fat_source_note": "8123 charged (bruto) quando houver; senão P1 revenue. card_fee NÃO descontado."
     },
     {
       "nome": "MONIQUE LIA BUNA CASTRO DOS SANTOS",
@@ -502,7 +887,20 @@
       "standing": "acima",
       "fat_bruto_jan_set": null,
       "media_dia_trabalhado": null,
-      "media_dia_salao": null
+      "media_dia_salao": null,
+      "fat_meses": {
+        "2026-01": 45166.0,
+        "2026-02": 52004.0,
+        "2026-03": 45353.0,
+        "2026-04": 51132.0,
+        "2026-05": 49934.0,
+        "2026-06": 36088.0,
+        "2026-07": 29239.0,
+        "2026-08": 36920.0,
+        "2026-09": 65039.0
+      },
+      "fat_meses_sum": 410875.0,
+      "fat_source_note": "8123 charged (bruto) quando houver; senão P1 revenue. card_fee NÃO descontado."
     },
     {
       "nome": "RODRIGO APOLINARIO PIRES SARAIVA",
@@ -516,7 +914,20 @@
       "standing": "acima",
       "fat_bruto_jan_set": 243621,
       "media_dia_trabalhado": 2118.44,
-      "media_dia_salao": 1218.11
+      "media_dia_salao": 1218.11,
+      "fat_meses": {
+        "2026-01": 32460.0,
+        "2026-02": 25327.0,
+        "2026-03": 28180.0,
+        "2026-04": 28309.0,
+        "2026-05": 24620.0,
+        "2026-06": 28008.0,
+        "2026-07": 31819.0,
+        "2026-08": 25330.0,
+        "2026-09": 19568.0
+      },
+      "fat_meses_sum": 243621.0,
+      "fat_source_note": "8123 charged (bruto) quando houver; senão P1 revenue. card_fee NÃO descontado."
     },
     {
       "nome": "Catharina de Souza Moraes Bello",
@@ -530,7 +941,18 @@
       "standing": "acima",
       "fat_bruto_jan_set": 96315.44,
       "media_dia_trabalhado": 837.53,
-      "media_dia_salao": 481.58
+      "media_dia_salao": 481.58,
+      "fat_meses": {
+        "2026-03": 3945.0,
+        "2026-04": 15088.0,
+        "2026-05": 14175.0,
+        "2026-06": 16060.0,
+        "2026-07": 20978.0,
+        "2026-08": 19710.0,
+        "2026-09": 6359.44
+      },
+      "fat_meses_sum": 96315.44,
+      "fat_source_note": "8123 charged (bruto) quando houver; senão P1 revenue. card_fee NÃO descontado."
     },
     {
       "nome": "MARIA TEREZA LUIS DE PAIVA",
@@ -544,7 +966,20 @@
       "standing": "acima",
       "fat_bruto_jan_set": 356872,
       "media_dia_trabalhado": 3158.16,
-      "media_dia_salao": 1784.36
+      "media_dia_salao": 1784.36,
+      "fat_meses": {
+        "2026-01": 29789.0,
+        "2026-02": 53535.0,
+        "2026-03": 41185.0,
+        "2026-04": 28592.0,
+        "2026-05": 52191.0,
+        "2026-06": 42721.0,
+        "2026-07": 42509.0,
+        "2026-08": 35262.0,
+        "2026-09": 31088.0
+      },
+      "fat_meses_sum": 356872.0,
+      "fat_source_note": "8123 charged (bruto) quando houver; senão P1 revenue. card_fee NÃO descontado."
     },
     {
       "nome": "HENRIQUE TENÓRIO DA SILVA",
@@ -558,7 +993,20 @@
       "standing": "acima",
       "fat_bruto_jan_set": null,
       "media_dia_trabalhado": null,
-      "media_dia_salao": null
+      "media_dia_salao": null,
+      "fat_meses": {
+        "2026-01": 16588.0,
+        "2026-02": 11611.0,
+        "2026-03": 8805.0,
+        "2026-04": 14267.0,
+        "2026-05": 13462.0,
+        "2026-06": 10260.0,
+        "2026-07": 17088.0,
+        "2026-08": 11020.0,
+        "2026-09": 12357.0
+      },
+      "fat_meses_sum": 115458.0,
+      "fat_source_note": "8123 charged (bruto) quando houver; senão P1 revenue. card_fee NÃO descontado."
     },
     {
       "nome": "LEONEL CLARET BORGES BERNARDO",
@@ -572,7 +1020,20 @@
       "standing": "acima",
       "fat_bruto_jan_set": 491325.48,
       "media_dia_trabalhado": 4466.6,
-      "media_dia_salao": 2456.63
+      "media_dia_salao": 2456.63,
+      "fat_meses": {
+        "2026-01": 55722.0,
+        "2026-02": 52391.0,
+        "2026-03": 66486.0,
+        "2026-04": 53890.0,
+        "2026-05": 71229.0,
+        "2026-06": 54251.0,
+        "2026-07": 66481.0,
+        "2026-08": 36623.0,
+        "2026-09": 34252.48
+      },
+      "fat_meses_sum": 491325.48,
+      "fat_source_note": "8123 charged (bruto) quando houver; senão P1 revenue. card_fee NÃO descontado."
     },
     {
       "nome": "ROMEU FELIPE",
@@ -586,7 +1047,20 @@
       "standing": "acima",
       "fat_bruto_jan_set": 1491135.23,
       "media_dia_trabalhado": 13935.84,
-      "media_dia_salao": 7455.68
+      "media_dia_salao": 7455.68,
+      "fat_meses": {
+        "2026-01": 115261.0,
+        "2026-02": 65389.0,
+        "2026-03": 141144.0,
+        "2026-04": 259683.0,
+        "2026-05": 136317.0,
+        "2026-06": 133855.0,
+        "2026-07": 243530.0,
+        "2026-08": 222291.0,
+        "2026-09": 173665.23
+      },
+      "fat_meses_sum": 1491135.23,
+      "fat_source_note": "8123 charged (bruto) quando houver; senão P1 revenue. card_fee NÃO descontado."
     },
     {
       "nome": "PEDRO RICARDO GALDI",
@@ -600,7 +1074,18 @@
       "standing": "acima",
       "fat_bruto_jan_set": 82579.17,
       "media_dia_trabalhado": 801.74,
-      "media_dia_salao": 412.9
+      "media_dia_salao": 412.9,
+      "fat_meses": {
+        "2026-03": 5201.0,
+        "2026-04": 14496.0,
+        "2026-05": 14638.0,
+        "2026-06": 10920.0,
+        "2026-07": 11450.0,
+        "2026-08": 11000.0,
+        "2026-09": 14874.17
+      },
+      "fat_meses_sum": 82579.17,
+      "fat_source_note": "8123 charged (bruto) quando houver; senão P1 revenue. card_fee NÃO descontado."
     },
     {
       "nome": "FERNANDA GOMES",
@@ -614,7 +1099,12 @@
       "standing": "abaixo",
       "fat_bruto_jan_set": 53695.77,
       "media_dia_trabalhado": 559.33,
-      "media_dia_salao": 268.48
+      "media_dia_salao": 268.48,
+      "fat_meses": {
+        "2026-09": 53695.77
+      },
+      "fat_meses_sum": 53695.77,
+      "fat_source_note": "8123 charged (bruto) quando houver; senão P1 revenue. card_fee NÃO descontado."
     },
     {
       "nome": "ALINE JABUR",
@@ -628,7 +1118,20 @@
       "standing": "abaixo",
       "fat_bruto_jan_set": 275033.5,
       "media_dia_trabalhado": 2925.89,
-      "media_dia_salao": 1375.17
+      "media_dia_salao": 1375.17,
+      "fat_meses": {
+        "2026-01": 33929.0,
+        "2026-02": 15880.0,
+        "2026-03": 41746.0,
+        "2026-04": 29584.0,
+        "2026-05": 42473.0,
+        "2026-06": 28846.0,
+        "2026-07": 35201.0,
+        "2026-08": 18344.0,
+        "2026-09": 29030.5
+      },
+      "fat_meses_sum": 275033.5,
+      "fat_source_note": "8123 charged (bruto) quando houver; senão P1 revenue. card_fee NÃO descontado."
     },
     {
       "nome": "BRUNA DA SILVA MELO DOMINGUES",
@@ -642,7 +1145,20 @@
       "standing": "abaixo",
       "fat_bruto_jan_set": 275404.47,
       "media_dia_trabalhado": 2929.83,
-      "media_dia_salao": 1377.02
+      "media_dia_salao": 1377.02,
+      "fat_meses": {
+        "2026-01": 30581.0,
+        "2026-02": 24372.0,
+        "2026-03": 36478.0,
+        "2026-04": 34430.0,
+        "2026-05": 31061.0,
+        "2026-06": 42865.0,
+        "2026-07": 20265.0,
+        "2026-08": 31373.0,
+        "2026-09": 23979.47
+      },
+      "fat_meses_sum": 275404.47,
+      "fat_source_note": "8123 charged (bruto) quando houver; senão P1 revenue. card_fee NÃO descontado."
     },
     {
       "nome": "Gabriela  Santos",
@@ -656,7 +1172,20 @@
       "standing": "abaixo",
       "fat_bruto_jan_set": null,
       "media_dia_trabalhado": null,
-      "media_dia_salao": null
+      "media_dia_salao": null,
+      "fat_meses": {
+        "2026-01": 4160.0,
+        "2026-02": 5814.0,
+        "2026-03": 9791.0,
+        "2026-04": 8552.0,
+        "2026-05": 3865.0,
+        "2026-06": 3070.0,
+        "2026-07": 6214.0,
+        "2026-08": 12468.0,
+        "2026-09": 21269.0
+      },
+      "fat_meses_sum": 75203.0,
+      "fat_source_note": "8123 charged (bruto) quando houver; senão P1 revenue. card_fee NÃO descontado."
     },
     {
       "nome": "MONIQUE BORELLA COUTO",
@@ -670,7 +1199,20 @@
       "standing": "abaixo",
       "fat_bruto_jan_set": 202657.32,
       "media_dia_trabalhado": 2384.2,
-      "media_dia_salao": 1013.29
+      "media_dia_salao": 1013.29,
+      "fat_meses": {
+        "2026-01": 16350.0,
+        "2026-02": 20026.0,
+        "2026-03": 31190.0,
+        "2026-04": 14030.0,
+        "2026-05": 23256.0,
+        "2026-06": 17800.0,
+        "2026-07": 28576.0,
+        "2026-08": 29329.0,
+        "2026-09": 22100.32
+      },
+      "fat_meses_sum": 202657.32,
+      "fat_source_note": "8123 charged (bruto) quando houver; senão P1 revenue. card_fee NÃO descontado."
     },
     {
       "nome": "Nathan Elias Magalhães Lima",
@@ -684,7 +1226,20 @@
       "standing": "abaixo",
       "fat_bruto_jan_set": 163015.71,
       "media_dia_trabalhado": 1940.66,
-      "media_dia_salao": 815.08
+      "media_dia_salao": 815.08,
+      "fat_meses": {
+        "2026-01": 16033.0,
+        "2026-02": 22278.0,
+        "2026-03": 12530.0,
+        "2026-04": 14596.0,
+        "2026-05": 11609.0,
+        "2026-06": 11996.0,
+        "2026-07": 31089.0,
+        "2026-08": 28203.0,
+        "2026-09": 14681.71
+      },
+      "fat_meses_sum": 163015.71,
+      "fat_source_note": "8123 charged (bruto) quando houver; senão P1 revenue. card_fee NÃO descontado."
     },
     {
       "nome": "LUCIMARY COSSENZO",
@@ -698,7 +1253,20 @@
       "standing": "abaixo",
       "fat_bruto_jan_set": null,
       "media_dia_trabalhado": null,
-      "media_dia_salao": null
+      "media_dia_salao": null,
+      "fat_meses": {
+        "2026-01": 34900.0,
+        "2026-02": 41885.0,
+        "2026-03": 41792.0,
+        "2026-04": 31309.0,
+        "2026-05": 50175.0,
+        "2026-06": 26720.0,
+        "2026-07": 46660.0,
+        "2026-08": 21480.0,
+        "2026-09": 32048.0
+      },
+      "fat_meses_sum": 326969.0,
+      "fat_source_note": "8123 charged (bruto) quando houver; senão P1 revenue. card_fee NÃO descontado."
     },
     {
       "nome": "VITALINO PEREIRA CAMPOS",
@@ -712,7 +1280,20 @@
       "standing": "abaixo",
       "fat_bruto_jan_set": null,
       "media_dia_trabalhado": null,
-      "media_dia_salao": null
+      "media_dia_salao": null,
+      "fat_meses": {
+        "2026-01": 38612.0,
+        "2026-02": 44101.0,
+        "2026-03": 33713.0,
+        "2026-04": 33688.0,
+        "2026-05": 38953.0,
+        "2026-06": 43405.0,
+        "2026-07": 40159.0,
+        "2026-08": 28276.0,
+        "2026-09": 28187.28
+      },
+      "fat_meses_sum": 329094.28,
+      "fat_source_note": "8123 charged (bruto) quando houver; senão P1 revenue. card_fee NÃO descontado."
     },
     {
       "nome": "LEONARDO A. TOMAZ",
@@ -726,7 +1307,20 @@
       "standing": "abaixo",
       "fat_bruto_jan_set": 59671,
       "media_dia_trabalhado": 877.51,
-      "media_dia_salao": 298.36
+      "media_dia_salao": 298.36,
+      "fat_meses": {
+        "2026-01": 1965.0,
+        "2026-02": 5125.0,
+        "2026-03": 8696.0,
+        "2026-04": 9992.0,
+        "2026-05": 4610.0,
+        "2026-06": 8440.0,
+        "2026-07": 4778.0,
+        "2026-08": 4525.0,
+        "2026-09": 11540.0
+      },
+      "fat_meses_sum": 59671.0,
+      "fat_source_note": "8123 charged (bruto) quando houver; senão P1 revenue. card_fee NÃO descontado."
     },
     {
       "nome": "MANOEL SERGIO GONÇALVES",
@@ -740,7 +1334,20 @@
       "standing": "abaixo",
       "fat_bruto_jan_set": null,
       "media_dia_trabalhado": null,
-      "media_dia_salao": null
+      "media_dia_salao": null,
+      "fat_meses": {
+        "2026-01": 40335.0,
+        "2026-02": 36425.0,
+        "2026-03": 47434.0,
+        "2026-04": 51570.0,
+        "2026-05": 44370.0,
+        "2026-06": 51660.0,
+        "2026-07": 47450.0,
+        "2026-08": 53230.0,
+        "2026-09": 43042.73
+      },
+      "fat_meses_sum": 415516.73,
+      "fat_source_note": "8123 charged (bruto) quando houver; senão P1 revenue. card_fee NÃO descontado."
     },
     {
       "nome": "DANIELA MARINIELLO",
@@ -754,7 +1361,20 @@
       "standing": "abaixo",
       "fat_bruto_jan_set": null,
       "media_dia_trabalhado": null,
-      "media_dia_salao": null
+      "media_dia_salao": null,
+      "fat_meses": {
+        "2026-01": 23916.0,
+        "2026-02": 39509.0,
+        "2026-03": 23476.0,
+        "2026-04": 0.0,
+        "2026-05": 30521.0,
+        "2026-06": 26073.0,
+        "2026-07": 28801.0,
+        "2026-08": 34424.0,
+        "2026-09": 750.0
+      },
+      "fat_meses_sum": 207470.0,
+      "fat_source_note": "8123 charged (bruto) quando houver; senão P1 revenue. card_fee NÃO descontado."
     },
     {
       "nome": "DEBORA SOUZA GUIMARAES",
@@ -768,7 +1388,14 @@
       "standing": "abaixo",
       "fat_bruto_jan_set": 21966.05,
       "media_dia_trabalhado": 430.71,
-      "media_dia_salao": 109.83
+      "media_dia_salao": 109.83,
+      "fat_meses": {
+        "2026-07": 9605.0,
+        "2026-08": 6304.0,
+        "2026-09": 6057.05
+      },
+      "fat_meses_sum": 21966.05,
+      "fat_source_note": "8123 charged (bruto) quando houver; senão P1 revenue. card_fee NÃO descontado."
     },
     {
       "nome": "GHABRYEL FLORES MARTINS",
@@ -782,7 +1409,14 @@
       "standing": "abaixo",
       "fat_bruto_jan_set": 100460,
       "media_dia_trabalhado": 2009.2,
-      "media_dia_salao": 502.3
+      "media_dia_salao": 502.3,
+      "fat_meses": {
+        "2026-07": 21890.0,
+        "2026-08": 40899.0,
+        "2026-09": 37671.0
+      },
+      "fat_meses_sum": 100460.0,
+      "fat_source_note": "8123 charged (bruto) quando houver; senão P1 revenue. card_fee NÃO descontado."
     },
     {
       "nome": "JOÃO BONICKE",
@@ -796,7 +1430,12 @@
       "standing": "abaixo",
       "fat_bruto_jan_set": 37830,
       "media_dia_trabalhado": 1112.65,
-      "media_dia_salao": 189.15
+      "media_dia_salao": 189.15,
+      "fat_meses": {
+        "2026-09": 37830.0
+      },
+      "fat_meses_sum": 37830.0,
+      "fat_source_note": "8123 charged (bruto) quando houver; senão P1 revenue. card_fee NÃO descontado."
     },
     {
       "nome": "TALITA A.",
@@ -810,7 +1449,20 @@
       "standing": "abaixo",
       "fat_bruto_jan_set": null,
       "media_dia_trabalhado": null,
-      "media_dia_salao": null
+      "media_dia_salao": null,
+      "fat_meses": {
+        "2026-01": 6920.0,
+        "2026-02": 580.0,
+        "2026-03": 12615.0,
+        "2026-04": 16019.0,
+        "2026-05": 5060.0,
+        "2026-06": 10602.0,
+        "2026-07": 9770.0,
+        "2026-08": 12796.0,
+        "2026-09": 9030.0
+      },
+      "fat_meses_sum": 83392.0,
+      "fat_source_note": "8123 charged (bruto) quando houver; senão P1 revenue. card_fee NÃO descontado."
     },
     {
       "nome": "FRANCINE DA SILVA COUTO",
@@ -824,7 +1476,13 @@
       "standing": "abaixo",
       "fat_bruto_jan_set": 37085,
       "media_dia_trabalhado": 1196.29,
-      "media_dia_salao": 185.43
+      "media_dia_salao": 185.43,
+      "fat_meses": {
+        "2026-08": 13457.0,
+        "2026-09": 23628.0
+      },
+      "fat_meses_sum": 37085.0,
+      "fat_source_note": "8123 charged (bruto) quando houver; senão P1 revenue. card_fee NÃO descontado."
     },
     {
       "nome": "GISELE GREYCE LIMA FAGLIONI",
@@ -838,7 +1496,13 @@
       "standing": "abaixo",
       "fat_bruto_jan_set": 27940,
       "media_dia_trabalhado": 1214.78,
-      "media_dia_salao": 139.7
+      "media_dia_salao": 139.7,
+      "fat_meses": {
+        "2026-08": 13780.0,
+        "2026-09": 14160.0
+      },
+      "fat_meses_sum": 27940.0,
+      "fat_source_note": "8123 charged (bruto) quando houver; senão P1 revenue. card_fee NÃO descontado."
     },
     {
       "nome": "GABRIEL LEANDRO PETARNELA",
@@ -852,7 +1516,13 @@
       "standing": "abaixo",
       "fat_bruto_jan_set": null,
       "media_dia_trabalhado": null,
-      "media_dia_salao": null
+      "media_dia_salao": null,
+      "fat_meses": {
+        "2026-08": 29420.0,
+        "2026-09": 24460.0
+      },
+      "fat_meses_sum": 53880.0,
+      "fat_source_note": "8123 charged (bruto) quando houver; senão P1 revenue. card_fee NÃO descontado."
     },
     {
       "nome": "ADRIANA ROSA DE JESUS ABRANCHES",
@@ -866,7 +1536,12 @@
       "standing": "abaixo",
       "fat_bruto_jan_set": 4605,
       "media_dia_trabalhado": 418.64,
-      "media_dia_salao": 23.03
+      "media_dia_salao": 23.03,
+      "fat_meses": {
+        "2026-09": 4605.0
+      },
+      "fat_meses_sum": 4605.0,
+      "fat_source_note": "8123 charged (bruto) quando houver; senão P1 revenue. card_fee NÃO descontado."
     },
     {
       "nome": "Fernando Nantes Romero",
@@ -880,7 +1555,18 @@
       "standing": "abaixo",
       "fat_bruto_jan_set": 45234,
       "media_dia_trabalhado": 4523.4,
-      "media_dia_salao": 226.17
+      "media_dia_salao": 226.17,
+      "fat_meses": {
+        "2026-03": 0.0,
+        "2026-04": 6152.0,
+        "2026-05": 6610.0,
+        "2026-06": 11188.0,
+        "2026-07": 4904.0,
+        "2026-08": 3360.0,
+        "2026-09": 13020.0
+      },
+      "fat_meses_sum": 45234.0,
+      "fat_source_note": "8123 charged (bruto) quando houver; senão P1 revenue. card_fee NÃO descontado."
     },
     {
       "nome": "Claudia Yafo",
@@ -894,7 +1580,12 @@
       "standing": "abaixo",
       "fat_bruto_jan_set": 1853.99,
       "media_dia_trabalhado": 370.8,
-      "media_dia_salao": 9.27
+      "media_dia_salao": 9.27,
+      "fat_meses": {
+        "2026-09": 1853.99
+      },
+      "fat_meses_sum": 1853.99,
+      "fat_source_note": "8123 charged (bruto) quando houver; senão P1 revenue. card_fee NÃO descontado."
     },
     {
       "nome": "LISTA DE ESPERA",
@@ -908,7 +1599,18 @@
       "standing": "abaixo",
       "fat_bruto_jan_set": 370,
       "media_dia_trabalhado": 123.33,
-      "media_dia_salao": 1.85
+      "media_dia_salao": 1.85,
+      "fat_meses": {
+        "2026-01": 0.0,
+        "2026-02": 185.0,
+        "2026-03": 85.0,
+        "2026-04": 0.0,
+        "2026-05": 0.0,
+        "2026-06": 100.0,
+        "2026-09": 0.0
+      },
+      "fat_meses_sum": 370.0,
+      "fat_source_note": "8123 charged (bruto) quando houver; senão P1 revenue. card_fee NÃO descontado."
     },
     {
       "nome": "ALBERTO MASSANORI MURAKAMI",
@@ -922,7 +1624,12 @@
       "standing": "abaixo",
       "fat_bruto_jan_set": 2356.99,
       "media_dia_trabalhado": 1178.49,
-      "media_dia_salao": 11.78
+      "media_dia_salao": 11.78,
+      "fat_meses": {
+        "2026-09": 2356.99
+      },
+      "fat_meses_sum": 2356.99,
+      "fat_source_note": "8123 charged (bruto) quando houver; senão P1 revenue. card_fee NÃO descontado."
     },
     {
       "nome": "Danilo Hebert",
@@ -936,7 +1643,12 @@
       "standing": "abaixo",
       "fat_bruto_jan_set": 428,
       "media_dia_trabalhado": 428,
-      "media_dia_salao": 2.14
+      "media_dia_salao": 2.14,
+      "fat_meses": {
+        "2026-09": 428.0
+      },
+      "fat_meses_sum": 428.0,
+      "fat_source_note": "8123 charged (bruto) quando houver; senão P1 revenue. card_fee NÃO descontado."
     },
     {
       "nome": "CLAUDIANA BEZERRA DA SILVA",
@@ -950,7 +1662,12 @@
       "standing": "abaixo",
       "fat_bruto_jan_set": null,
       "media_dia_trabalhado": null,
-      "media_dia_salao": null
+      "media_dia_salao": null,
+      "fat_meses": {
+        "2026-09": 0.0
+      },
+      "fat_meses_sum": 0.0,
+      "fat_source_note": "8123 charged (bruto) quando houver; senão P1 revenue. card_fee NÃO descontado."
     },
     {
       "nome": "DEPILACAO - 3",
@@ -964,10 +1681,23 @@
       "standing": "abaixo",
       "fat_bruto_jan_set": 380,
       "media_dia_trabalhado": 380,
-      "media_dia_salao": 1.9
+      "media_dia_salao": 1.9,
+      "fat_meses": {
+        "2026-01": 0.0,
+        "2026-02": 0.0,
+        "2026-03": 0.0,
+        "2026-04": 0.0,
+        "2026-05": 0.0,
+        "2026-06": 0.0,
+        "2026-07": 0.0,
+        "2026-08": 380.0,
+        "2026-09": 0.0
+      },
+      "fat_meses_sum": 380.0,
+      "fat_source_note": "8123 charged (bruto) quando houver; senão P1 revenue. card_fee NÃO descontado."
     }
   ],
-  "fat_total_jan_set": 13576327.48,
+  "fat_total_jan_set": 13570736.95,
   "fat_matched_sum": 13573531.48,
   "fat_coverage": {
     "matched": 46,
