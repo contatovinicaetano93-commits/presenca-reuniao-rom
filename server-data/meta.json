@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-10-14T12:07:11.659Z",
+  "generated_at": "2026-11-05T19:30:00.000Z",
   "periodo": "2026-01-01 a 2026-09-30",
   "recorte": "Cabeleireiros + Manicure + Maquiadora",
   "match": "occupancyMergeKey + namesLooselyMatch (match-pro) + curated nicknames",
   "kpi_null": "médias só sobre quem tem presença (>0 dias)",
   "privacidade": "faturamento visível só após login, filtrado por unidade",
   "mes_a_mes": "resumo por categoria + lista de profissionais ativos por mês",
-  "faturamento": "fat bruto jan–set + R$/dia (trabalhado e salão); sem série mensal de fat na fonte atual",
+  "faturamento": "fat bruto mensal real (8123 charged ou P1 revenue) — SEM descontar card_fee; R$/dia mensal = fat_mês÷dias_mês",
   "fat_source_commit": "81c74ac",
   "presence_fix_2026-11-04": {
     "issue": "Avec lista Anderson Augusto como AUGUSTO e Ana Cristina Matsumoto como ANA MATSUMOTO; match exacto ignorava o apelido",
@@ -23,5 +23,16 @@
     "anderson_dias_jan_set": 156,
     "ana_matsumoto_dias_jan_set": 169
   },
-  "rs_dia_fix": "UI calcula R$/dia = fat÷dias na hora; Fernanda Gomes (Brasil) media_dia corrigida 3355→559"
+  "rs_dia_fix": "UI calcula R$/dia = fat÷dias na hora; Fernanda Gomes (Brasil) media_dia corrigida 3355→559",
+  "fat_mensal": {
+    "source": "salon_commissions_daily.charged preferido; fallback salon_p1_daily.revenue (último dia do mês = MTD)",
+    "card_fee": "campo separado no 8123; NÃO entra no fat mostrado",
+    "rateio": "removido da UI mês a mês quando há snapshot real",
+    "celia_ago_2026": {
+      "antes_rateio": 42974,
+      "agora_p1": 45604,
+      "rs_dia_antes": 1719,
+      "rs_dia_agora": 1824.16
+    }
+  }
 }
