@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-05T19:30:00.000Z",
+  "generated_at": "2026-11-05T19:55:00.000Z",
   "periodo": "2026-01-01 a 2026-09-30",
   "recorte": "Cabeleireiros + Manicure + Maquiadora",
   "match": "occupancyMergeKey + namesLooselyMatch (match-pro) + curated nicknames",
@@ -60,12 +60,223 @@
     ],
     "iguatemi": [],
     "efeito_brasil": {
-      "removidos_professionals": ["LISTA DE ESPERA", "DEPILACAO - 3"],
-      "removidos_sem_presenca": ["MASSAGEM 5"],
+      "removidos_professionals": [
+        "LISTA DE ESPERA",
+        "DEPILACAO - 3"
+      ],
+      "removidos_sem_presenca": [
+        "MASSAGEM 5"
+      ],
       "n_listados_3cats": "69→66",
       "n_com_presenca": "65→63",
       "n_sem_presenca": "4→3",
       "fat_total_jan_set_delta": -750.0
+    }
+  },
+  "presence_gaps_fix_2026-11-05": {
+    "unit": "iguatemi",
+    "salon_open_days_db": 272,
+    "period_audit": "63/63 Δ=0 vs DB union(aliases); monthly Δ=0",
+    "aliases_added": {
+      "DI.DEPILAÇÃO": "DIANA DOS SANTOS CAVALCANTI BELEZA DAS MÃOS (169d)",
+      "CHABARIBERY": "DANIEL CHABARIBERY (163d)",
+      "ROSE": "MARIA ROSEANE FERREIRA DUARTE (163d)",
+      "LEILA": "Leiliane Luz dos Santos (161d)",
+      "AMAURI TITO": "AMAURI BAPTISTA BEZERRA (120d)",
+      "FRAN": "FRANCYELE DE SOUZA OLIVEIRA SANTOS (180d union)",
+      "MARCELA GUEDES": "MARCELA DE ARAUJO GUEDES (152d union)",
+      "CIDA": "MARIA APARECIDA RODRIGUES (146d)",
+      "KELLY": "RONEKELLY FARIAS DA SILVA (95d)",
+      "DORES": "MARIA DAS DORES DE LIMA (77d)"
+    },
+    "day_fixes": {
+      "MARCELA DE ARAUJO GUEDES": "150→152 (+2 jul 4/22 full name)",
+      "FRANCYELE DE SOUZA OLIVEIRA SANTOS": "179→180 (+1 jul 9 full name)",
+      "TAMIRES MARQUES DE OLIVEIRA DA COSTA": "104→105 (+1 set)"
+    },
+    "rejected": {
+      "SANDRO DOS SANTOS": "não atribuir a SANDRA NOVAES (nome distinto; 3d)"
+    },
+    "sem_presenca": []
+  },
+  "fat_rebuild_confiabilidade_100": {
+    "rule": "Fat mês = 8123 charged se existir no mês; senão P1 revenue do último dia (MTD). card_fee NÃO descontado.",
+    "fat_bruto_jan_set": "soma fat_meses quando ≥1 mês; nota se cobertura incompleta vs meses com presença",
+    "iguatemi": {
+      "pct_pros_9_de_9": 85.7,
+      "full9": 54,
+      "n_pros": 63,
+      "with_fat": 62,
+      "fat_total_jan_set": 26470978.98,
+      "fat_matched_sum": 26470978.98,
+      "incomplete": [
+        {
+          "nome": "FRANCYELE DE SOUZA OLIVEIRA SANTOS",
+          "meses": 7,
+          "presenca": 9,
+          "fat": 5572.0
+        },
+        {
+          "nome": "Rober Monteiro",
+          "meses": 0,
+          "presenca": 9,
+          "fat": null
+        },
+        {
+          "nome": "ELAINE DE OLIVEIRA",
+          "meses": 6,
+          "presenca": 6,
+          "fat": 58703.0
+        },
+        {
+          "nome": "Rosangela Aparecida dos Santos",
+          "meses": 5,
+          "presenca": 5,
+          "fat": 37628.0
+        },
+        {
+          "nome": "ISABELLY SOUSA DA SILVA",
+          "meses": 4,
+          "presenca": 4,
+          "fat": 30061.0
+        },
+        {
+          "nome": "MARIA DAS DORES DE LIMA",
+          "meses": 3,
+          "presenca": 3,
+          "fat": 29815.0
+        },
+        {
+          "nome": "GISELE MARIANO DA SILVA",
+          "meses": 2,
+          "presenca": 2,
+          "fat": 14343.5
+        },
+        {
+          "nome": "IBRAHIM ISRAEL FREIRE PADILHA",
+          "meses": 2,
+          "presenca": 2,
+          "fat": 46153.0
+        },
+        {
+          "nome": "GABRIEL JOHN DOS SANTOS",
+          "meses": 2,
+          "presenca": 2,
+          "fat": 26734.0
+        }
+      ]
+    },
+    "brasil": {
+      "pct_pros_9_de_9": 73.0,
+      "full9": 46,
+      "n_pros": 63,
+      "with_fat": 62,
+      "fat_total_jan_set": 22959813.46,
+      "fat_matched_sum": 22959813.46,
+      "incomplete": [
+        {
+          "nome": "ALINE BISPO PEREIRA",
+          "meses": 7,
+          "presenca": 7,
+          "fat": 86797.96
+        },
+        {
+          "nome": "LUCIMAR APARECIDA DE CARVALHO",
+          "meses": 7,
+          "presenca": 7,
+          "fat": 62233.44
+        },
+        {
+          "nome": "Catharina de Souza Moraes Bello",
+          "meses": 7,
+          "presenca": 7,
+          "fat": 96315.44
+        },
+        {
+          "nome": "PEDRO RICARDO GALDI",
+          "meses": 7,
+          "presenca": 7,
+          "fat": 82579.17
+        },
+        {
+          "nome": "DANIELA MARINIELLO",
+          "meses": 8,
+          "presenca": 8,
+          "fat": 207470.0
+        },
+        {
+          "nome": "DEBORA SOUZA GUIMARAES",
+          "meses": 3,
+          "presenca": 3,
+          "fat": 21966.05
+        },
+        {
+          "nome": "GHABRYEL FLORES MARTINS",
+          "meses": 3,
+          "presenca": 3,
+          "fat": 100460.0
+        },
+        {
+          "nome": "JOÃO BONICKE",
+          "meses": 1,
+          "presenca": 3,
+          "fat": 37830.0
+        },
+        {
+          "nome": "FRANCINE DA SILVA COUTO",
+          "meses": 2,
+          "presenca": 2,
+          "fat": 37085.0
+        },
+        {
+          "nome": "GISELE GREYCE LIMA FAGLIONI",
+          "meses": 2,
+          "presenca": 2,
+          "fat": 27940.0
+        },
+        {
+          "nome": "GABRIEL LEANDRO PETARNELA",
+          "meses": 2,
+          "presenca": 2,
+          "fat": 53880.0
+        },
+        {
+          "nome": "ADRIANA ROSA DE JESUS ABRANCHES",
+          "meses": 1,
+          "presenca": 1,
+          "fat": 4605.0
+        },
+        {
+          "nome": "Fernando Nantes Romero",
+          "meses": 6,
+          "presenca": 5,
+          "fat": 45234.0
+        },
+        {
+          "nome": "Claudia Yafo",
+          "meses": 1,
+          "presenca": 1,
+          "fat": 1853.99
+        },
+        {
+          "nome": "ALBERTO MASSANORI MURAKAMI",
+          "meses": 1,
+          "presenca": 1,
+          "fat": 2356.99
+        },
+        {
+          "nome": "CLAUDIANA BEZERRA DA SILVA",
+          "meses": 0,
+          "presenca": 1,
+          "fat": null
+        },
+        {
+          "nome": "Danilo Hebert",
+          "meses": 1,
+          "presenca": 1,
+          "fat": 428.0
+        }
+      ]
     }
   }
 }
