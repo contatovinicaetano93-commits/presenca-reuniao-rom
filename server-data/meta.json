@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-05T20:05:00.000Z",
+  "generated_at": "2026-11-05T20:10:00.000Z",
   "periodo": "2026-01-01 a 2026-09-30",
   "recorte": "Cabeleireiros + Manicure + Maquiadora",
   "match": "occupancyMergeKey + namesLooselyMatch (match-pro) + curated nicknames",
@@ -109,6 +109,11 @@
       "with_fat": 62,
       "fat_total_jan_set": 26470978.98,
       "fat_matched_sum": 26470978.98,
+      "coverage": {
+        "matched": 62,
+        "total_pros": 63,
+        "missing": 1
+      },
       "incomplete": [
         {
           "nome": "FRANCYELE DE SOUZA OLIVEIRA SANTOS",
@@ -167,13 +172,24 @@
       ]
     },
     "brasil": {
-      "pct_pros_9_de_9": 73.0,
-      "full9": 46,
-      "n_pros": 63,
-      "with_fat": 62,
-      "fat_total_jan_set": 22959813.46,
-      "fat_matched_sum": 22959813.46,
+      "pct_pros_9_de_9": 71.2,
+      "full9": 47,
+      "n_pros": 66,
+      "with_fat": 65,
+      "fat_total_jan_set": 24506888.72,
+      "fat_matched_sum": 24506888.72,
+      "coverage": {
+        "matched": 65,
+        "total_pros": 66,
+        "missing": 1
+      },
       "incomplete": [
+        {
+          "nome": "MARIA DAS DORES DE SOUZA",
+          "meses": 8,
+          "presenca": 0,
+          "fat": 108006.5
+        },
         {
           "nome": "ALINE BISPO PEREIRA",
           "meses": 7,
@@ -251,6 +267,12 @@
           "meses": 6,
           "presenca": 5,
           "fat": 45234.0
+        },
+        {
+          "nome": "NICOLAS YAN MARTINS DA SILVA",
+          "meses": 2,
+          "presenca": 0,
+          "fat": 5906.0
         },
         {
           "nome": "Claudia Yafo",
