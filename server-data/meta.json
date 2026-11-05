@@ -331,6 +331,7 @@
       "MAURI  LIMA": "Não atribuir a MAURICIO DE CARVALHO LIMA — profissional distinto (123 dias em comum no calendário, visitas separadas)."
     },
     "n_com_presenca": "63→66",
-    "n_sem_presenca": "3→0"
+    "n_sem_presenca": "3→0",
+    "monthly_aligned": true
   }
 }

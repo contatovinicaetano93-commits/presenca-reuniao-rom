@@ -1,0 +1,162 @@
+{
+  "description": "Apelidos Avec em salon_client_visits → nome canônico do painel (Brasil).",
+  "period": "2026-01-01 a 2026-09-30",
+  "salon_open_days_rule": "COUNT(DISTINCT visited_on) em salon_client_visits no período 2026-01-01..2026-09-30 (qualquer profissional). Não usa calendário comercial nem dias sem visita registrada.",
+  "salon_open_days": 198,
+  "rejected": {
+    "MAURI  LIMA": "Não atribuir a MAURICIO DE CARVALHO LIMA — profissional distinto (123 dias em comum no calendário, visitas separadas)."
+  },
+  "aliases": {
+    "MARIA ELIANA NERES DE MOURA": [
+      "MARIA ELIANA NERES DE MOURA",
+      "ELIANA MOURA"
+    ],
+    "MARIA DAS DORES DE SOUZA": [
+      "MARIA DAS DORES DE SOUZA",
+      "DORA"
+    ],
+    "MAURICIO DE CARVALHO LIMA": [
+      "MAURICIO DE CARVALHO LIMA",
+      "MAURICIO CARVALHO"
+    ],
+    "ULISSES SILVA JUNIOR": [
+      "ULISSES SILVA JUNIOR",
+      "ULISSES PETRI"
+    ],
+    "LUIZA ANTONIA AMARO PINTO": [
+      "LUIZA ANTONIA AMARO PINTO",
+      "LU.AMARO"
+    ],
+    "JANDERSON DE SA BARROS": [
+      "JANDERSON DE SA BARROS",
+      "JANDER"
+    ],
+    "ALAN FERNADO DE ALBUQUERQUE": [
+      "ALAN FERNADO DE ALBUQUERQUE",
+      "ALAN.A"
+    ],
+    "JOSENILDO OLIVEIRA": [
+      "JOSENILDO OLIVEIRA",
+      "NILDO OLIVEIRA CABELEIREIRO"
+    ],
+    "Andrea Costa Cabral": [
+      "Andrea Costa Cabral",
+      "ANDREA  CABRAL"
+    ],
+    "Midiã de Jesus Ferreira": [
+      "Midiã de Jesus Ferreira",
+      "MIDIÃ DE JESUS"
+    ],
+    "LUCAS CAMPOS DE MACEDO": [
+      "LUCAS CAMPOS DE MACEDO",
+      "LUCAS.KAMPOS"
+    ],
+    "WANDERLEY DELCIDIO DA SILVA": [
+      "WANDERLEY DELCIDIO DA SILVA",
+      "DERLEY SILVA"
+    ],
+    "MARIA SAMILA NASCIMENTO DOS SANTOS": [
+      "MARIA SAMILA NASCIMENTO DOS SANTOS",
+      "SAMILA NASCIMENTO DOS SANTOS"
+    ],
+    "DIOGO MARCELO PITARO": [
+      "DIOGO MARCELO PITARO",
+      "DIOGO PITARO"
+    ],
+    "NARCELHO ALVES SANTOS": [
+      "NARCELHO ALVES SANTOS",
+      "NARCELHO SANTOS"
+    ],
+    "Lucas Gustavo de Sales e Sales": [
+      "Lucas Gustavo de Sales e Sales",
+      "LUCAS.SALES"
+    ],
+    "DAYANA MARQUES SILVA PINTO": [
+      "DAYANA MARQUES SILVA PINTO",
+      "DAY MARQUES SILVA PINTO"
+    ],
+    "MONIQUE LIA BUNA CASTRO DOS SANTOS": [
+      "MONIQUE LIA BUNA CASTRO DOS SANTOS",
+      "MONI.CASTRO"
+    ],
+    "RODRIGO APOLINARIO PIRES SARAIVA": [
+      "RODRIGO APOLINARIO PIRES SARAIVA",
+      "RODRIGO.APOLINARIO PIRES SARAIVA"
+    ],
+    "Catharina de Souza Moraes Bello": [
+      "Catharina de Souza Moraes Bello",
+      "CATHARINA MORAES"
+    ],
+    "MARIA TEREZA LUIS DE PAIVA": [
+      "MARIA TEREZA LUIS DE PAIVA",
+      "TEREZA LUIS DE PAIVA"
+    ],
+    "LEONEL CLARET BORGES BERNARDO": [
+      "LEONEL CLARET BORGES BERNARDO",
+      "LEONEL CLARET"
+    ],
+    "FERNANDA GOMES": [
+      "FERNANDA GOMES",
+      "FERNANDA.GOMES",
+      "NANDA GOMES"
+    ],
+    "BRUNA DA SILVA MELO DOMINGUES": [
+      "BRUNA DA SILVA MELO DOMINGUES",
+      "BRUNA.MELO"
+    ],
+    "MONIQUE BORELLA COUTO": [
+      "MONIQUE BORELLA COUTO",
+      "MONIQUE COUTO"
+    ],
+    "Nathan Elias Magalhães Lima": [
+      "Nathan Elias Magalhães Lima",
+      "NATHAN"
+    ],
+    "LUCIMARY COSSENZO": [
+      "LUCIMARY COSSENZO",
+      "LUCY COSSENZO"
+    ],
+    "VITALINO PEREIRA CAMPOS": [
+      "VITALINO PEREIRA CAMPOS",
+      "NETO CAMPOS"
+    ],
+    "MANOEL SERGIO GONÇALVES": [
+      "MANOEL SERGIO GONÇALVES",
+      "MANU SERGIO"
+    ],
+    "DANIELA MARINIELLO": [
+      "DANIELA MARINIELLO",
+      "DANI.MARINIELLO"
+    ],
+    "GHABRYEL FLORES MARTINS": [
+      "GHABRYEL FLORES MARTINS",
+      "GHABRYEL.F  MARTINS",
+      "GHABRYELMARTINS"
+    ],
+    "Gabriela  Santos": [
+      "Gabriela  Santos",
+      "GABRIELA SANTOS (ROMEU)"
+    ],
+    "TALITA A.": [
+      "TALITA A.",
+      "TALITA ALVES DOS SANTOS"
+    ],
+    "GABRIEL LEANDRO PETARNELA": [
+      "GABRIEL LEANDRO PETARNELA",
+      "GABRIELPERTANELA",
+      "GABRIELPETARNELA"
+    ],
+    "ADRIANA ROSA DE JESUS ABRANCHES": [
+      "ADRIANA ROSA DE JESUS ABRANCHES",
+      "ADRIANA ABRANCHES"
+    ],
+    "NICOLAS YAN MARTINS DA SILVA": [
+      "NICOLAS YAN MARTINS DA SILVA",
+      "YAN MARTINS"
+    ],
+    "CLAUDIANA BEZERRA DA SILVA": [
+      "CLAUDIANA BEZERRA DA SILVA",
+      "CLAU SILVA"
+    ]
+  }
+}
