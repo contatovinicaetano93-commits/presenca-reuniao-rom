@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-05T20:10:00.000Z",
+  "generated_at": "2026-11-05T19:57:34.000Z",
   "periodo": "2026-01-01 a 2026-09-30",
   "recorte": "Cabeleireiros + Manicure + Maquiadora",
   "match": "occupancyMergeKey + namesLooselyMatch (match-pro) + curated nicknames",
@@ -333,5 +333,124 @@
     "n_com_presenca": "63→66",
     "n_sem_presenca": "3→0",
     "monthly_aligned": true
+  },
+  "fat_anomaly_fix_2026-11-05": {
+    "rule": "se fat painel > P1 EOM/8123 charged: corrigir JSON; aliases = max/mês (não soma); card_fee fora",
+    "fixes": [
+      {
+        "unit": "iguatemi",
+        "pros": [
+          {
+            "nome": "SANDRA NOVAES NASCIMENTO DOS SANTOS",
+            "fat_antes": 59683.0,
+            "fat_depois": 58739.0,
+            "media_antes": 432.49,
+            "media_depois": 425.64
+          }
+        ]
+      },
+      {
+        "unit": "brasil",
+        "pros": [
+          {
+            "nome": "MAURICIO DE CARVALHO LIMA",
+            "fat_antes": 2038695.85,
+            "fat_depois": 1655267.85,
+            "media_antes": 12063.29,
+            "media_depois": 9794.48
+          },
+          {
+            "nome": "Gabriela  Santos",
+            "fat_antes": 252324.0,
+            "fat_depois": 75203.0,
+            "media_antes": 7009.0,
+            "media_depois": 2088.97
+          }
+        ]
+      }
+    ],
+    "iguatemi_suspects": "Brunna / Júnior / Romeu: OK vs DB (sem correção); R$/dia anômalo permanece (fonte Avec)",
+    "still_anomalous_rs_dia_ge_8000": [
+      {
+        "unit": "iguatemi",
+        "nome": "Júnior Santos",
+        "media": 18088.66,
+        "dias": 104,
+        "fat": 1881221.0,
+        "why": "painel == P1/8123; R$/dia alto = fat Avec ÷ 104d"
+      },
+      {
+        "unit": "iguatemi",
+        "nome": "ROMEU FELIPE",
+        "media": 17101.33,
+        "dias": 78,
+        "fat": 1333904.0,
+        "why": "painel == P1/8123; R$/dia alto = fat Avec ÷ 78d"
+      },
+      {
+        "unit": "iguatemi",
+        "nome": "BRUNNA FABRICIO DA SILVA",
+        "media": 16569.98,
+        "dias": 133,
+        "fat": 2203808.0,
+        "why": "painel == P1/8123; R$/dia alto = fat Avec ÷ 133d"
+      },
+      {
+        "unit": "brasil",
+        "nome": "ROMEU FELIPE",
+        "media": 13935.84,
+        "dias": 107,
+        "fat": 1491135.23,
+        "why": "painel == P1/8123; R$/dia alto = fat Avec ÷ 107d"
+      },
+      {
+        "unit": "iguatemi",
+        "nome": "MARCELA DE ARAUJO GUEDES",
+        "media": 10070.8,
+        "dias": 152,
+        "fat": 1530762.0,
+        "why": "painel == P1/8123; R$/dia alto = fat Avec ÷ 152d"
+      },
+      {
+        "unit": "brasil",
+        "nome": "MAURICIO DE CARVALHO LIMA",
+        "media": 9794.48,
+        "dias": 169,
+        "fat": 1655267.85,
+        "why": "painel == P1/8123; R$/dia alto = fat Avec ÷ 169d"
+      },
+      {
+        "unit": "brasil",
+        "nome": "WALTER MARTINHO LEAL FILHO CABELEIREIRO",
+        "media": 9651.46,
+        "dias": 170,
+        "fat": 1640747.36,
+        "why": "painel == P1/8123; R$/dia alto = fat Avec ÷ 170d"
+      },
+      {
+        "unit": "iguatemi",
+        "nome": "JOANIDES MENDES PONTES JUNIOR",
+        "media": 9454.53,
+        "dias": 123,
+        "fat": 1162907.29,
+        "why": "painel == P1/8123; R$/dia alto = fat Avec ÷ 123d"
+      },
+      {
+        "unit": "brasil",
+        "nome": "ALAN FERNADO DE ALBUQUERQUE",
+        "media": 9160.17,
+        "dias": 149,
+        "fat": 1364864.66,
+        "why": "painel == P1/8123; R$/dia alto = fat Avec ÷ 149d"
+      },
+      {
+        "unit": "brasil",
+        "nome": "ULISSES SILVA JUNIOR",
+        "media": 8581.81,
+        "dias": 167,
+        "fat": 1433162.76,
+        "why": "painel == P1/8123; R$/dia alto = fat Avec ÷ 167d"
+      }
+    ]
   }
 }

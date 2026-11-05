@@ -14,7 +14,7 @@
       "n": 23,
       "media_constancia_pct": 59.6,
       "media_dias_trabalhados": 162.0,
-      "fat_bruto_jan_set": 2283482.45
+      "fat_bruto_jan_set": 2282538.45
     },
     "Cabeleireiros": {
       "n": 35,
@@ -1229,23 +1229,23 @@
       "media_dias_recorte": 152.0,
       "delta_indice": -9.2,
       "standing": "abaixo",
-      "fat_bruto_jan_set": 59683.0,
-      "media_dia_trabalhado": 432.49,
-      "media_dia_salao": 219.42,
+      "fat_bruto_jan_set": 58739.0,
+      "media_dia_trabalhado": 425.64,
+      "media_dia_salao": 215.95,
       "fat_meses": {
         "2026-01": 8076.0,
         "2026-02": 7422.0,
         "2026-03": 7358.0,
         "2026-04": 6030.0,
         "2026-05": 6196.0,
-        "2026-06": 6679.0,
+        "2026-06": 5735.0,
         "2026-07": 5881.0,
         "2026-08": 5630.0,
         "2026-09": 6411.0
       },
-      "fat_meses_sum": 59683.0,
-      "fat_source_note": "8123 charged (bruto) quando houver; senão P1 revenue. card_fee NÃO descontado.",
-      "fat_coverage_note": "fat período = soma meses P1/8123"
+      "fat_meses_sum": 58739.0,
+      "fat_source_note": "8123 charged (bruto) preferido; senão P1 EOM. aliases: max/mês (não soma). card_fee NÃO descontado.",
+      "fat_coverage_note": "corrigido: painel > P1/8123 → alinhado à soma real"
     },
     {
       "nome": "BRUNNA FABRICIO DA SILVA",
@@ -1741,8 +1741,8 @@
       "fat_coverage_note": "fat período = soma 2 meses P1/8123 (completo vs 2 meses com presença; <9/9 calendário)"
     }
   ],
-  "fat_total_jan_set": 26470978.98,
-  "fat_matched_sum": 26470978.98,
+  "fat_total_jan_set": 26470034.98,
+  "fat_matched_sum": 26470034.98,
   "fat_coverage": {
     "matched": 62,
     "total_pros": 63,

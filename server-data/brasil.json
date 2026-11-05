@@ -16,7 +16,7 @@
       "media_dias_trabalhados": 99.0,
       "acima": 28,
       "abaixo": 20,
-      "fat_bruto_jan_set": 22453703.2,
+      "fat_bruto_jan_set": 21893154.2,
       "n_com_fat": 47
     },
     "Manicure": {
@@ -132,23 +132,23 @@
       "media_dias_recorte": 103.55,
       "delta_indice": 63.2,
       "standing": "acima",
-      "fat_bruto_jan_set": 2038695.85,
-      "media_dia_trabalhado": 12063.29,
-      "media_dia_salao": 10296.44,
+      "fat_bruto_jan_set": 1655267.85,
+      "media_dia_trabalhado": 9794.48,
+      "media_dia_salao": 8359.94,
       "fat_meses": {
-        "2026-01": 180878.0,
-        "2026-02": 190663.0,
-        "2026-03": 223121.0,
-        "2026-04": 244712.0,
-        "2026-05": 236372.0,
-        "2026-06": 236130.0,
-        "2026-07": 224550.0,
-        "2026-08": 261200.0,
-        "2026-09": 241069.85
+        "2026-01": 141748.0,
+        "2026-02": 155037.0,
+        "2026-03": 183794.0,
+        "2026-04": 197434.0,
+        "2026-05": 206777.0,
+        "2026-06": 204020.0,
+        "2026-07": 180938.0,
+        "2026-08": 198764.0,
+        "2026-09": 186755.85
       },
-      "fat_meses_sum": 2038695.85,
-      "fat_source_note": "8123 charged (bruto) quando houver; senão P1 revenue. card_fee NÃO descontado.",
-      "fat_coverage_note": "fat período = soma meses P1/8123"
+      "fat_meses_sum": 1655267.85,
+      "fat_source_note": "8123 charged (bruto) preferido; senão P1 EOM. aliases: max/mês (não soma). card_fee NÃO descontado.",
+      "fat_coverage_note": "corrigido: painel > P1/8123 → alinhado à soma real"
     },
     {
       "nome": "ULISSES SILVA JUNIOR",
@@ -1511,23 +1511,23 @@
       "media_dias_recorte": 103.55,
       "delta_indice": -65.2,
       "standing": "abaixo",
-      "fat_bruto_jan_set": 252324.0,
-      "media_dia_trabalhado": 7009.0,
-      "media_dia_salao": 1274.36,
+      "fat_bruto_jan_set": 75203.0,
+      "media_dia_trabalhado": 2088.97,
+      "media_dia_salao": 379.81,
       "fat_meses": {
-        "2026-01": 23890.0,
-        "2026-02": 18196.0,
-        "2026-03": 42341.0,
-        "2026-04": 32485.0,
-        "2026-05": 21000.0,
-        "2026-06": 26510.0,
-        "2026-07": 28206.0,
-        "2026-08": 38427.0,
+        "2026-01": 4160.0,
+        "2026-02": 5814.0,
+        "2026-03": 9791.0,
+        "2026-04": 8552.0,
+        "2026-05": 3865.0,
+        "2026-06": 3070.0,
+        "2026-07": 6214.0,
+        "2026-08": 12468.0,
         "2026-09": 21269.0
       },
-      "fat_meses_sum": 252324.0,
-      "fat_source_note": "8123 charged (bruto) quando houver; senão P1 revenue. card_fee NÃO descontado.",
-      "fat_coverage_note": "fat período = soma meses P1/8123"
+      "fat_meses_sum": 75203.0,
+      "fat_source_note": "8123 charged (bruto) preferido; senão P1 EOM. aliases: max/mês (não soma). card_fee NÃO descontado.",
+      "fat_coverage_note": "corrigido: painel > P1/8123 → alinhado à soma real"
     },
     {
       "nome": "JOÃO BONICKE",
@@ -1782,8 +1782,8 @@
       "fat_coverage_note": "fat período = soma 1 meses P1/8123 (completo vs 1 meses com presença; <9/9 calendário)"
     }
   ],
-  "fat_total_jan_set": 24506888.72,
-  "fat_matched_sum": 24506888.72,
+  "fat_total_jan_set": 23946339.72,
+  "fat_matched_sum": 23946339.72,
   "fat_coverage": {
     "matched": 65,
     "total_pros": 66,
