@@ -260,6 +260,8 @@
     .slide { display: block !important; page-break-after: always; }
     .tablebox { max-height: none; overflow: visible; }
     body { background: #fff; }
+    /* Screen keeps one unit; a single PDF must include both full tables. */
+    .unit-panels > [data-unit-panel][hidden] { display: block !important; }
   }
 
   .month-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
