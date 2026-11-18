@@ -188,6 +188,42 @@
   }
   .filters button.active { background: var(--ink); color: #fff; border-color: var(--ink); }
 
+  .unit-compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin: 0 0 12px;
+  }
+  .unit-chip {
+    border-radius: 16px;
+    padding: 12px 14px;
+    border: 1px solid var(--line);
+    background: var(--paper);
+    display: grid;
+    gap: 4px;
+  }
+  .unit-chip.br { border-top: 4px solid var(--br); }
+  .unit-chip.ig { border-top: 4px solid var(--ig); }
+  .unit-chip .u {
+    font: 700 11px/1.2 system-ui, sans-serif;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .unit-chip .v {
+    font-size: clamp(1.15rem, 4.5vw, 1.55rem);
+    font-weight: 700;
+    color: var(--gold);
+    font-variant-numeric: tabular-nums;
+  }
+  .unit-chip .s { font: 500 12px/1.3 system-ui, sans-serif; color: var(--muted); }
+  .unit-toggle { margin-bottom: 10px; }
+  .unit-panels { display: block; }
+  .unit-panels > [data-unit-panel][hidden] { display: none !important; }
+  @media (max-width: 560px) {
+    .unit-compare { grid-template-columns: 1fr; }
+  }
+
   .tablebox {
     background: var(--paper);
     border: 1px solid var(--line);
@@ -847,15 +883,51 @@ const resumoCards = [
   canIguatemi && ig ? unitBlock(ig,'ig') : '',
 ].filter(Boolean).join('');
 
-const financeCards = [
+function unitCompareStrip(){
+  if (!(isDiretor && br && ig)) return '';
+  return `<div class="unit-compare" role="group" aria-label="Totais por unidade">
+    <div class="unit-chip br"><span class="u">Brasil</span><span class="v">R$ ${money(br.fat_total_jan_set)}</span><span class="s">${br.fat_coverage?.matched ?? '—'}/${br.fat_coverage?.total_pros ?? '—'} com fat</span></div>
+    <div class="unit-chip ig"><span class="u">Iguatemi</span><span class="v">R$ ${money(ig.fat_total_jan_set)}</span><span class="s">${ig.fat_coverage?.matched ?? '—'}/${ig.fat_coverage?.total_pros ?? '—'} com fat</span></div>
+  </div>`;
+}
+
+function unitToggle(scope, initial){
+  if (!(isDiretor && br && ig)) return '';
+  const start = initial || 'brasil';
+  return `<div class="filters unit-toggle" data-scope="${scope}" role="group" aria-label="Escolher unidade">
+    <button type="button" data-show="brasil" class="${start==='brasil'?'active':''}">Brasil</button>
+    <button type="button" data-show="iguatemi" class="${start==='iguatemi'?'active':''}">Iguatemi</button>
+  </div>`;
+}
+
+function unitPanels(scope, brHtml, igHtml, initial){
+  if (isDiretor && br && ig) {
+    const start = initial || 'brasil';
+    return `${unitCompareStrip()}
+      ${unitToggle(scope, start)}
+      <div class="unit-panels" data-scope="${scope}">
+        <div data-unit-panel="brasil" ${start==='brasil'?'':'hidden'}>${brHtml}</div>
+        <div data-unit-panel="iguatemi" ${start==='iguatemi'?'':'hidden'}>${igHtml}</div>
+      </div>`;
+  }
+  if (canBrasil && br) return `<div class="cards" style="grid-template-columns:1fr">${brHtml}</div>`;
+  if (canIguatemi && ig) return `<div class="cards" style="grid-template-columns:1fr">${igHtml}</div>`;
+  return '';
+}
+
+const financePanels = unitPanels(
+  'financeiro',
   canBrasil && br ? financeBlock(br,'br') : '',
   canIguatemi && ig ? financeBlock(ig,'ig') : '',
-].filter(Boolean).join('');
+  'brasil'
+);
 
-const fatRankCards = [
+const fatRankPanels = unitPanels(
+  'ranking-fat',
   canBrasil && br ? fatRankBlock(br,'br') : '',
   canIguatemi && ig ? fatRankBlock(ig,'ig') : '',
-].filter(Boolean).join('');
+  'brasil'
+);
 
 const searchUnitButtons = isDiretor
   ? `<button type="button" data-unit="brasil" class="active">Brasil</button>
@@ -893,16 +965,18 @@ const slides = [
     label: 'Financeiro',
     fullLabel: 'Financeiro',
     html: `<h2>Faturamento jan–out</h2>
-      <p class="sub">Fat bruto do período + R$/dia. Fat mês a mês = receita bruta Avec (8123 charged ou P1), sem descontar taxa de cartão.</p>
-      <div class="cards" style="${isDiretor ? '' : 'grid-template-columns:1fr'}">${financeCards}</div>`
+      <p class="sub">${isDiretor
+        ? 'Brasil e Iguatemi · fat bruto + R$/dia (Avec 8123/P1, sem descontar taxa de cartão). Use o seletor para alternar a unidade.'
+        : `Fat bruto da unidade ${canBrasil ? 'Brasil' : 'Iguatemi'} + R$/dia (Avec 8123/P1, sem descontar taxa de cartão).`}</p>
+      ${financePanels}`
   },
   ...(isDiretor ? [{
     id: 'ranking-fat',
     label: 'Ranking Fat',
     fullLabel: 'Ranking por faturamento',
     html: `<h2>Ranking anual por faturamento</h2>
-      <p class="sub">Waltter · ordem só pelo fat bruto jan–out de cada unidade. Sem Δ%, sem constância na ordenação — quem faturou mais fica em cima.</p>
-      <div class="cards">${fatRankCards}</div>`
+      <p class="sub">Waltter · Brasil e Iguatemi. Ordem só pelo fat bruto jan–out — sem Δ% / constância. Alterne a unidade no seletor.</p>
+      ${fatRankPanels}`
   }] : []),
   {
     id: 'pesquisar',
@@ -1023,6 +1097,21 @@ function prev(){ go(idx-1); }
 nav.addEventListener('click', e => {
   const b = e.target.closest('button[data-i]');
   if (b) go(+b.dataset.i);
+});
+
+document.querySelectorAll('.unit-toggle').forEach(bar => {
+  bar.addEventListener('click', e => {
+    const b = e.target.closest('button[data-show]');
+    if (!b) return;
+    const scope = bar.getAttribute('data-scope');
+    const show = b.getAttribute('data-show');
+    bar.querySelectorAll('button[data-show]').forEach(el => el.classList.toggle('active', el === b));
+    const panels = document.querySelector(`.unit-panels[data-scope="${scope}"]`);
+    if (!panels) return;
+    panels.querySelectorAll('[data-unit-panel]').forEach(panel => {
+      panel.hidden = panel.getAttribute('data-unit-panel') !== show;
+    });
+  });
 });
 window.addEventListener('keydown', e => {
   const typing = e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA');
