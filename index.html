@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Presença jan–set/2026 · Reunião</title>
+<title>Presença jan–out/2026 · Reunião</title>
 <style>
   :root {
     --ink: #101820;
@@ -545,7 +545,7 @@ function unitBlock(u, cls){
       <div class="kpi"><div class="l">Constância</div><div class="v gold">${pct(u.media_geral_constancia_pct)}</div></div>
       <div class="kpi"><div class="l">Média dias</div><div class="v">${u.media_dias_trabalhados}</div></div>
       <div class="kpi"><div class="l">Com presença</div><div class="v">${u.n_com_presenca}</div></div>
-      <div class="kpi"><div class="l">Fat bruto jan–set</div><div class="v sm gold">R$ ${money(u.fat_total_jan_set)}</div></div>
+      <div class="kpi"><div class="l">Fat bruto jan–out</div><div class="v sm gold">R$ ${money(u.fat_total_jan_set)}</div></div>
     </div>
     <div class="rows">
       <div class="row head"><span>Categoria</span><span>n</span><span>Constância</span><span>Dias</span><span>Fat</span></div>
@@ -585,7 +585,7 @@ function tableFor(u, cat){
   return `<div class="tablebox"><table>
     <thead><tr>
       <th class="num">#</th><th>Nome</th><th class="num">Dias</th><th class="num">Const%</th>
-      <th class="num">Δ%</th><th>Standing</th><th class="num">Fat jan–set</th><th class="num">R$/dia</th>
+      <th class="num">Δ%</th><th>Standing</th><th class="num">Fat jan–out</th><th class="num">R$/dia</th>
     </tr></thead>
     <tbody>${rows}</tbody>
   </table></div>
@@ -683,7 +683,7 @@ function monthCard(label, cls, months, periodAvg, unitKey){
       <div class="kpi"><div class="l">Jan → Set</div><div class="v gold">${pct(first.media_geral_constancia_pct)} → ${pct(last.media_geral_constancia_pct)}</div></div>
       <div class="kpi"><div class="l">Ativos no mês</div><div class="v">${first.n_ativos} → ${last.n_ativos}</div></div>
       <div class="kpi"><div class="l">Média período</div><div class="v">${pct(periodAvg)}</div></div>
-      <div class="kpi"><div class="l">Fat bruto jan–set</div><div class="v sm gold">R$ ${money(unitData?.fat_total_jan_set)}</div></div>
+      <div class="kpi"><div class="l">Fat bruto jan–out</div><div class="v sm gold">R$ ${money(unitData?.fat_total_jan_set)}</div></div>
     </div>
     <div style="overflow:auto">
       <table class="month-table">
@@ -718,14 +718,14 @@ function financeBlock(u, cls){
     <td class="num">${money(rDiaSalao(p))}</td>
   </tr>`).join('');
   return `<article class="card ${cls}">
-    <h3>${esc(u.unidade)} <span class="tag">Fat jan–set R$ ${money(u.fat_total_jan_set)}</span></h3>
+    <h3>${esc(u.unidade)} <span class="tag">Fat jan–out R$ ${money(u.fat_total_jan_set)}</span></h3>
     <div class="kpis k4">
       <div class="kpi"><div class="l">Fat total</div><div class="v sm gold">R$ ${money(u.fat_total_jan_set)}</div></div>
       <div class="kpi"><div class="l">Com fat</div><div class="v">${u.fat_coverage?.matched ?? '—'}/${u.fat_coverage?.total_pros ?? '—'}</div></div>
       <div class="kpi"><div class="l">Top 1</div><div class="v sm">${top[0] ? 'R$ '+money(top[0].fat_bruto_jan_set) : '—'}</div></div>
       <div class="kpi"><div class="l">Alertas fat/dias</div><div class="v">${alerts.length}</div></div>
     </div>
-    <p class="section-label">Ranking por fat bruto</p>
+    <p class="section-label">Top 12 por fat bruto</p>
     <div class="tablebox"><table>
       <thead><tr>
         <th class="num">#</th><th>Nome</th><th>Cat</th><th class="num">Dias</th><th class="num">Const%</th>
@@ -733,7 +733,46 @@ function financeBlock(u, cls){
       </tr></thead>
       <tbody>${rows}</tbody>
     </table></div>
-    <p class="hint">R$/dia trab. = fat ÷ dias com presença. R$/dia salão = fat ÷ dias abertos do salão. Alerta quando fat/dia ≥ 15 mil com ≤ 10 dias.</p>
+    <p class="hint">R$/dia trab. = fat ÷ dias com presença. R$/dia salão = fat ÷ dias abertos do salão. Alerta quando fat/dia ≥ 15 mil com ≤ 10 dias. Ranking completo só por fat está na aba Ranking Fat.</p>
+  </article>`;
+}
+
+/** Ranking anual ordenado só por faturamento bruto (sem Δ% / constância). */
+function fatRankBlock(u, cls){
+  const ranked = [...(u.professionals||[])]
+    .filter(p => (p.fat_bruto_jan_set || 0) > 0)
+    .sort((a,b) => (b.fat_bruto_jan_set||0) - (a.fat_bruto_jan_set||0));
+  const total = ranked.reduce((s,p) => s + Number(p.fat_bruto_jan_set||0), 0);
+  const rows = ranked.map((p,i) => {
+    const share = total > 0 ? (100 * Number(p.fat_bruto_jan_set) / total) : 0;
+    return `<tr>
+      <td class="num">${i+1}</td>
+      <td>${esc(p.nome)}</td>
+      <td>${catPill(p.categoria)}</td>
+      <td class="num">${money(p.fat_bruto_jan_set)}</td>
+      <td class="num">${share.toFixed(1).replace('.', ',')}%</td>
+      <td class="num">${p.dias_trabalhados}</td>
+      <td class="num">${money(rDiaTrab(p))}</td>
+    </tr>`;
+  }).join('');
+  return `<article class="card ${cls}">
+    <h3>${esc(u.unidade)} <span class="tag">${ranked.length} no ranking · R$ ${money(u.fat_total_jan_set)}</span></h3>
+    <div class="kpis k4">
+      <div class="kpi"><div class="l">1º</div><div class="v sm">${ranked[0] ? esc(ranked[0].nome.split(' ')[0]) + ' · R$ ' + money(ranked[0].fat_bruto_jan_set) : '—'}</div></div>
+      <div class="kpi"><div class="l">2º</div><div class="v sm">${ranked[1] ? esc(ranked[1].nome.split(' ')[0]) + ' · R$ ' + money(ranked[1].fat_bruto_jan_set) : '—'}</div></div>
+      <div class="kpi"><div class="l">3º</div><div class="v sm">${ranked[2] ? esc(ranked[2].nome.split(' ')[0]) + ' · R$ ' + money(ranked[2].fat_bruto_jan_set) : '—'}</div></div>
+      <div class="kpi"><div class="l">Fat total</div><div class="v sm gold">R$ ${money(u.fat_total_jan_set)}</div></div>
+    </div>
+    <p class="section-label">Ordem = fat bruto jan–out (maior → menor)</p>
+    <div class="tablebox"><table>
+      <thead><tr>
+        <th class="num">#</th><th>Nome</th><th>Cat</th>
+        <th class="num">Fat jan–out</th><th class="num">% unidade</th>
+        <th class="num">Dias</th><th class="num">R$/dia</th>
+      </tr></thead>
+      <tbody>${rows || '<tr><td colspan="7">Sem faturamento no período.</td></tr>'}</tbody>
+    </table></div>
+    <p class="hint">Critério único: faturamento bruto Avec (8123/P1), sem taxa de cartão. Dias e R$/dia são contexto — não entram na ordenação. Diferente do ranking por constância/Δ das abas de categoria.</p>
   </article>`;
 }
 
@@ -750,6 +789,11 @@ const resumoCards = [
 const financeCards = [
   canBrasil && br ? financeBlock(br,'br') : '',
   canIguatemi && ig ? financeBlock(ig,'ig') : '',
+].filter(Boolean).join('');
+
+const fatRankCards = [
+  canBrasil && br ? fatRankBlock(br,'br') : '',
+  canIguatemi && ig ? fatRankBlock(ig,'ig') : '',
 ].filter(Boolean).join('');
 
 const searchUnitButtons = isDiretor
@@ -771,7 +815,7 @@ const slides = [
     label: 'Capa',
     html: `<section class="hero">
       <p class="eyebrow">Reunião · Presença de profissionais</p>
-      <h1>Presença jan–set/2026</h1>
+      <h1>Presença jan–out/2026</h1>
       <p class="lead">Recorte: <b>Cabeleireiros + Manicure + Maquiadora</b>. Assistentes fora. Constância = dias trabalhados ÷ dias abertos do salão.${isDiretor ? '' : ` Acesso: <b>${canBrasil ? 'Brasil' : 'Iguatemi'}</b>.`}</p>
       <div class="big-row" style="${isDiretor ? '' : 'grid-template-columns:1fr'}">${capaBigs}</div>
     </section>`
@@ -780,17 +824,25 @@ const slides = [
     id: 'resumo',
     label: 'Resumo',
     html: `<h2>Resumo por unidade</h2>
-      <p class="sub">${isDiretor ? 'Presença e fat bruto jan–set por unidade e categoria.' : `Presença e fat da unidade ${canBrasil ? 'Brasil' : 'Iguatemi'}.`}</p>
+      <p class="sub">${isDiretor ? 'Presença e fat bruto jan–out por unidade e categoria.' : `Presença e fat da unidade ${canBrasil ? 'Brasil' : 'Iguatemi'}.`}</p>
       <div class="cards" style="${isDiretor ? '' : 'grid-template-columns:1fr'}">${resumoCards}</div>`
   },
   {
     id: 'financeiro',
     label: 'Financeiro',
     fullLabel: 'Financeiro',
-    html: `<h2>Faturamento jan–set</h2>
+    html: `<h2>Faturamento jan–out</h2>
       <p class="sub">Fat bruto do período + R$/dia. Fat mês a mês = receita bruta Avec (8123 charged ou P1), sem descontar taxa de cartão.</p>
       <div class="cards" style="${isDiretor ? '' : 'grid-template-columns:1fr'}">${financeCards}</div>`
   },
+  ...(isDiretor ? [{
+    id: 'ranking-fat',
+    label: 'Ranking Fat',
+    fullLabel: 'Ranking por faturamento',
+    html: `<h2>Ranking anual por faturamento</h2>
+      <p class="sub">Waltter · ordem só pelo fat bruto jan–out de cada unidade. Sem Δ%, sem constância na ordenação — quem faturou mais fica em cima.</p>
+      <div class="cards">${fatRankCards}</div>`
+  }] : []),
   {
     id: 'pesquisar',
     label: 'Pesquisar',
@@ -815,7 +867,7 @@ const slides = [
     label: 'Mês a mês',
     fullLabel: 'Mês a mês',
     html: `<h2>Mês a mês</h2>
-      <p class="sub">Ativos do mês + fat rateado (fat jan–set × dias do mês ÷ dias do período).</p>
+      <p class="sub">Ativos do mês + fat bruto real do mês (8123/P1), sem rateio e sem descontar taxa de cartão.</p>
       <div class="month-grid" style="${isDiretor ? '' : 'grid-template-columns:1fr'}">${monthCards}</div>`
   }
 ];
@@ -1040,7 +1092,7 @@ function renderProCard(p){
       <div class="kpi"><div class="l">Dias trabalhados</div><div class="v">${p.dias_trabalhados}</div></div>
       <div class="kpi"><div class="l">Meses ativos</div><div class="v">${ativos.length}/${p.series.length}</div></div>
     </div>
-    <p class="section-label">Faturamento (jan–set)</p>
+    <p class="section-label">Faturamento (jan–out)</p>
     <div class="kpis">
       <div class="kpi"><div class="l">Fat bruto</div><div class="v sm gold">R$ ${money(p.fat_bruto_jan_set)}</div></div>
       <div class="kpi"><div class="l">R$/dia trabalhado</div><div class="v sm">${money(rDiaTrab(p))}</div></div>
@@ -1056,7 +1108,7 @@ function renderProCard(p){
         <tbody>${rows}</tbody>
       </table>
     </div>
-    <p class="hint">Fat mês = receita bruta do mês (Avec 8123 charged ou P1) sem descontar taxa de cartão. R$/dia = fat do mês ÷ dias do mês (varia por mês). Fat jan–set = soma desses meses quando a cobertura mensal está completa.</p>
+    <p class="hint">Fat mês = receita bruta do mês (Avec 8123 charged ou P1) sem descontar taxa de cartão. R$/dia = fat do mês ÷ dias do mês (varia por mês). Fat jan–out = soma desses meses quando a cobertura mensal está completa.</p>
   </article>`;
 }
 
