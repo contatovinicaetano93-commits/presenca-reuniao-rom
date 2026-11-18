@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-05T19:57:34.000Z",
-  "periodo": "2026-01-01 a 2026-09-30",
+  "generated_at": "2026-11-18T23:00:00.000Z",
+  "periodo": "2026-01-01 a 2026-10-31",
   "recorte": "Cabeleireiros + Manicure + Maquiadora",
   "match": "occupancyMergeKey + namesLooselyMatch (match-pro) + curated nicknames",
   "kpi_null": "médias só sobre quem tem presença (>0 dias)",
@@ -452,5 +452,14 @@
         "why": "painel == P1/8123; R$/dia alto = fat Avec ÷ 167d"
       }
     ]
+  },
+  "october_update_2026-11-18": {
+    "brasil_open_days_period": 224,
+    "iguatemi_open_days_period": 303,
+    "brasil_open_oct": 26,
+    "iguatemi_open_oct": 31,
+    "brasil_fat_total": 25085050.34,
+    "iguatemi_fat_total": 29476481.84,
+    "rule": "Mesma regra: presença via aliases; fat mês = 8123 charged EOM senão P1 revenue; card_fee fora; aliases → max/mês"
   }
 }

@@ -1,6 +1,6 @@
 {
   "description": "Apelidos Avec em salon_client_visits → nome canônico do painel (Iguatemi).",
-  "period": "2026-01-01 a 2026-09-30",
+  "period": "2026-01-01 a 2026-10-31",
   "aliases": {
     "ANDERSON AUGUSTO": [
       "ANDERSON AUGUSTO",
@@ -31,7 +31,9 @@
     ],
     "DIANA DOS SANTOS CAVALCANTI BELEZA DAS MÃOS": [
       "DIANA DOS SANTOS CAVALCANTI BELEZA DAS MÃOS",
-      "DI.DEPILAÇÃO"
+      "DI.DEPILAÇÃO",
+      "DI.DEPILACAO",
+      "DIANA DOS SANTOS CAVALCANTI BELEZA DAS MAOS"
     ],
     "DANIEL CHABARIBERY": [
       "DANIEL CHABARIBERY",
@@ -74,6 +76,42 @@
     "GIOVANI MIRANDA GARCIA": [
       "GIOVANI MIRANDA GARCIA",
       "Giovani Garcia"
+    ],
+    "Andressa Erica Batista de Oliveira": [
+      "Andressa Erica Batista de Oliveira",
+      "ANDRESSA ERICA OLIVEIRA"
+    ],
+    "LEIANE CORREIA LEITÃO ÁVILA": [
+      "LEIANE CORREIA LEITÃO ÁVILA",
+      "LEIANE CORREIA LEITÃO AVILA",
+      "LEIANE CORREIA LEITAO AVILA"
+    ],
+    "Rafaella Edwiges Bernardo Nunes": [
+      "Rafaella Edwiges Bernardo Nunes",
+      "RAFAELLA NUNES"
+    ],
+    "GUSTAVO FONTES DE OLIVEIRA": [
+      "GUSTAVO FONTES DE OLIVEIRA",
+      "GUSTAVO FONTES DE O"
+    ],
+    "CHARLES VEIYGA CONSULTORIA E TREINAMENTO DE MODA E BELEZA": [
+      "CHARLES VEIYGA CONSULTORIA E TREINAMENTO DE MODA E BELEZA",
+      "CHARLES VEIYGA CONSULTORIA E TREINAMENTO DE MODA E"
+    ],
+    "Júnior Santos": [
+      "Júnior Santos",
+      "JUNIOR SANTOS",
+      "JÚNIOR SANTOS"
+    ],
+    "DEISE DE ASSIS SANTANA": [
+      "DEISE DE ASSIS SANTANA",
+      "DEISE.SANTANA",
+      "DEISE SANTANA"
+    ],
+    "Pedro E F Diello": [
+      "Pedro E F Diello",
+      "PEDRO E F DIELLO",
+      "PEDRO DIELLO"
     ]
   }
 }

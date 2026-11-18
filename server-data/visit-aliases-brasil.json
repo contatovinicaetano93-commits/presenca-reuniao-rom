@@ -1,6 +1,6 @@
 {
   "description": "Apelidos Avec em salon_client_visits → nome canônico do painel (Brasil).",
-  "period": "2026-01-01 a 2026-09-30",
+  "period": "2026-01-01 a 2026-10-31",
   "salon_open_days_rule": "COUNT(DISTINCT visited_on) em salon_client_visits no período 2026-01-01..2026-09-30 (qualquer profissional). Não usa calendário comercial nem dias sem visita registrada.",
   "salon_open_days": 198,
   "rejected": {
@@ -45,7 +45,9 @@
     ],
     "Midiã de Jesus Ferreira": [
       "Midiã de Jesus Ferreira",
-      "MIDIÃ DE JESUS"
+      "MIDIÃ DE JESUS",
+      "MIDIA DE JESUS",
+      "MIDIÃ DE JESUS FERREIRA"
     ],
     "LUCAS CAMPOS DE MACEDO": [
       "LUCAS CAMPOS DE MACEDO",
@@ -157,6 +159,18 @@
     "CLAUDIANA BEZERRA DA SILVA": [
       "CLAUDIANA BEZERRA DA SILVA",
       "CLAU SILVA"
+    ],
+    "MARIA DA CONCEIÇÃO PEREIRA DIAS": [
+      "MARIA DA CONCEIÇÃO PEREIRA DIAS",
+      "MARIA DA CONCEICAO PEREIRA DIAS"
+    ],
+    "HENRIQUE TENÓRIO DA SILVA": [
+      "HENRIQUE TENÓRIO DA SILVA",
+      "HENRIQUE TENORIO DA SILVA"
+    ],
+    "JOÃO BONICKE": [
+      "JOÃO BONICKE",
+      "JOAO BONICKE"
     ]
   }
 }
