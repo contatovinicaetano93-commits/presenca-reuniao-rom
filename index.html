@@ -680,7 +680,7 @@ function monthCard(label, cls, months, periodAvg, unitKey){
     <h3>${esc(label)} <span class="tag">${first.label} ${pct(first.media_geral_constancia_pct)} → ${last.label} ${pct(last.media_geral_constancia_pct)} (${deltaPts>0?'+':''}${String(deltaPts).replace('.',',')} pp)</span></h3>
     ${spark(months, cls)}
     <div class="kpis k4">
-      <div class="kpi"><div class="l">Jan → Set</div><div class="v gold">${pct(first.media_geral_constancia_pct)} → ${pct(last.media_geral_constancia_pct)}</div></div>
+      <div class="kpi"><div class="l">Jan → Out</div><div class="v gold">${pct(first.media_geral_constancia_pct)} → ${pct(last.media_geral_constancia_pct)}</div></div>
       <div class="kpi"><div class="l">Ativos no mês</div><div class="v">${first.n_ativos} → ${last.n_ativos}</div></div>
       <div class="kpi"><div class="l">Média período</div><div class="v">${pct(periodAvg)}</div></div>
       <div class="kpi"><div class="l">Fat bruto jan–out</div><div class="v sm gold">R$ ${money(unitData?.fat_total_jan_set)}</div></div>
