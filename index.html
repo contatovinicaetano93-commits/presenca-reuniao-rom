@@ -29,16 +29,49 @@
   }
   .app { min-height: 100%; display: flex; flex-direction: column; }
   .topbar {
-    position: sticky; top: 0; z-index: 20;
-    display: flex; gap: 8px; flex-wrap: wrap; align-items: center;
-    justify-content: space-between;
-    padding: 10px 16px;
-    background: rgba(16,24,32,.92);
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 40;
+    width: 100%;
+    margin: 0;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      "brand tool"
+      "nav nav";
+    gap: 8px 12px;
+    align-items: center;
+    padding: calc(10px + env(safe-area-inset-top, 0px)) 14px 10px;
+    background: #101820;
     color: #fff;
-    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(255,255,255,.08);
+    box-shadow: 0 8px 20px rgba(16,24,32,.18);
   }
-  .topbar .brand { font-size: 13px; letter-spacing: .08em; text-transform: uppercase; opacity: .85; }
-  .nav { display: flex; flex-wrap: wrap; gap: 6px; }
+  .topbar .brand {
+    grid-area: brand;
+    font-size: 12px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    opacity: .85;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .nav {
+    grid-area: nav;
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 6px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding: 2px 0 4px;
+    max-width: 100%;
+  }
+  .nav::-webkit-scrollbar { display: none; }
   .nav button, .tool button {
     border: 1px solid rgba(255,255,255,.22);
     background: rgba(255,255,255,.08);
@@ -47,10 +80,36 @@
     padding: 7px 12px;
     font: 600 12px/1 system-ui, sans-serif;
     cursor: pointer;
+    flex: 0 0 auto;
+    white-space: nowrap;
   }
   .nav button.active { background: #fff; color: var(--ink); }
-  .tool { display: flex; gap: 6px; }
+  .tool {
+    grid-area: tool;
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: nowrap;
+  }
+  .tool .userchip {
+    font: 600 11px/1 system-ui, sans-serif;
+    opacity: .85;
+    white-space: nowrap;
+    max-width: 42vw;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
   main { flex: 1; padding: 18px 18px 40px; max-width: 1200px; width: 100%; margin: 0 auto; }
+
+  @media (min-width: 900px) {
+    .topbar {
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      grid-template-areas: "brand nav tool";
+      padding: 10px 16px;
+    }
+    .nav { flex-wrap: wrap; overflow: visible; padding: 0; }
+  }
 
   .slide { display: none; animation: in .25s ease; }
   .slide.active { display: block; }
@@ -134,10 +193,12 @@
     border: 1px solid var(--line);
     border-radius: 18px;
     overflow: auto;
-    max-height: calc(100vh - 220px);
+    max-height: min(70vh, calc(100dvh - 180px));
+    -webkit-overflow-scrolling: touch;
   }
   table { width: 100%; border-collapse: collapse; font: 500 13px/1.25 system-ui, sans-serif; min-width: 700px; }
   th, td { padding: 10px 12px; border-bottom: 1px solid #eee7da; text-align: left; }
+  /* sticky only inside .tablebox scroll — not vs viewport (avoids fight with .topbar) */
   th { position: sticky; top: 0; background: #152433; color: #fff; z-index: 1; }
   td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
   tr:nth-child(even) td { background: #fbf8f1; }
@@ -396,7 +457,7 @@
 
 <div class="app" id="app" hidden>
   <div class="topbar">
-    <div class="brand">ROM · Presença Jan–Set/2026</div>
+    <div class="brand">ROM · Presença Jan–Out/2026</div>
     <div class="nav" id="nav"></div>
     <div class="tool">
       <span class="userchip" id="userchip"></span>
@@ -950,7 +1011,12 @@ let idx = 0;
 function go(i){
   idx = Math.max(0, Math.min(slides.length-1, i));
   document.querySelectorAll('.slide').forEach((el,j) => el.classList.toggle('active', j===idx));
-  document.querySelectorAll('#nav button').forEach((el,j) => el.classList.toggle('active', j===idx));
+  document.querySelectorAll('#nav button').forEach((el,j) => {
+    el.classList.toggle('active', j===idx);
+    if (j===idx && typeof el.scrollIntoView === 'function') {
+      el.scrollIntoView({ inline: 'center', block: 'nearest', behavior: 'smooth' });
+    }
+  });
 }
 function next(){ go(idx+1); }
 function prev(){ go(idx-1); }
